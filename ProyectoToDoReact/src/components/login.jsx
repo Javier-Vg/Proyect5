@@ -1,7 +1,6 @@
-
-import { getUser } from './peticionesFetch/getUser';
+import { getUser } from '../service/getUser'
 import { useState,useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 function Login() {
 
@@ -13,6 +12,7 @@ function Login() {
     //value={correoLogin} no esta funcionando, igual con los demas.
 
     return(
+
         <div className='divL'>
             {/* <userContext.Provider value={userConfirm}>
                 {children}

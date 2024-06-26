@@ -1,6 +1,6 @@
 import {Link, Outlet} from "react-router-dom";
 
-function start() {
+function Start() {
     return (
         <div>
           <Link to="/register"> <button> Registro</button> </Link>
@@ -11,4 +11,4 @@ function start() {
       )
 }
 
-export default start
+export default Start

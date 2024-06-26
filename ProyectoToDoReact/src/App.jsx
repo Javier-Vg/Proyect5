@@ -1,17 +1,18 @@
 import './App.css'
-import Inicio from './components/toDoList'
 import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
 import Login from './components/login'
 import Registros from './components/register'
 import Page from './pages/start'
-import ProtectedRoute from './components/blockRuta/protectRoute';
+import ProtectedRoute from './Rootprotect/protectRoute';
 import UsuarioActivo from './pages/sesion';
 
 function App() {
+
   return (
     <div>
       <h1>Rutas:</h1>
-      <Routes>
+      <Router>
+        <Routes>
         <Route path='/' element = {<Page/>}>
           <Route path='/login' element = {<Login/>}/>
           <Route path='/error' element = {<ProtectedRoute/>}/>
@@ -23,8 +24,11 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      </Router>
+      
     </div>
   )
+
 }
 
 export default App

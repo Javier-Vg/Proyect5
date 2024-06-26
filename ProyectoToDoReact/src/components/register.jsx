@@ -1,4 +1,4 @@
-import postUser from './peticionesFetch/postUser'
+import postUser from '../service/postUser'
 import { useState } from 'react'
 
 function Registros() {
@@ -12,8 +12,9 @@ function Registros() {
         contra: correoContraRegister,
         usuario: correoUsuario
       }
-      postUser(infoP);
+      postUser(infoP)
     }
+
     return (
       <div className='divR'>
   

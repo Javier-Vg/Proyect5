@@ -1,9 +1,15 @@
 {
-    "users": [
+  "users": [
     {
       "id": "21",
       "nombre": "Jonh Doe",
       "email": "john@exmple.com"
-    } 
+    },
+    {
+      "id": "4a09",
+      "correo": "kakkakakaka@gmail.com",
+      "contra": "12",
+      "usuario": "andres"
+    }
   ]
 }

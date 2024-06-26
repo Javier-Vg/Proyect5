@@ -7,12 +7,11 @@ function UsuarioActivo() {
 
   const navigate = useNavigate();
 
-    console.log("Como entraste aca?");
     const [users, setUsers] = useState([]);
     const [cargando, setLoading] = useState(true);
     const [valor, setValor] = useState();
 
-    let usuarioActivo = localStorage.getItem("userActive")
+    let usuarioActivo = localStorage.getItem("userActive");
 
     useEffect(() => {
         axios.get('http://localhost:3001/users')
