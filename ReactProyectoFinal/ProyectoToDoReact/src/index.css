@@ -1,0 +1,50 @@
+body{
+  background-color: black;
+  color: white;
+}
+
+.divSubCentral{
+  
+  display: grid;
+  grid-template-columns: repeat(4,300px);
+  justify-content: center;
+  text-align: center;
+}
+
+.divTareas{
+  text-align: center;
+  border: 3px solid #fff;
+  margin: auto;
+  width: 1000px;
+  border-radius: 10px;
+  height: 500px;
+}
+
+.divCore{
+  padding: 10px;
+  border: 3px solid white;
+  border-radius: 10px;
+  width: 1500px;
+  margin: auto;
+  height: 1000px;
+}
+
+.inputTask, .inputSearch{
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.contadorDiv{
+  border: 3px solid;
+  text-align: center;
+  width: 50px;
+  border-radius: 50%;
+  height: 50px;
+  font-size: 25px;
+}
+
+.divTareasCompletas{
+  display: flex;
+  justify-content: space-evenly;
+
+}
