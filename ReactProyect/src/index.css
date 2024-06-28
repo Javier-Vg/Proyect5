@@ -48,3 +48,23 @@ body{
   justify-content: space-evenly;
 
 }
+
+#navLinks{
+  margin-top: 2px;
+  padding: 5px;
+  text-decoration: none;
+}
+
+#navLinkCrud{
+  margin-top: 2px;
+  text-decoration: none;
+  margin-left: 550px;
+  font-size: 25px;
+}
+
+#pNav{
+  color: #0007;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-left: 100px;
+}

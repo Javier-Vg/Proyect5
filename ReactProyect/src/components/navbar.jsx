@@ -5,9 +5,12 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import {Link, Outlet} from "react-router-dom";
+import { NavLink, Outlet} from "react-router-dom";
+import LoginVerificador from '../components/loginVerificador';
 
     function Nabvar() {
+
+      const [crudValid, setCrudValid] = useState()
 
         return (
           <Navbar expand="lg" className="bg-body-tertiary">
@@ -16,20 +19,27 @@ import {Link, Outlet} from "react-router-dom";
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <Nav.Link >Home</Nav.Link>
-                  <Nav.Link ><Link to="/register"> Registro </Link></Nav.Link>
-                  <Nav.Link ><Link to="/login"> Login </Link></Nav.Link>
-                  <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                  
+                  <NavLink id='navLinks' to="/home">Home </NavLink>
+                  <NavLink id='navLinks' to="/register">Register </NavLink>
+                  <NavLink id='navLinks' to="/login">Login</NavLink>
+                
+                  <NavDropdown title="Secciones" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.1">Productos destacados</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">
-                      Another action
+                      Promociones
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.3">Informacion general</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">
-                      Separated link
+                      Horarios de atencion
                     </NavDropdown.Item>
                   </NavDropdown>
+                  <p id='pNav'><LoginVerificador/></p>
+                  
+                  <NavLink id='navLinkCrud' to="/crud">Crud</NavLink>
+                  
+                  
                 </Nav>
               </Navbar.Collapse>
             </Container>

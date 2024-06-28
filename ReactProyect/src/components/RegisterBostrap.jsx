@@ -6,19 +6,32 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import postUser from '../service/postUser'
 import { getUser } from '../service/getUser';
+import Swal from 'sweetalert2'
 
 function LoginBostrap() {
+
+  let [NameUser,setNameUser]= useState()
+  let [NombreReal,setNombreReal]= useState()
+  let [correoContraRegister,setCorreoContraRegister]= useState()
+  let [correoUsuario,setCorreoUsuario]= useState()
+  let [Provincia,setProvincia]= useState()
+
   
-  let RecorrerUsuarios = async () => {
-    
+  async function RecorrerUsuarios() {
     let usuariosTotales = await getUser();
-    console.log(usuariosTotales);
-    usuariosTotales.forEach(correo => {
-      if (correo.correo == correoUsuario ) {
-        return false
-      }
-    });
-    return true
+    let verific = 0;
+      
+    usuariosTotales.forEach(correos => {
+        if (correos.correo == correoUsuario ) {
+          verific = 1
+        }
+    })
+
+    if (verific != 0) {
+      return false
+    }else{
+      return true
+    }
   }
 
   const [validated, setValidated] = useState(false);
@@ -29,20 +42,15 @@ function LoginBostrap() {
       event.preventDefault();
       event.stopPropagation();
     }
+
     setValidated(true);
-  };
+  }
 
-  let [NameUser,setNameUser]= useState()
-  let [NombreReal,setNombreReal]= useState()
-  let [correoContraRegister,setCorreoContraRegister]= useState()
-  let [correoUsuario,setCorreoUsuario]= useState()
-  let [Provincia,setProvincia]= useState()
+  //  useEffect(() => {
+  //    console.log(crudAutorizacion);
+  //  },[crudAutorizacion])
 
-  useEffect(() => {
-    console.log(correoUsuario);
-  },[correoUsuario])
-
-    function cargarRegister(e) {
+    async function cargarRegister(e) {
       e.preventDefault()
       
       let infoP = {
@@ -53,26 +61,54 @@ function LoginBostrap() {
         username: NameUser,
       }
 
+      let corteDeFlujo = false;
+
       for (const clave in infoP) {
-        
-        let iterador =  infoP[clave].eval()
-        console.log(iterador);
-        if (iterador == ""){
-          alert("Espacios vacios...")
-          console.log("Space pool");
+        if (infoP[clave] == undefined) {
+          corteDeFlujo = true
+          Swal.fire({
+            icon: "error",
+            title: "No puede enviar el formulario vacio..."
+          })
+          break;
+        }
+
+        //Regex
+        let key = infoP[clave]
+        key = key.replace(/^\s+|\s$/g, "")
+
+        if (infoP[clave] == undefined || key == ""){
+
+          Swal.fire({
+            icon: "error",
+            title: "Espacios incompletos"
+          })
           return (false)
-        }else{
-          console.log("que?");
         }
       }
 
-      //Si retorna true, añade al usuario, si no, no, porque ese correo ya existe.
-      if (RecorrerUsuarios) {
+      if (corteDeFlujo == false) {
+        //Si retorna true, añade al usuario, si no, no, porque ese correo ya existe.
+        if (await RecorrerUsuarios() == true) {
+
+          if (correoUsuario == "jvargas@fwdcostarica.com"){
+            setCrud(true)
+          }
+
+           Swal.fire({
+             icon: "success",
+            title: "¡Registrado Correctamente!"
+           });
         
-        postUser(infoP)
-      }else{
-        alert("Ese correo ya existe")
+           postUser(infoP)
+        }else{
+         Swal.fire({
+           icon: "error",
+           title: "Ese usuario ya existe"
+         });
+        }
       }
+      
     }
 
   return (
@@ -173,4 +209,4 @@ function LoginBostrap() {
   );
 }
 
-export default LoginBostrap;
+export default LoginBostrap

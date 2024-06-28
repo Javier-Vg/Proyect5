@@ -5,7 +5,7 @@ function Start() {
     return (
         <>
           <Nabvar />
-          <Outlet/>
+          {/* <Outlet/> */}
         </>
     )
 }
