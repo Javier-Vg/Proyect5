@@ -29,7 +29,8 @@ import LoginVerificador from '../components/loginVerificador';
                     <NavDropdown.Item href="#action/3.2">
                       Promociones
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Informacion general</NavDropdown.Item>
+                    <NavDropdown.Item ><NavLink id='navLinks' to="/contact">Contactenos</NavLink></NavDropdown.Item>
+                    <NavDropdown.Item><NavLink id='navLinks' to="/aboutUs">Informacion general</NavLink></NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">
                       Horarios de atencion
@@ -38,7 +39,6 @@ import LoginVerificador from '../components/loginVerificador';
                   <p id='pNav'><LoginVerificador/></p>
                   
                   <NavLink id='navLinkCrud' to="/crud">Crud</NavLink>
-                  
                   
                 </Nav>
               </Navbar.Collapse>

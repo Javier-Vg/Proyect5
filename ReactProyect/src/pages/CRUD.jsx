@@ -1,12 +1,18 @@
-import Start from "../pages/start"
-function CRUD() {
+
+import Nabvar from "../components/navbar"
+import CrudForm from "../components/CrudForm"
+function Crud() {
+
   return (
     <>
-        <Start/>
-        <div>CRUD</div>
+      
+      <Nabvar/>
+      <div>CRUD</div>
+      <CrudForm/>
+        
     </>
     
   )
 }
 
-export default CRUD
+export default Crud

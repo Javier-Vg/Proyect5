@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { getUser } from '../service/getUser'
 
 function LoginBostrap() {
-
     const navigate = useNavigate()
     let [testeoLogin, setLog] = useState(1)
     let [correoLogin,setCorreoLogin]= useState()
@@ -22,13 +21,11 @@ function LoginBostrap() {
                 alert("Cargando...");
                 localStorage.setItem("userActive",correoLogin );
                 localStorage.setItem("userValid",true );
-            
+                if (correoLogin == "jvargas@fwdcostarica.com"){
+                  alert("Sus el admin")
+                }
+        
                 setLog(testeoLogin = 0);
-
-                setTimeout(() => {
-                    navigate("/usuario")
-                }, 1300);
-
             }
         })
 
@@ -45,9 +42,9 @@ function LoginBostrap() {
             event.preventDefault();
             event.stopPropagation();
         }
+
         setValidated(true);
   };
-
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -63,7 +60,7 @@ function LoginBostrap() {
             value={correoLogin}
             onChange={(e)=>{setCorreoLogin(e.target.value)}}
 
-             />
+          />
           <Form.Control.Feedback type="invalid">
             Porfavor ingrese su correo.
           </Form.Control.Feedback>

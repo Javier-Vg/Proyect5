@@ -15,7 +15,6 @@ function LoginBostrap() {
   let [correoContraRegister,setCorreoContraRegister]= useState()
   let [correoUsuario,setCorreoUsuario]= useState()
   let [Provincia,setProvincia]= useState()
-
   
   async function RecorrerUsuarios() {
     let usuariosTotales = await getUser();
@@ -66,10 +65,12 @@ function LoginBostrap() {
       for (const clave in infoP) {
         if (infoP[clave] == undefined) {
           corteDeFlujo = true
+
           Swal.fire({
             icon: "error",
             title: "No puede enviar el formulario vacio..."
           })
+          
           break;
         }
 
@@ -91,10 +92,6 @@ function LoginBostrap() {
         //Si retorna true, añade al usuario, si no, no, porque ese correo ya existe.
         if (await RecorrerUsuarios() == true) {
 
-          if (correoUsuario == "jvargas@fwdcostarica.com"){
-            setCrud(true)
-          }
-
            Swal.fire({
              icon: "success",
             title: "¡Registrado Correctamente!"
@@ -108,7 +105,6 @@ function LoginBostrap() {
          });
         }
       }
-      
     }
 
   return (

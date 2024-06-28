@@ -1,7 +1,7 @@
 async function postUser( inf ) {
     
     try {
-        const response = await fetch('http://localhost:3001/users', {
+        const response = await fetch('http://localhost:3005/users', {
   
           method: 'POST',
           headers: {

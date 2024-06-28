@@ -1,8 +1,16 @@
-import React from 'react'
 
+import Nabvar from "../components/navbar"
+import CardsAbout from "../components/CardsAbout"
 function AboutUs() {
   return (
-    <div>AboutUss</div>
+    <>
+    <Nabvar/>
+    <div className="aboutDiv">
+      <CardsAbout/>
+    </div>
+    </>
+    
+    
   )
 }
 
