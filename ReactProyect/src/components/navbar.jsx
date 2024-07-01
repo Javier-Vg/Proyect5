@@ -10,12 +10,10 @@ import LoginVerificador from '../components/loginVerificador';
 
     function Nabvar() {
 
-      const [crudValid, setCrudValid] = useState()
-
         return (
           <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
-              <Navbar.Brand href="#home">ReDragon</Navbar.Brand>
+              <Navbar.Brand href="#home">JavWare</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
@@ -36,7 +34,8 @@ import LoginVerificador from '../components/loginVerificador';
                       Horarios de atencion
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <p id='pNav'><LoginVerificador/></p>
+
+                    <p id='pNav'><LoginVerificador/></p>
                   
                   <NavLink id='navLinkCrud' to="/crud">Crud</NavLink>
                   

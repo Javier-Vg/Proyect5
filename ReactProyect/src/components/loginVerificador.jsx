@@ -5,12 +5,16 @@ function LoginVerificador() {
     const [userActive, setUserActive] = useState()
     
     let usuarioActivo = localStorage.getItem("userActive");
+
     useEffect(() => {
         usuarioActivo != undefined ? setUserActive(usuarioActivo) : setUserActive("Sin usuario")
+        console.log(userActive);
     },[userActive])
     
     return (
-        <div>{userActive}</div>
+        <>
+            {userActive}
+        </>
     )
 }
 

@@ -11,8 +11,8 @@ function CardsAbout() {
       <Card.Body>
         <Card.Title>Armamos PCs</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+        La tienda ofrece componentes y periféricos para armar PCs, como procesadores, tarjetas gráficas, memorias RAM, discos duros, 
+        fuentes de poder y placas base, además de servicios de asesoramiento y ensamblaje personalizado.
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
@@ -23,8 +23,8 @@ function CardsAbout() {
       <Card.Body>
         <Card.Title>Mercado de computadoras</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+        La tienda ofrece componentes y periféricos para armar PCs, como procesadores, tarjetas gráficas y memorias RAM, además de 
+        servicios de asesoramiento y ensamblaje personalizado en el competitivo mercado de computadoras.
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
@@ -35,8 +35,8 @@ function CardsAbout() {
       <Card.Body>
         <Card.Title>Componentes en buen estado</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+         La  tienda ofrece componentes de alta calidad y en perfecto estado para armar PCs, garantizando piezas fiables y duraderas. 
+         También proporciona asesoramiento y servicios de ensamblaje personalizados.
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>

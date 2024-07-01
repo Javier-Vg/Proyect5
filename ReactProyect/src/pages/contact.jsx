@@ -8,6 +8,7 @@ function Contact() {
     <>
         <Nabvar/>
         <div className="divContactenos">
+          <h3>Contactenos:</h3>
              <FormContact/>
         </div>
        

@@ -9,8 +9,6 @@ function AboutUs() {
       <CardsAbout/>
     </div>
     </>
-    
-    
   )
 }
 

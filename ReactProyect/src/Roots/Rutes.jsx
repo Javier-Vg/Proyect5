@@ -9,6 +9,8 @@ import Home from "../pages/home";
 import AboutUs from "../pages/AboutUs";
 import Error from "../pages/error";
 import Contact from "../pages/contact";
+import AdministPeriferics from "../components/ProductosEnVenta/AdministPeriferics";
+import AdministParts from "../components/ProductosEnVenta/AdministParts";
 
 function Rutas() {
     return (
@@ -27,6 +29,8 @@ function Rutas() {
               {/* Esto hace que la pagina sea privada, mientras el prop tenga el valor "false" */}
               <Route element = {<ProtectedRoute />}>
                 <Route path='/crud' element = {<Crud/>}/>
+                <Route path='/partsStorage' element = {<AdministParts/>}/>
+                <Route path='/perifericsStorage' element = {<AdministPeriferics/>}/>
               </Route>
           </Routes>
           </Router>
