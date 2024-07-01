@@ -66,11 +66,12 @@ function LoginBostrap() {
         if (infoP[clave] == undefined) {
           corteDeFlujo = true
 
+          
           Swal.fire({
             icon: "error",
             title: "No puede enviar el formulario vacio..."
           })
-          
+
           break;
         }
 

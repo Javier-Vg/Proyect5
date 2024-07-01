@@ -8,6 +8,7 @@ import deleteProducts from "../service/CrudProducts/deleteProducts";
 function CrudForm() {
     let duplicate;
     let id;
+
     
     let [stock, setStock] = useState(0)
     let [nombre, setNombre] = useState(0)
@@ -17,6 +18,7 @@ function CrudForm() {
     let [imgUrl, setImg] = useState(0)
     let [hardware, setHardware] = useState(0)
     let [perific, setPerific] = useState()
+
     //let [objetoDuplicate, setDuplicate] = useState()
     
     function handleChange(e) {
@@ -57,6 +59,7 @@ function CrudForm() {
 
                         id = iterador.id;
                         duplicate = iterador.hardwareInterno;
+                    
                     }
                 }
             }
@@ -84,6 +87,7 @@ function CrudForm() {
 
                         id = iterador.id;
                         duplicate = iterador.hardwareExterno;
+                        
 
                     }
                 }
@@ -176,5 +180,6 @@ function CrudForm() {
     </>
   )
 }
+
 
 export default CrudForm;

@@ -12,12 +12,12 @@ function Crud() {
       <CrudForm/>
 
       
-      <NavLink to= "/partsStorage">
-        <button >Piezas</button>
+      <NavLink to= "/InternStorage">
+        <button >Componentes Internos</button>
       </NavLink>
 
-      <NavLink to= "/perifericsStorage">
-        <button >Perifericos</button>
+      <NavLink to= "/ExternStorage">
+        <button >Componentes Externos</button>
       </NavLink>
 
     </>
