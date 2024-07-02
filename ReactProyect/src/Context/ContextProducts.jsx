@@ -12,11 +12,14 @@ export function DataContextProvider({children}) {
 
     //Contexto del getProductos
 
+    //Retorna id especifico
+
     useEffect(() => {
         axios.get('http://localhost:3005/products')
         .then(response => {
 
             //Llamo a la funcion, le paso la respuesta del axios
+            
             CallingResponse(response.data)
         })
 
@@ -39,7 +42,6 @@ export function DataContextProvider({children}) {
                 }
             } 
         }
-
     },[])
 
     // useEffect(() => {

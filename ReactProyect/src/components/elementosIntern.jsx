@@ -3,25 +3,29 @@ import getProducts from "../service/CrudProducts/getProducts"
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useTheContext } from "../Context/ContextProducts";
+import BotonCapturar from "./BotonCapturar";
 
 function ElementosIntern() {
     const {ProductsIntern, setIntern, ProductsExtern, setExtern} = useTheContext()
 
     // let [productos, setProductos] = useState();
+    let [valor, setValor] = useState()
 
-    function handleClick(id) {
-        alert(id)
-    }
-
+    let v = useRef([])
 
     // let cards;
 
+    function y(p) {
+        console.log(p);
+        alert(p.value)
+    }
+    
+
      return(
             <div className="divInternoElementos">
-                {ProductsIntern.map((product, i) => {
+                {ProductsIntern.map((product) => {
                     return(
-                        <div  key={i}>
-                            
+                        <div key={product.id}>
                             <Card style={{ width: '18rem'}}>
                                 <Card.Img style={{ width: '250px', height: "250px", margin: "auto"}} variant="top" src={product.img} alt="sin img, sorry" />
                                 <Card.Body>
@@ -32,14 +36,13 @@ function ElementosIntern() {
                                 Con este componente vas a tener la mejor experiencia de tu vida.
                                 </Card.Text>
                                 <p>{product.date}</p>
-                                <Button onClick={handleClick(product.id)} variant="primary">Gestionar</Button>
+                                <Button onClick={(() => y(product.id))} variant="primary">Gestionar</Button>
                                 </Card.Body>
                             </Card>
-                            
                         </div>
                     );
                 })}
-            </div> 
+            </div>      
     )
 }
 

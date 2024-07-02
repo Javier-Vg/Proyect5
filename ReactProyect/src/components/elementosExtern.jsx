@@ -9,8 +9,10 @@ function ElementosExtern() {
 
     // let [productos, setProductos] = useState();
 
-    function handleClick() {
-        alert("Gestion")
+    function handleClick(id) {
+
+
+        alert(id)
     }
 
     // let cards;
@@ -30,12 +32,13 @@ function ElementosExtern() {
                                 <Card.Text>
                                 Con este componente vas a tener la mejor experiencia de tu vida.
                                 </Card.Text>
+                                <p>{product.id}</p>
                                 <p>{product.date}</p>
                                 <Button onClick={handleClick} variant="primary">Gestionar</Button>
                             </Card.Body>
                             </Card> 
                         </div>
-                    );
+                    )
                 })}
             </div> 
     )    

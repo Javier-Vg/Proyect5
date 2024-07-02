@@ -7,6 +7,7 @@ function Crud() {
 
   return (
     <>
+
       <Nabvar/>
       <div>CRUD</div>
       <CrudForm/>

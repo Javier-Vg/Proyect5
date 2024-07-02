@@ -1,24 +1,23 @@
 import Nabvar from "../../components/navbar";
 import {NavLink} from "react-router-dom";
 import ElementosIntern from "../../components/elementosIntern";
-import Appp from "./CartaPractica";
 import { useTheContext } from "../../Context/ContextProducts";
+import { useState } from "react";
 
 function ProductsManejo() {
-  const {ProductsIntern, setIntern, ProductsExtern, setExtern} = useTheContext()
+  const {ProductsIntern, setIntern, ProductsExtern, setExtern} = useTheContext();
 
-
-   console.log(ProductsExtern);
-   console.log(ProductsIntern)
+   //console.log(ProductsExtern);
+   //console.log(ProductsIntern);
+   
   return (
     <>
       <Nabvar/>
       {/* <Elementos hardware={"hardwareInterno"}/> */}
       {/*<Appp/> */}
 
-      <ElementosIntern />
-    
-      
+        <ElementosIntern />
+  
       <NavLink to="/crud">Volver</NavLink>
     </>
     

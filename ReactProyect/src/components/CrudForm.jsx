@@ -97,9 +97,9 @@ function CrudForm() {
             duplicate.push(NewProduct)
             console.log(duplicate);
             
+            
             deleteProducts(id)
             PostProduct(duplicate , hardware)
-
         }
     }
 
