@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { DataContext } from "../../Context/ContextProducts";
+import getProducts from "../../service/CrudProducts/getProducts";
 
 function Appp() {
 
@@ -32,6 +33,35 @@ function Appp() {
             imgUrl: "https://upload.wikimedia.org/wikipedia/en/7/72/Raphael_%28Teenage_Mutant_Ninja_Tutles%29.jpg"
         }
     ]
+
+
+
+    let get = async () => {
+        let api = await getProducts()
+
+        let objeto = api
+        console.log(api);
+        
+        if (objeto == "interno") {
+
+            for (const key in objeto) {
+
+                let iterador = objeto[key];
+
+                for (const llave in iterador) {
+                    
+                    if (llave == "hardwareInterno") {
+
+                        console.log(llave);
+                        console.log(iterador[llave]);
+                    
+                    }
+                }
+            }
+        }
+    }
+
+    get()
 
 
     return(

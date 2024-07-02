@@ -1,14 +1,15 @@
 import React from 'react'
-import Nabvar from '../navbar'
+import Nabvar from '../../components/navbar';
 import {NavLink} from "react-router-dom";
-import Elementos from '../elementos';
+import ElementosExtern from "../../components/elementosExtern";
+//import Elementos from '../elementos';
 
 function AdministPeriferics() {
   return (
       
       <>
         <Nabvar/>
-        <div>AdministPeriferics</div>
+        <ElementosExtern/>
         <NavLink to="/crud">Volver</NavLink>
       </>
    

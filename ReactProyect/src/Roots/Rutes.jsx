@@ -9,8 +9,8 @@ import Home from "../pages/home";
 import AboutUs from "../pages/AboutUs";
 import Error from "../pages/error";
 import Contact from "../pages/contact";
-import AdministPeriferics from "../components/ProductosEnVenta/AdministExtern";
-import AdministParts from "../components/ProductosEnVenta/AdministIntern";
+import AdministPeriferics from "../pages/ProductosEnVenta/AdministExtern";
+import AdministParts from "../pages/ProductosEnVenta/AdministIntern";
 
 function Rutas() {
     return (

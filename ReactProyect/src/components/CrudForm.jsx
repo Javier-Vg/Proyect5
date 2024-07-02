@@ -3,12 +3,12 @@ import CrudProducts from "../service/CrudProducts";
 import PostProduct from "../service/CrudProducts/postProduct";
 import getProducts from "../service/CrudProducts/getProducts";
 import deleteProducts from "../service/CrudProducts/deleteProducts";
+import uuid from 'react-uuid';
 
 
 function CrudForm() {
     let duplicate;
     let id;
-
     
     let [stock, setStock] = useState(0)
     let [nombre, setNombre] = useState(0)
@@ -39,9 +39,9 @@ function CrudForm() {
             date: fecha,
             img: imgUrl,
             hardwareType: hardware,
-            PerifericType: perific
+            PerifericType: perific,
+            id: uuid()
             }
-        
 
         let api = await getProducts()
 
@@ -156,9 +156,9 @@ function CrudForm() {
             </div>
 
             <div>
-                <label >Imagen del producto</label>
+                <label >Url del producto:</label>
                 <br/>
-                <input type="file" onChange={(e) => setImg(e.target.value)} required/>
+                <input type="text" onChange={(e) => setImg(e.target.value)} required/>
                 <br />
             </div>
             <br />

@@ -96,3 +96,12 @@ input[type=radio] {
   justify-content: center;
   gap: 10px;
 }
+
+.divInternoElementos, .divExternoElementos{
+  display: grid;
+  margin-top: 20px;
+  gap: 18px;
+  grid-template-columns: 300px 300px 300px;
+  justify-content: center;
+  
+}
