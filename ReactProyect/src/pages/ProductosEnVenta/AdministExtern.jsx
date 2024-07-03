@@ -6,13 +6,11 @@ import ElementosExtern from "../../components/elementosExtern";
 
 function AdministPeriferics() {
   return (
-      
       <>
         <Nabvar/>
         <ElementosExtern/>
         <NavLink to="/crud">Volver</NavLink>
       </>
-   
   )
 }
 

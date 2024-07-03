@@ -5,6 +5,7 @@ import ModalInterno from "./ModalInterno";
 import { useTheContext } from "../Context/ContextProducts";
 
 function ElementosIntern() {
+
     const {ProductsIntern} = useTheContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [id, setId] = useState(5);
@@ -12,27 +13,24 @@ function ElementosIntern() {
     // let [productos, setProductos] = useState();
 
     const toggleModal = () => {
-
         const botones = document.getElementsByClassName('btn-modal');
         for (let i = 0; i < botones.length; i++) {
             botones[i].addEventListener("click", function() {
-
                 let btn_actual = this;
                 setId(btn_actual.id)
                 setIsModalOpen(true)
-
             });
         } 
     }
 
-     return(
+    return(
         <>
-        <div className="divInternoElementos">
+            <div className="divInternoElementos">
                 {ProductsIntern.map((product) => {
-                    return(
-                        <div key={product.id}>
-                            <Card style={{ width: '18rem'}}>
-                                <Card.Img style={{ width: '250px', height: "250px", margin: "auto"}} variant="top" src={product.img} alt="sin img, sorry" />
+                return(
+                    <div key={product.id}>
+                        <Card style={{ width: '18rem'}}>
+                            <Card.Img style={{ width: '250px', height: "250px", margin: "auto"}} variant="top" src={product.img} alt="sin img, sorry" />
                                 <Card.Body>
                                 <Card.Title>{product.CoP}</Card.Title>
                                 <Card.Title>{product.brand}</Card.Title>
@@ -48,7 +46,6 @@ function ElementosIntern() {
                     );
                 })}
             </div>
-            
 
             { <ModalInterno id={id} isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} /> }
         </>

@@ -2,7 +2,6 @@ import Nabvar from "../../components/navbar";
 import {NavLink} from "react-router-dom";
 import ElementosIntern from "../../components/elementosIntern";
 import { useTheContext } from "../../Context/ContextProducts";
-import { useState } from "react";
 
 function ProductsManejo() {
   const {ProductsIntern, setIntern, ProductsExtern, setExtern} = useTheContext();

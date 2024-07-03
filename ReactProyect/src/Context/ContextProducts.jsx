@@ -13,7 +13,6 @@ export function DataContextProvider({children}) {
     const [Users, setUsers] = useState([]);
 
     //Contexto del getProductos
-
     //Retorna id especifico
 
     useEffect(() => {

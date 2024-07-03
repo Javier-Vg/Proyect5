@@ -5,11 +5,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { NavLink, Outlet} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import LoginVerificador from '../components/loginVerificador';
 
     function Nabvar() {
-
         return (
           <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -29,6 +28,14 @@ import LoginVerificador from '../components/loginVerificador';
                     </NavDropdown.Item>
                     <NavDropdown.Item ><NavLink id='navLinks' to="/contact">Contactenos</NavLink></NavDropdown.Item>
                     <NavDropdown.Item><NavLink id='navLinks' to="/aboutUs">Informacion general</NavLink></NavDropdown.Item>
+                    
+                    <NavDropdown title="Productos" id="basic-nav-dropdown">
+                      <NavDropdown.Item><NavLink id='navLinks' to="/show1">Componentes Externos</NavLink></NavDropdown.Item>
+                      <NavDropdown.Item><NavLink id='navLinks' to="/show2">Componentes Internos</NavLink></NavDropdown.Item>
+                      <NavDropdown.Item><NavLink id='navLinks' to="/show3">Mixto</NavLink></NavDropdown.Item>
+                      
+                    </NavDropdown>
+
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">
                       Horarios de atencion
