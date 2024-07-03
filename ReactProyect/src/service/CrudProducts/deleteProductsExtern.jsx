@@ -16,6 +16,7 @@ function deleteProductsExtern() {
         
         }
     }
+    console.log("Borro, o no?");
 
     DeleteProduct(event)
 }

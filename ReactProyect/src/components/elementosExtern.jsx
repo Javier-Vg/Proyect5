@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import getProducts from "../service/CrudProducts/getProducts"
 import Card from 'react-bootstrap/Card';
 import { useTheContext } from "../Context/ContextProducts";
-//import Modal from "./Modal";
+import ModalExterno from "./ModalExterno";
 
 
 function ElementosExtern() {
     const {ProductsIntern, setIntern, ProductsExtern, setExtern} = useTheContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [id, setId] = useState(5);
+
 
     // let [productos, setProductos] = useState();
 
@@ -20,14 +21,12 @@ function ElementosExtern() {
 
                 let btn_actual = this;
                 setId(btn_actual.id)
+                setIsModalOpen(true)
             });
         } 
-
-        setIsModalOpen(true)
+        
     }
 
-     
-    
     // let cards;
     //console.log(ProductsExtern);
 
@@ -37,7 +36,6 @@ function ElementosExtern() {
         <div className="divExternoElementos">
                 {ProductsExtern.map((product, i) => {
                     return(
-
                         <>
                         <div key={i}>
                             <Card  style={{ width: '18rem' }}>
@@ -54,7 +52,7 @@ function ElementosExtern() {
                             </Card.Body>
                             </Card> 
                         </div> 
-                        {/* <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} /> */}
+                        { <ModalExterno id={id} isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} /> }
                         </>
                     )
                 })}

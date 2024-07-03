@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Swal from 'sweetalert2'
+import deleteProductsExtern from "../service/CrudProducts/deleteProductsExtern";
 
 const Modal = ({id, isOpen, closeModal }) => {
+
   if (!isOpen) return null;
 
-  console.log(id);
-  function modific() {
+  async function borrar() {
+    alert(id)
+    const response = await fetch('http://localhost:3005/hardwareExterno/'+id, {
+      method: 'DELETE',
+    });
+    
     Swal.fire({
         icon: "success",
-        title: "Eliminar esta vaina"
-      })
+        title: "Eliminado con exito"
+    })
   }
-  function edit() {
-    Swal.fire({
-        icon: "success",
-        title: {id}
-      })
+  async function edit() {
+    alert(id)
   }
 
   return (
@@ -28,10 +31,10 @@ const Modal = ({id, isOpen, closeModal }) => {
         onClick={closeModal}
       />
       <div className="containerr">
-        <button onClick={modific}>Modific</button>
+        <h3>Opciones:</h3>
+        <button onClick={borrar}>Eliminar</button>
         <button onClick={edit}>Edit</button>
       
-        <h3>Tunometecabra</h3>
       </div>
     </div>
   );

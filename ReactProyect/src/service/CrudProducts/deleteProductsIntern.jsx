@@ -1,6 +1,6 @@
 
 
-function deleteProducts(event) {
+function deleteProductsIntern(event) {
 
     async function DeleteProduct(id) {
 
@@ -13,7 +13,7 @@ function deleteProducts(event) {
         });
         
         }catch(error) {
-            alert("error en delete");
+            console.log(error)
         
         }
     }
@@ -21,4 +21,4 @@ function deleteProducts(event) {
     DeleteProduct(event)
 }
 
-export default deleteProducts
+export default deleteProductsIntern
