@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 import CrudProducts from "../service/CrudProducts";
 import PostProduct from "../service/CrudProducts/postProduct";
 import getProducts from "../service/CrudProducts/getProducts";
-import deleteProducts from "../service/CrudProducts/deleteProducts";
+import deleteProductsExtern from "../service/CrudProducts/deleteProductsExtern";
 import uuid from 'react-uuid';
+import { useTheContext } from "../Context/ContextProducts";
 
 
 function CrudForm() {
+
+    
+    const {Users} = useTheContext();
+
     let duplicate;
     let id;
     
@@ -42,64 +47,14 @@ function CrudForm() {
             PerifericType: perific,
             id: uuid()
             }
-
-        let api = await getProducts()
-
-        let objeto = api
         
         if (hardware == "interno") {
-
-            for (const key in objeto) {
-
-                let iterador = objeto[key];
-
-                for (const llave in iterador) {
-                    
-                    if (llave == "hardwareInterno") {
-
-                        id = iterador.id;
-                        duplicate = iterador.hardwareInterno;
-                    
-                    }
-                }
-            }
-
-            console.log(id);
-            console.log(duplicate);
-
-            duplicate.push(NewProduct)
-            console.log(duplicate);
-            
-            
-            console.log(hardware);
-            deleteProducts(id)
-            PostProduct(duplicate , hardware)
+            console.log(NewProduct);
+            PostProduct(NewProduct , hardware)
             
         }else{
             
-            for (const key in objeto) {
-
-                let iterador = objeto[key];
-
-                for (const llave in iterador) {
-
-                    if (llave == "hardwareExterno") {
-
-                        id = iterador.id;
-                        duplicate = iterador.hardwareExterno;
-                        
-
-                    }
-                }
-            }
-
-            console.log(id);
-            duplicate.push(NewProduct)
-            console.log(duplicate);
-            
-            
-            deleteProducts(id)
-            PostProduct(duplicate , hardware)
+            PostProduct(NewProduct , hardware)
         }
     }
 
@@ -175,7 +130,9 @@ function CrudForm() {
             </div>
             <button onClick={handleClick}>Registrar Producto</button>
         </form>
+
     </div>
+           
 
     </>
   )

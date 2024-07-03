@@ -105,3 +105,40 @@ input[type=radio] {
   justify-content: center;
   
 }
+
+
+
+
+
+.modalMostrarHTML{
+  background-color: blue;
+  width: 300px;
+  height: 500px;
+  color: white;
+}
+
+
+
+
+
+
+
+/*Modal video yt*/
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 600px;
+}
+
+.containerr {
+  display: flex;
+  padding: 10px;
+  
+  color: gray;
+}
+
+.container img {
+  object-fit: cover;
+}

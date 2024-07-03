@@ -8,7 +8,7 @@ function deleteProducts(event) {
 
         try {
         console.log("try");
-        const response = await fetch('http://localhost:3005/products/'+id, {
+        const response = await fetch('http://localhost:3005/hardwareInterno/'+id, {
           method: 'DELETE',
         });
         
@@ -17,7 +17,6 @@ function deleteProducts(event) {
         
         }
     }
-
 
     DeleteProduct(event)
 }

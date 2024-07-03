@@ -1,27 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 import getProducts from "../service/CrudProducts/getProducts"
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useTheContext } from "../Context/ContextProducts";
+//import Modal from "./Modal";
+
 
 function ElementosExtern() {
     const {ProductsIntern, setIntern, ProductsExtern, setExtern} = useTheContext();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [id, setId] = useState(5);
 
     // let [productos, setProductos] = useState();
 
-    function handleClick(id) {
+    const toggleModal = () => {
 
+         const botones = document.getElementsByClassName('btn-modal');
+        for (let i = 0; i < botones.length; i++) {
+            botones[i].addEventListener("click", function() {
 
-        alert(id)
+                let btn_actual = this;
+                setId(btn_actual.id)
+            });
+        } 
+
+        setIsModalOpen(true)
     }
 
+     
+    
     // let cards;
-    console.log(ProductsExtern);
+    //console.log(ProductsExtern);
 
-     return(
-            <div className="divExternoElementos">
+    return(
+
+        <>
+        <div className="divExternoElementos">
                 {ProductsExtern.map((product, i) => {
                     return(
+
+                        <>
                         <div key={i}>
                             <Card  style={{ width: '18rem' }}>
                             <Card.Img style={{ width: '250px', height: "230px", margin: "auto"}} variant="top" src={product.img} alt="sin img, sorry" />
@@ -32,16 +49,25 @@ function ElementosExtern() {
                                 <Card.Text>
                                 Con este componente vas a tener la mejor experiencia de tu vida.
                                 </Card.Text>
-                                <p>{product.id}</p>
                                 <p>{product.date}</p>
-                                <Button onClick={handleClick} variant="primary">Gestionar</Button>
+                                <button onClick={toggleModal} className="btn-modal" id={product.id}>Gestionar</button>
                             </Card.Body>
                             </Card> 
-                        </div>
+                        </div> 
+                        {/* <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} /> */}
+                        </>
                     )
                 })}
-            </div> 
+        </div> 
+
+           
+        </>
+
     )    
 }
+
+   
+
+
 
 export default ElementosExtern

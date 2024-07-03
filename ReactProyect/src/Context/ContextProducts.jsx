@@ -9,51 +9,55 @@ export function DataContextProvider({children}) {
     // const valor = contextData
     const [ProductsIntern ,setIntern] = useState(0)
     const [ProductsExtern, setExtern] = useState(0)
+    const [Users, setUsers] = useState(0)
 
     //Contexto del getProductos
 
     //Retorna id especifico
 
     useEffect(() => {
-        axios.get('http://localhost:3005/products')
+        axios.get('http://localhost:3005/hardwareExterno')
         .then(response => {
-
             //Llamo a la funcion, le paso la respuesta del axios
-            
-            CallingResponse(response.data)
+            CallingExterno(response.data)
         })
-
-        function CallingResponse(JSONN) {
-
+        function CallingExterno(JSONN) {
             console.log(JSONN);
-            for (const key in JSONN) {
-                //console.log(api[key]);
-                let k = JSONN[key];
-                for (const key in k) {
-                    if (key == "hardwareInterno") {
-                        //console.log("Interno");
-                        //console.log(k[key]);
-                        setIntern(k[key])
-                    }else if(key == "hardwareExterno"){
-                        //console.log("Externo");
-                        //console.log(k[key]);
-                        setExtern(k[key])
-                    }
-                }
-            } 
+            setExtern(JSONN)
         }
     },[])
 
-    // useEffect(() => {
 
-    // },[]);
+    useEffect(() => {
+        axios.get('http://localhost:3005/hardwareInterno')
+        .then(response => {
+            //Llamo a la funcion, le paso la respuesta del axios
+            CallingInterno(response.data)
+        })
+        function CallingInterno(JSONN) {
 
-    // useEffect(()=>{
-        
-    // }, [data])
+            console.log(JSONN);
+            setIntern(JSONN)
+        }
+    },[])
+
+
+    useEffect(() => {
+        axios.get('http://localhost:3005/users')
+        .then(response => {
+            //Llamo a la funcion, le paso la respuesta del axios
+            CallingInterno(response.data)
+        })
+        function CallingInterno(JSONN) {
+
+            console.log(JSONN);
+            setUsers(JSONN)
+        }
+    },[])
+    
 
     return(
-        <DataContext.Provider value={{ProductsIntern, setIntern, ProductsExtern, setExtern}}>
+        <DataContext.Provider value={{ProductsIntern, ProductsExtern, Users}}>
             {children}
         </DataContext.Provider>
     )

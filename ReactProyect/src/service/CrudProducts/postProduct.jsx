@@ -6,17 +6,14 @@ function PostProduct( product , hardware) {
 
       if (hardware == "interno") {
         try {
-            const response = await fetch('http://localhost:3005/products', {
+            const response = await fetch('http://localhost:3005/hardwareInterno', {
       
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify({
-
-                hardwareInterno: (product)
-
-              })
+              body: JSON.stringify((product)
+              )
             });
             
         }catch(error) {
@@ -26,17 +23,13 @@ function PostProduct( product , hardware) {
       }else if(hardware == "externo"){
 
         try {
-          const response = await fetch('http://localhost:3005/products', {
+          const response = await fetch('http://localhost:3005/hardwareExterno', {
     
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-
-              hardwareExterno: (product)
-
-            })
+            body: JSON.stringify((product))
           });
           
         }catch(error) {

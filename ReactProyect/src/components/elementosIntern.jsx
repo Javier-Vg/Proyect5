@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import getProducts from "../service/CrudProducts/getProducts"
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useTheContext } from "../Context/ContextProducts";
