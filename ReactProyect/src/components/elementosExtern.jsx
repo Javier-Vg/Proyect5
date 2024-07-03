@@ -4,12 +4,11 @@ import Card from 'react-bootstrap/Card';
 import { useTheContext } from "../Context/ContextProducts";
 import ModalExterno from "./ModalExterno";
 
-
 function ElementosExtern() {
+
     const {ProductsIntern, setIntern, ProductsExtern, setExtern} = useTheContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [id, setId] = useState(5);
-
 
     // let [productos, setProductos] = useState();
 
@@ -24,11 +23,8 @@ function ElementosExtern() {
                 setIsModalOpen(true)
             });
         } 
-        
     }
 
-    // let cards;
-    //console.log(ProductsExtern);
 
     return(
 
@@ -57,15 +53,10 @@ function ElementosExtern() {
                     )
                 })}
         </div> 
-
-           
         </>
 
     )    
 }
-
-   
-
 
 
 export default ElementosExtern

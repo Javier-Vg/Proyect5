@@ -6,10 +6,8 @@ import deleteProductsExtern from "../service/CrudProducts/deleteProductsExtern";
 import uuid from 'react-uuid';
 import { useTheContext } from "../Context/ContextProducts";
 
-
 function CrudForm() {
 
-    
     const {Users} = useTheContext();
 
     let duplicate;

@@ -14,7 +14,6 @@ import AdministParts from "../pages/ProductosEnVenta/AdministIntern";
 
 function Rutas() {
     return (
-
         <>
           <Router>
             <Routes>

@@ -1,27 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import ModalInterno from "./ModalInterno";
 import { useTheContext } from "../Context/ContextProducts";
-import BotonCapturar from "./BotonCapturar";
 
 function ElementosIntern() {
-    const {ProductsIntern, setIntern, ProductsExtern, setExtern} = useTheContext()
+    const {ProductsIntern} = useTheContext();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [id, setId] = useState(5);
 
     // let [productos, setProductos] = useState();
-    let [valor, setValor] = useState()
 
-    let v = useRef([])
+    const toggleModal = () => {
 
-    // let cards;
+         const botones = document.getElementsByClassName('btn-modal');
+        for (let i = 0; i < botones.length; i++) {
+            botones[i].addEventListener("click", function() {
 
-    function y(p) {
-        console.log(p);
-        alert(p.value)
+                let btn_actual = this;
+                setId(btn_actual.id)
+                setIsModalOpen(true)
+
+            });
+        } 
     }
-    
 
      return(
-            <div className="divInternoElementos">
+        <>
+
+        <div className="divInternoElementos">
                 {ProductsIntern.map((product) => {
                     return(
                         <div key={product.id}>
@@ -35,13 +42,18 @@ function ElementosIntern() {
                                 Con este componente vas a tener la mejor experiencia de tu vida.
                                 </Card.Text>
                                 <p>{product.date}</p>
-                                <Button onClick={(() => y(product.id))} variant="primary">Gestionar</Button>
+                                <Button onClick={toggleModal} className="btn-modal" variant="primary">Gestionar</Button>
                                 </Card.Body>
                             </Card>
                         </div>
                     );
                 })}
-            </div>      
+            </div>
+            
+
+            { <ModalInterno id={id} isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} /> }
+        </>
+                  
     )
 }
 
