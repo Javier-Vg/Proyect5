@@ -14,10 +14,9 @@ function ElementosExtern() {
 
     const toggleModal = () => {
 
-         const botones = document.getElementsByClassName('btn-modal');
+        const botones = document.getElementsByClassName('btn-modal');
         for (let i = 0; i < botones.length; i++) {
             botones[i].addEventListener("click", function() {
-
                 let btn_actual = this;
                 setId(btn_actual.id)
                 setIsModalOpen(true)
@@ -25,11 +24,12 @@ function ElementosExtern() {
         } 
     }
 
+    //console.log(ProductsExtern)
 
     return(
-
         <>
         <div className="divExternoElementos">
+            
                 {ProductsExtern.map((product, i) => {
                     return(
                         <>
@@ -43,6 +43,7 @@ function ElementosExtern() {
                                 <Card.Text>
                                 Con este componente vas a tener la mejor experiencia de tu vida.
                                 </Card.Text>
+                                <p>{product.id}</p>
                                 <p>{product.date}</p>
                                 <button onClick={toggleModal} className="btn-modal" id={product.id}>Gestionar</button>
                             </Card.Body>

@@ -31,7 +31,7 @@ function Rutas() {
                 <Route path='/InternStorage' element = {<AdministParts/>}/>
                 <Route path='/ExternStorage' element = {<AdministPeriferics/>}/>
               </Route>
-          </Routes>
+            </Routes>
           </Router>
         </>
         

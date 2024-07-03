@@ -7,9 +7,10 @@ export const DataContext = createContext();
 export function DataContextProvider({children}) {
     // const contextData = 58;
     // const valor = contextData
-    const [ProductsIntern ,setIntern] = useState(0)
-    const [ProductsExtern, setExtern] = useState(0)
-    const [Users, setUsers] = useState(0)
+    
+    const [ProductsIntern ,setIntern] = useState([]);
+    const [ProductsExtern, setExtern] = useState([]);
+    const [Users, setUsers] = useState([]);
 
     //Contexto del getProductos
 

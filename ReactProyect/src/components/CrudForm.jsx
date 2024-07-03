@@ -44,9 +44,9 @@ function CrudForm() {
             hardwareType: hardware,
             PerifericType: perific,
             id: uuid()
-            }
+        }
         
-        if (hardware == "interno") {
+        if (hardware == "hardwareInterno") {
             console.log(NewProduct);
             PostProduct(NewProduct , hardware)
             
@@ -119,11 +119,11 @@ function CrudForm() {
             <div className="divRadios">
                 <div>
                     Externo
-                    <input id="radio" className="externo" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option" />
+                    <input id="radio" className="hardwareExterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option" />
                 </div>
                 <div>
                     Interno
-                    <input id="radio" className="interno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
+                    <input id="radio" className="hardwareInterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
                 </div>
             </div>
             <button onClick={handleClick}>Registrar Producto</button>

@@ -13,7 +13,7 @@ function ElementosIntern() {
 
     const toggleModal = () => {
 
-         const botones = document.getElementsByClassName('btn-modal');
+        const botones = document.getElementsByClassName('btn-modal');
         for (let i = 0; i < botones.length; i++) {
             botones[i].addEventListener("click", function() {
 
@@ -27,7 +27,6 @@ function ElementosIntern() {
 
      return(
         <>
-
         <div className="divInternoElementos">
                 {ProductsIntern.map((product) => {
                     return(
@@ -42,7 +41,7 @@ function ElementosIntern() {
                                 Con este componente vas a tener la mejor experiencia de tu vida.
                                 </Card.Text>
                                 <p>{product.date}</p>
-                                <Button onClick={toggleModal} className="btn-modal" variant="primary">Gestionar</Button>
+                                <Button onClick={toggleModal} className="btn-modal" id={product.id} variant="primary">Gestionar</Button>
                                 </Card.Body>
                             </Card>
                         </div>

@@ -4,7 +4,7 @@ function PostProduct( product , hardware) {
 
     async function Post( product , hardware) {
 
-      if (hardware == "interno") {
+      if (hardware == "hardwareInterno") {
         try {
             const response = await fetch('http://localhost:3005/hardwareInterno', {
       
@@ -20,7 +20,7 @@ function PostProduct( product , hardware) {
           console.log(error);
         }
 
-      }else if(hardware == "externo"){
+      }else if(hardware == "hardwareExterno"){
 
         try {
           const response = await fetch('http://localhost:3005/hardwareExterno', {
