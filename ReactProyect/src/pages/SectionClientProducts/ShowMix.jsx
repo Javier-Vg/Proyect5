@@ -1,5 +1,6 @@
 import Nabvar from "../../components/navbar"
 import ComplMix from "../../components/ShowProductComponent/CompMix"
+import Footer from "../../components/footer"
 
 function ShowMix() {
   
@@ -21,8 +22,7 @@ function ShowMix() {
     <h3>Encuentra lo que necesites</h3>
     <hr />
     <ComplMix/>  
-
-    <div>ShowMix</div>
+    <Footer/>
     </>
     
   )

@@ -1,14 +1,16 @@
 import postUser from '../service/postUser'
 import { useEffect, useState } from 'react'
-import RegisterBostrap from "./RegisterBostrap"
-import Start from '../pages/start'
+import RegisterBostrap from "../components/RegisterBostrap"
+import Footer from '../components/footer'
+import Nabvar from '../components/navbar'
 
 function Registros() {
 
     return (
       <>
-      <Start/>
+      <Nabvar/>
       <RegisterBostrap/>
+      <Footer/>
       </>
     )
 }

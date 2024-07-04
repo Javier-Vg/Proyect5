@@ -1,9 +1,8 @@
 body{
-  background-color: black;
+  background-color: #000e;
   color: white;
   overflow-x: hidden;
-  
-  
+
 }
 
 .divSubCentral{
@@ -66,6 +65,14 @@ body{
   font-size: 25px;
 }
 
+.formRegister{
+  background-color: rebeccapurple;
+  display: grid;
+  justify-content: center;
+  justify-content: space-evenly;
+
+}
+
 #pNav{
   color: #0007;
   font-size: 13px;
@@ -87,6 +94,7 @@ body{
   border-radius: 15px;
   width: 500px;
   margin: auto;
+  
 }
 
 input[type=radio] {
@@ -143,6 +151,43 @@ input[type=radio] {
   color: white;
 }
 
+
+/*Foter*/
+.divFoter{
+  display: grid;
+  grid-template-columns: repeat(2, 700px);
+  justify-content: center;
+  background-color:black;
+  color: white;
+  padding: 28px;
+  margin-top: 300px;
+}
+
+.divFoter:nth-child(3){
+  grid-row-start: 2;
+  grid-column-start: 1;
+  
+}
+
+.subDivF1, .subDivF2{
+  display: grid;
+  gap: 2px;
+  grid-template-rows: 50px;
+  justify-content: center;
+}
+
+
+.redesDiv{
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(3, 70px);
+}
+
+.divsTextFoter{
+  font-size: 27px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  letter-spacing: 2px;
+}
 
 
 

@@ -1,5 +1,6 @@
 import Nabvar from "../../components/navbar"
 import ComplExt from "../../components/ShowProductComponent/CompExt"
+import Footer from "../../components/footer"
 
 function ShowExtern() {
 
@@ -22,8 +23,9 @@ function ShowExtern() {
     <input id="buscador" type="text" />
     <hr />
     <ComplExt/>
+    <Footer/>
 
-    <div>ShowExtern</div>
+
     </>
   )
 }

@@ -1,6 +1,7 @@
 import Nabvar from "../components/navbar"
 
 function Error() {
+  
   return (
     <>
     <Nabvar/>

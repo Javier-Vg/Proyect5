@@ -5,10 +5,7 @@ import { useTheContext } from '../../Context/ContextProducts';
 function ComplInt() {
     const {ProductsIntern} = useTheContext();
 
-
-
-    
-
+  
     return (
 
     

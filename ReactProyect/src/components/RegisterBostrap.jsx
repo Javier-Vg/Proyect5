@@ -110,7 +110,7 @@ function LoginBostrap() {
 
   return (
     
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+    <Form className='formRegister' noValidate validated={validated} onSubmit={handleSubmit}>
       <Row className="mb-3">
         <Form.Group as={Col} md="4" controlId="validationCustom01">
           <Form.Label>Su nombre completo:</Form.Label>
@@ -122,7 +122,6 @@ function LoginBostrap() {
             onChange={(e)=>{setNombreReal(e.target.value)}}
             
           />
-          <Form.Control.Feedback>Se ve bien!</Form.Control.Feedback>
         </Form.Group>
       
         <Form.Group as={Col} md="4" controlId="validationCustomUsername">
@@ -136,11 +135,8 @@ function LoginBostrap() {
               required
               value={NameUser}
               onChange={(e)=>{setNameUser(e.target.value)}}
-
             />
-            <Form.Control.Feedback type="invalid">
-              Please choose a username.
-            </Form.Control.Feedback>
+            
           </InputGroup>
         </Form.Group>
       </Row>
@@ -156,10 +152,7 @@ function LoginBostrap() {
             value={correoUsuario}
             onChange={(e)=>{setCorreoUsuario(correoUsuario = e.target.value)}}
              />
-          <Form.Control.Feedback type="invalid">
-            Porfavor ingrese una ciudad.
-          </Form.Control.Feedback>
-        </Form.Group>
+          </Form.Group>
 
         <Form.Group as={Col} md="3" controlId="validationCustom04">
           <Form.Label>Contraseña</Form.Label>
@@ -169,11 +162,8 @@ function LoginBostrap() {
             required 
             value={correoContraRegister}
             onChange={(e)=>{setCorreoContraRegister(e.target.value)}}
-            
             />
-          <Form.Control.Feedback type="invalid">
-          Porfavor ingrese un estado.
-          </Form.Control.Feedback>
+          
         </Form.Group>
 
         <Form.Group as={Col} md="3" controlId="validationCustom04">
@@ -185,21 +175,10 @@ function LoginBostrap() {
             value={Provincia}
             onChange={(e)=>{setProvincia(e.target.value)}}
             />
-          <Form.Control.Feedback type="invalid">
-          Porfavor ingrese un estado.
-          </Form.Control.Feedback>
-        </Form.Group>
 
+        </Form.Group>
       </Row>
 
-      <Form.Group className="mb-3">
-        <Form.Check
-          required
-          label="Aceptar términos y condiciones."
-          feedback="Debes aceptar antes de enviar."
-          feedbackType="invalido"
-        />
-      </Form.Group>
         <Button onClick={cargarRegister} type="submit">Registrar Usuario</Button>
     </Form>
     

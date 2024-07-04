@@ -1,7 +1,6 @@
 import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
 import Login from '../pages/login'
-import Registros from '../components/register'
-import Start from '../pages/start'
+import Registros from '../pages/register'
 import ProtectedRoute from '../Rootprotect/protectRoute';
 //import UsuarioActivo from '../pages/sesion';
 import Crud from "../pages/CRUD";
@@ -23,7 +22,6 @@ function Rutas() {
               <Route path='/home' element = {<Home/>}/>
               <Route path='/contact' element = {<Contact/>}/>
               <Route path='/login' element = {<Login/>}/>
-              <Route path='/' element = {<Start/>}/>
               <Route path='/aboutUs' element = {<AboutUs/>}/>
               <Route path='/error' element = {<Error/>}/>
               <Route path="/register" element={<Registros/>}/>

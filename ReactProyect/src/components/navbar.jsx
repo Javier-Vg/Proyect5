@@ -10,6 +10,7 @@ import LoginVerificador from '../components/loginVerificador';
 
     function Nabvar() {
 
+
       let sesion = localStorage.getItem("userValid");
       let adminStatus = localStorage.getItem("Admin");
 
@@ -34,6 +35,7 @@ import LoginVerificador from '../components/loginVerificador';
                   
                   <NavLink id='navLinks' to="/home">Home </NavLink>
                   <NavLink id='navLinks' to="/register">Register </NavLink>
+                  
                   {!sesion && (
                       <NavLink id='navLinks' to="/login">Login</NavLink>
                   )}

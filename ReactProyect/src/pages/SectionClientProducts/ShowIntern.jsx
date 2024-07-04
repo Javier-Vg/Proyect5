@@ -1,5 +1,6 @@
 import Nabvar from "../../components/navbar"
 import ComplInt from "../../components/ShowProductComponent/CompInt"
+import Footer from "../../components/footer"
 
 function ShowIntern() {
 
@@ -13,8 +14,6 @@ function ShowIntern() {
       : card.classList.add("filtro")
     })
   })
- 
-
 
   return (
     <>
@@ -24,8 +23,8 @@ function ShowIntern() {
     <input id="buscador" type="text" />
     <hr />
     <ComplInt/>
+    <Footer/>
 
-    <div>ShowInternn</div>
     </>
   )
 }
