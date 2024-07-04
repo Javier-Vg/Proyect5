@@ -34,7 +34,11 @@ import LoginVerificador from '../components/loginVerificador';
                   
                   <NavLink id='navLinks' to="/home">Home </NavLink>
                   <NavLink id='navLinks' to="/register">Register </NavLink>
-                  <NavLink id='navLinks' to="/login">Login</NavLink>
+                  {!sesion && (
+                      <NavLink id='navLinks' to="/login">Login</NavLink>
+                  )}
+
+                  
                 
                   <NavDropdown title="Secciones" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Productos destacados</NavDropdown.Item>
