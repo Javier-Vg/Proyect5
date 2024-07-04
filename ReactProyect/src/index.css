@@ -1,6 +1,9 @@
 body{
   background-color: black;
   color: white;
+  overflow-x: hidden;
+  
+  
 }
 
 .divSubCentral{
@@ -53,6 +56,7 @@ body{
   margin-top: 2px;
   padding: 5px;
   text-decoration: none;
+  color: black;
 }
 
 #navLinkCrud{
@@ -113,9 +117,19 @@ input[type=radio] {
   background-color: #fff;
   color: black;
   font-size: 18px;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
+.btnCloseSesion{
+  border: none;
+  text-align: center;
+  background-color: #48e;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  margin-left: 21px;
+  padding: 5px;
+}
 
 
 
@@ -150,4 +164,40 @@ input[type=radio] {
 
 .container img {
   object-fit: cover;
+}
+
+
+/*Contenedores de la */
+
+.CompIntDiv{
+  display: grid;
+  grid-template-columns: repeat(5, 250px);
+  gap: 15px;
+  justify-content: center
+}
+
+.imgProducClient{
+  height: 200px;
+  border: 2px solid black;
+  border-radius: 10px;
+  
+}
+
+
+
+/*Filtrado*/
+#listaArticulos{
+  font-size: 30px;
+  margin-top: 20px;
+  list-style: none;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+}
+li{
+  margin: 5px 0;
+}
+
+.filtro{
+  display: none;
 }

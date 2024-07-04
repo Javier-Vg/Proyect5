@@ -8,7 +8,7 @@ function ElementosIntern() {
 
     const {ProductsIntern} = useTheContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [id, setId] = useState(5);
+    const [id, setId] = useState(0);
 
     // let [productos, setProductos] = useState();
 
@@ -42,7 +42,7 @@ function ElementosIntern() {
                                 <Button onClick={toggleModal} className="btn-modal" id={product.id} variant="primary">Gestionar</Button>
                                 </Card.Body>
                             </Card>
-                        </div>
+                    </div>
                     );
                 })}
             </div>

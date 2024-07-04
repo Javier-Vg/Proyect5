@@ -4,14 +4,11 @@ import PostProduct from "../service/CrudProducts/postProduct";
 import getProducts from "../service/CrudProducts/getProducts";
 import deleteProductsExtern from "../service/CrudProducts/deleteProductsExtern";
 import uuid from 'react-uuid';
+import Swal from "sweetalert2";
+
 import { useTheContext } from "../Context/ContextProducts";
 
 function CrudForm() {
-
-    const {Users} = useTheContext();
-
-    let duplicate;
-    let id;
     
     let [stock, setStock] = useState(0)
     let [nombre, setNombre] = useState(0)
@@ -20,7 +17,7 @@ function CrudForm() {
     let [fecha, setFecha] = useState(0)
     let [imgUrl, setImg] = useState(0)
     let [hardware, setHardware] = useState(0)
-    let [perific, setPerific] = useState()
+    let [descuento, setDescuento] = useState(0)
 
     //let [objetoDuplicate, setDuplicate] = useState()
     
@@ -42,18 +39,19 @@ function CrudForm() {
             date: fecha,
             img: imgUrl,
             hardwareType: hardware,
-            PerifericType: perific,
+            shopping: 0,
+            Descuento: descuento,
             id: uuid()
         }
+
+
+        PostProduct(NewProduct , hardware)
+
+        Swal.fire({
+            icon: "success",
+            text: "Se registro correctamente!",
+          });
         
-        if (hardware == "hardwareInterno") {
-            console.log(NewProduct);
-            PostProduct(NewProduct , hardware)
-            
-        }else{
-            
-            PostProduct(NewProduct , hardware)
-        }
     }
 
   return (
@@ -68,23 +66,19 @@ function CrudForm() {
                 <br />
             </div>
 
-            <div className="divRadios">
-                <div>
-                    Entrada
-                    <input id="radio" className="PerifericosEntrada" type="radio"  onChange={(e) => setPerific(e.target.className)} name="optionP" />
-                </div>
-                <div>
-                    Salida
-                    <input id="radio" className="PerifericosSalida" type="radio"  onChange={(e) => setPerific(e.target.className)} name="optionP"/>
-                </div>
-            </div>
-
             <div>
                 <label >Precio del producto</label>
                 <br/>
-                <input type="text" onChange={(e) => setPrecio(e.target.value)} required/>
+                <input type="number" onChange={(e) => setPrecio(e.target.value)} required/>
                 <br />
                 
+            </div>
+
+            <div>
+                <label >Descuento del producto:</label>
+                <br/>
+                <input type="number" onChange={(e) => setDescuento(e.target.value)} required/>
+                <br />
             </div>
 
             <div>

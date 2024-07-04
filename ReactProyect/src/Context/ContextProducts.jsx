@@ -10,6 +10,7 @@ export function DataContextProvider({children}) {
     
     const [ProductsIntern ,setIntern] = useState([]);
     const [ProductsExtern, setExtern] = useState([]);
+
     const [Users, setUsers] = useState([]);
 
     //Contexto del getProductos
@@ -24,6 +25,7 @@ export function DataContextProvider({children}) {
         function CallingExterno(JSONN) {
             console.log(JSONN);
             setExtern(JSONN)
+
         }
     },[])
 

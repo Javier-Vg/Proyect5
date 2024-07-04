@@ -9,6 +9,21 @@ import { NavLink} from "react-router-dom";
 import LoginVerificador from '../components/loginVerificador';
 
     function Nabvar() {
+
+      let sesion = localStorage.getItem("userValid");
+      let adminStatus = localStorage.getItem("Admin");
+
+      let handleClick = () =>{
+        localStorage.removeItem("userActive")
+        localStorage.removeItem("Admin")
+        localStorage.removeItem("userValid")
+      }
+
+      //Actualiza cada que cierre sesion
+      useState(() =>{
+          console.log(sesion);
+      },[sesion])
+
         return (
           <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -37,14 +52,18 @@ import LoginVerificador from '../components/loginVerificador';
                     </NavDropdown>
 
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">
-                      Horarios de atencion
-                    </NavDropdown.Item>
+                    {sesion && (
+                      <NavDropdown.Item href="#action/3.4">
+                            <button className='btnCloseSesion' onClick={handleClick}>Cerrar sesion</button>
+                      </NavDropdown.Item>
+                    )}
+                    
                   </NavDropdown>
 
                     <p id='pNav'><LoginVerificador/></p>
-                  
-                  <NavLink id='navLinkCrud' to="/crud">Crud</NavLink>
+                  {adminStatus &&(
+                    <NavLink id='navLinkCrud' to="/crud">Crud</NavLink>
+                  )}
                   
                 </Nav>
               </Navbar.Collapse>

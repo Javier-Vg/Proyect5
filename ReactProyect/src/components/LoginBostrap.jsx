@@ -22,7 +22,8 @@ function LoginBostrap() {
                 localStorage.setItem("userActive",correoLogin );
                 localStorage.setItem("userValid",true );
                 if (correoLogin == "jvargas@fwdcostarica.com"){
-                  alert("Sus el admin")
+                  localStorage.setItem("Admin",true );
+                  alert("Sos el admin")
                 }
         
                 setLog(testeoLogin = 0);
