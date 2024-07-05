@@ -11,7 +11,7 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
     let [marca, setMarca] = useState()
     let [fecha, setFecha] = useState()
     let [imgUrl, setImg] = useState()
-    let [hardware, setHardware] = useState()
+
 
   const [modal, setModal] = useState(false);
 
@@ -46,12 +46,12 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
           stockTotal: stock,
           brand: marca,
           date: fecha,
-          img: imgUrl,
-          hardwareType: hardware
+          img: imgUrl
+         
       }
 
       //Llama al metodo PUT:
-      putProducts(id, ModificProduct, hardware)
+      putProducts(id, ModificProduct, "hardwareExterno")
   }
 
   return (
@@ -89,16 +89,7 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
               <br/>
                   <input type="text" onChange={(e) => setImg(e.target.value)} required/>
               <br />
-              <div className="divRadios">
-                  <div>
-                      Externo
-                      <input id="radio" className="hardwareExterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option" />
-                  </div>
-                  <div>
-                      Interno
-                      <input id="radio" className="hardwareInterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
-                  </div>
-              </div>
+              
               <button onClick={handleClick}>Registrar Producto</button>
           </form>
             

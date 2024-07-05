@@ -11,7 +11,7 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
     let [marca, setMarca] = useState(0)
     let [fecha, setFecha] = useState(0)
     let [imgUrl, setImg] = useState(0)
-    let [hardware, setHardware] = useState(0)
+  
 
     const [modal, setModal] = useState(false);
 
@@ -39,6 +39,7 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
   }
 
     const handleClick = () => {
+
       //Llamo a put
       //Crea el nuevo objeto con los valores modificados
         let ModificProduct = {
@@ -47,12 +48,14 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
             stockTotal: stock,
             brand: marca,
             date: fecha,
-            img: imgUrl,
-            hardwareType: hardware
+            img: imgUrl
+          
         }
         alert("Entro al handle")
 
-        putProducts(id, ModificProduct, hardware)
+        alert(id)
+        alert(ModificProduct)
+        putProducts(id, ModificProduct, "hardwareInterno")
         //Llama al metodo PUT:
     }
   
@@ -89,16 +92,7 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
                     <br/>
                         <input type="text" onChange={(e) => setImg(e.target.value)} required/>
                     <br />
-                    <div className="divRadios">
-                        <div>
-                            Externo
-                            <input id="radio" className="externo" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option" />
-                        </div>
-                        <div>
-                            Interno
-                            <input id="radio" className="interno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
-                        </div>
-                    </div>
+                    
                     <button onClick={handleClick}>Registrar Producto</button>
                 </form>
 
@@ -112,6 +106,7 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
         color="blue"
         onClick={closeModal}
       />
+
       <div className="containerr">
         <h3>Opciones:</h3>
         <button onClick={borrar}>Eliminar</button>

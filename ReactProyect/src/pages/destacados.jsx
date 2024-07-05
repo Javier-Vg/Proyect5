@@ -8,8 +8,6 @@ function destacados() {
     <div>destacados</div>
     <Footer/>
     </>
-    
-    
   )
 }
 

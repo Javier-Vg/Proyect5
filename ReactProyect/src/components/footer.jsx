@@ -1,6 +1,8 @@
 //import InstagramIcon from '@mui/icons-material/Instagram';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink} from "react-router-dom";
+import instagram from "../assets/instagram.svg"
+import facebook from "../assets/facebook.svg"
 
 function Footer() {
 
@@ -17,6 +19,7 @@ function Footer() {
             <br />
             <div className= "divsTextFoter">Quienes somos</div>
             <div className= "divsTextFoter">Asesor</div>
+        
             <NavDropdown style={fontSize} title="Productos" id="basic-nav-dropdown">
                 <NavDropdown.Item><NavLink id='navLinks' to="/show1">Componentes Externos</NavLink></NavDropdown.Item>
                 <NavDropdown.Item><NavLink id='navLinks' to="/show2">Componentes Internos</NavLink></NavDropdown.Item>
@@ -26,9 +29,10 @@ function Footer() {
 
         <div className="subDivF2">
             <div className="redesDiv">
-                <div className= "divsTextFoter">Face</div>
-                <div className= "divsTextFoter">insta</div>
-                <div className= "divsTextFoter">Linked</div>
+                
+                <div className= "divsTextFoter"><img  src={instagram} /></div>
+                <div className= "divsTextFoter"><img  src={facebook} /></div>
+                <div className= "divsTextFoter">Linkedin</div>
             </div>
             <br />
             <div className= "divsTextFoter">Comunidad</div>

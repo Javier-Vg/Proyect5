@@ -1,14 +1,11 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useTheContext } from '../../Context/ContextProducts';
-import { useState } from 'react';
 
 function ComplMix() {
     const {ProductsIntern, ProductsExtern} = useTheContext();
 
-
     return (
-
     
       <>
       <div className='CompIntDiv'>
@@ -42,7 +39,7 @@ function ComplMix() {
         {ProductsExtern == "" ? (
             <h2>No hay productos a la venta</h2>
         ) : (
-            <p>A la venta</p>
+            <p style={{display: "none"}}>A la venta</p>
         )}
         
       </div>

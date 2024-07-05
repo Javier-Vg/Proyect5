@@ -43,7 +43,7 @@ function ComplInt() {
         {ProductsIntern == "" ? (
             <h2>No hay productos a la venta</h2>
         ) : (
-            <p>A la venta</p>
+            <p style={{display: "none"}}>A la venta</p>
         )}
         
       </div>
