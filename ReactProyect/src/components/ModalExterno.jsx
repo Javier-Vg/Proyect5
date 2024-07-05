@@ -3,7 +3,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import Swal from 'sweetalert2'
 import putProducts from "../service/CrudProducts/putProducts";
 
-
 const ModalExterno = ({id, isOpen, closeModal }) => {
     let [stock, setStock] = useState()
     let [nombre, setNombre] = useState()
@@ -11,7 +10,6 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
     let [marca, setMarca] = useState()
     let [fecha, setFecha] = useState()
     let [imgUrl, setImg] = useState()
-
 
   const [modal, setModal] = useState(false);
 
@@ -47,7 +45,6 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
           brand: marca,
           date: fecha,
           img: imgUrl
-         
       }
 
       //Llama al metodo PUT:
@@ -103,6 +100,7 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
         color="blue"
         onClick={closeModal}
       />
+
       <div className="containerr">
         <h3>Opciones:</h3>
         <button onClick={borrar}>Eliminar</button>
@@ -110,6 +108,7 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
       
       </div>
     </div>
+    
     </>
 
     

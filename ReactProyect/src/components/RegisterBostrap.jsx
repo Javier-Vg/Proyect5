@@ -58,6 +58,7 @@ function LoginBostrap() {
         usuario: NombreReal,
         provincia: Provincia,
         username: NameUser,
+        
       }
 
       let corteDeFlujo = false;

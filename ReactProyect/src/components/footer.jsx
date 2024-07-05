@@ -1,13 +1,14 @@
 //import InstagramIcon from '@mui/icons-material/Instagram';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink} from "react-router-dom";
-import instagram from "../assets/instagram.svg"
-import facebook from "../assets/facebook.svg"
+import instagram from "../assets/instagram.svg";
+import facebook from "../assets/facebook.svg";
+import kedin from "../assets/kedin.svg";
 
 function Footer() {
 
     let fontSize= {
-        fontSize: "30px" 
+        fontSize: "30px"
     }
     
   return (
@@ -25,6 +26,7 @@ function Footer() {
                 <NavDropdown.Item><NavLink id='navLinks' to="/show2">Componentes Internos</NavLink></NavDropdown.Item>
                 <NavDropdown.Item><NavLink id='navLinks' to="/show3">Mixto</NavLink></NavDropdown.Item>           
             </NavDropdown>
+
         </div>
 
         <div className="subDivF2">
@@ -32,7 +34,7 @@ function Footer() {
                 
                 <div className= "divsTextFoter"><img  src={instagram} /></div>
                 <div className= "divsTextFoter"><img  src={facebook} /></div>
-                <div className= "divsTextFoter">Linkedin</div>
+                <div className= "divsTextFoter"><img src={kedin} /></div>
             </div>
             <br />
             <div className= "divsTextFoter">Comunidad</div>
@@ -46,9 +48,7 @@ function Footer() {
             <div><a>Terminos y condiciones</a></div>
         </div>
     </footer>
-    
 
-   
     </>
     
   )

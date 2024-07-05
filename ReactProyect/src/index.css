@@ -189,8 +189,45 @@ input[type=radio] {
   letter-spacing: 2px;
 }
 
+.buscadorDiv{
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
 
+}
 
+select{
+  
+}
+
+option{
+  
+}
+
+.fondoDragon{
+  z-index: -5;
+  margin-left: 0;
+  margin-right: 0;
+  width: 1600px;
+  position: relative;
+}
+
+.optionExtern{
+  color: black;
+  font-size: 25px;
+}
+.selectExtern{
+  font-size: 30px;
+  padding: 3px;
+  text-align: center;
+  background-color: transparent;
+  color: white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-width: 4px;
+
+}
 
 /*Modal video yt*/
 
@@ -204,7 +241,6 @@ input[type=radio] {
 .containerr {
   display: flex;
   padding: 10px;
-  
   color:blueviolet;
 }
 
@@ -246,4 +282,12 @@ li{
 
 .filtro{
   display: none;
+}
+/*----------------------*/
+
+
+
+#buscador{
+  padding: 10px;
+  margin-left: 10px;
 }

@@ -1,6 +1,7 @@
 import Nabvar from "../../components/navbar"
 import ComplInt from "../../components/ShowProductComponent/CompInt"
 import Footer from "../../components/footer"
+import busqueda from "../../assets/busqueda.svg"
 
 function ShowIntern() {
 
@@ -19,12 +20,11 @@ function ShowIntern() {
     <>
     <Nabvar/>
     <h3>Encuentra lo que necesites</h3>
-    Buscar...
+    <img src={busqueda} style={{padding: "10px"}} />
     <input id="buscador" type="text" />
     <hr />
     <ComplInt/>
     <Footer/>
-
     </>
   )
 }

@@ -5,7 +5,6 @@ import Footer from '../components/footer'
 import Nabvar from '../components/navbar'
 
 function Registros() {
-
     return (
       <>
       <Nabvar/>

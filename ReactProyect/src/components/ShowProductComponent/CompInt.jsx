@@ -5,9 +5,7 @@ import { useTheContext } from '../../Context/ContextProducts';
 function ComplInt() {
     const {ProductsIntern} = useTheContext();
 
-  
     return (
-
     
       <>
       <div className='CompIntDiv'>
@@ -26,7 +24,7 @@ function ComplInt() {
             </Card.Body>
             <ListGroup className="list-group-flush">
                 <ListGroup.Item>Marca: {product.brand}</ListGroup.Item>
-                <ListGroup.Item>Promocion: {product.promo}</ListGroup.Item>
+                <ListGroup.Item>Stock: {product.stockTotal}</ListGroup.Item>
                 <ListGroup.Item>Fecha de venta: {product.date}</ListGroup.Item>
                 <ListGroup.Item>Descuento: {product.Descuento}%</ListGroup.Item>
             </ListGroup>

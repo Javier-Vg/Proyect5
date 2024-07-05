@@ -18,13 +18,14 @@ function CrudForm() {
     let [imgUrl, setImg] = useState(0)
     let [hardware, setHardware] = useState(0)
     let [descuento, setDescuento] = useState(0)
+    let [categoria, setCategoria] = useState(0)
 
     //let [objetoDuplicate, setDuplicate] = useState()
     
     function handleChange(e) {
         setStock(e.target.value);
     }
-    
+
     //  useEffect(() =>{
     //      console.log(objetoDuplicate);
     //  },[objetoDuplicate])
@@ -41,9 +42,9 @@ function CrudForm() {
             hardwareType: hardware,
             shopping: 0,
             Descuento: descuento,
+            Category: categoria,
             id: uuid()
         }
-
 
         PostProduct(NewProduct , hardware)
 
@@ -108,7 +109,21 @@ function CrudForm() {
                 <input type="text" onChange={(e) => setImg(e.target.value)} required/>
                 <br />
             </div>
+        
             <br />
+            <p>Categoria del Periferico:</p>
+            <select >
+                <option className="s" onChange={(e) => setCategoria(e.target.className)}>Seleccionar</option>
+                <option className="Teclado">Teclado</option>
+                <option className="Raton" onChange={(e) => setCategoria(e.target.className)}>Raton</option>
+                <option className="Microfono" onChange={(e) => setCategoria(e.target.className)}>Microfono</option>
+                <option className="Camara" onChange={(e) => setCategoria(e.target.className)}>Camara</option>
+                <option className="Gabinete" onChange={(e) => setCategoria(e.target.className)}>Gabinete</option>
+                <option className="FuentesAlimentacion" onChange={(e) => setCategoria(e.target.className)}>Fuentes de alimentacion </option>
+                <option className="Audio" onChange={(e) => setCategoria(e.target.className)}>Audio</option>
+                <option className="Mandos" onChange={(e) => setCategoria(e.target.className)}>Mandos</option>
+                <option className="Silla" onChange={(e) => setCategoria(e.target.className)}>Silla</option>
+            </select>
             
             <div className="divRadios">
                 <div>
@@ -120,6 +135,7 @@ function CrudForm() {
                     <input id="radio" className="hardwareInterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
                 </div>
             </div>
+
             <button onClick={handleClick}>Registrar Producto</button>
         </form>
 
