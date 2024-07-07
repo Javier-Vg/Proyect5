@@ -1,6 +1,7 @@
 import Nabvar from "../../components/navbar"
 import ComplMix from "../../components/ShowProductComponent/CompMix"
 import Footer from "../../components/footer"
+import busqueda from "../../assets/busqueda.svg"
 
 function ShowMix() {
   
@@ -19,7 +20,11 @@ function ShowMix() {
   return (
     <>
     <Nabvar/>
-    <h3>Encuentra lo que necesites</h3>
+    <div> 
+        <h3 style={{fontFamily: "arial"}}>Encuentra lo que necesites</h3>
+        <img src={busqueda} />
+        <input id="buscador" type="text" />
+      </div>
     <hr />
     <ComplMix/>  
     <Footer/>

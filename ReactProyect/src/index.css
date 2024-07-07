@@ -2,7 +2,9 @@ body{
   background-color: #000e;
   color: white;
   overflow-x: hidden;
-
+  margin: 0;
+  position: relative;
+  min-height: 100vh;
 }
 
 .divSubCentral{
@@ -61,8 +63,8 @@ body{
 #navLinkCrud{
   margin-top: 2px;
   text-decoration: none;
-  margin-left: 550px;
   font-size: 25px;
+  margin-left: 15px;
 }
 
 .formRegister{
@@ -70,6 +72,11 @@ body{
   display: grid;
   justify-content: center;
   justify-content: space-evenly;
+  padding: 60px;
+  mask-image: linear-gradient(
+    black 95%,
+    transparent
+  );
 
 }
 
@@ -77,7 +84,6 @@ body{
   color: #0007;
   font-size: 13px;
   margin-top: 10px;
-  margin-left: 100px;
 }
 
 .aboutDiv, .divContactenos{
@@ -139,8 +145,16 @@ input[type=radio] {
   padding: 5px;
 }
 
-
-
+/*Modal info personal */
+.modalInfoP{
+  z-index: 3;
+  margin: auto;
+  border-radius: 20px;
+  width: 800px;
+  height: 500px;
+  padding: 15px;
+  margin-top: 0px;
+}
 
 
 
@@ -151,7 +165,6 @@ input[type=radio] {
   color: white;
 }
 
-
 /*Foter*/
 .divFoter{
   display: grid;
@@ -159,8 +172,12 @@ input[type=radio] {
   justify-content: center;
   background-color:black;
   color: white;
-  padding: 28px;
-  margin-top: 300px;
+ 
+
+  bottom: 0;
+  left: 0; 
+  width: 100%; 
+  margin: 0;
 }
 
 .divFoter:nth-child(3){
@@ -196,13 +213,19 @@ input[type=radio] {
 
 }
 
-select{
-  
+/*Navbar*/
+.bg-body-tertiary{
+  z-index: 2;
+  background-color: transparent;
+  color: transparent;
 }
 
-option{
-  
+.containerNav{
+  background-color: transparent;
+  color: transparent;
 }
+
+
 
 .fondoDragon{
   z-index: -5;
@@ -210,6 +233,10 @@ option{
   margin-right: 0;
   width: 1600px;
   position: relative;
+  mask-image: linear-gradient(
+    black 80%,
+    transparent
+  );
 }
 
 .optionExtern{
@@ -226,7 +253,6 @@ option{
   border-left: none;
   border-right: none;
   border-width: 4px;
-
 }
 
 /*Modal video yt*/
@@ -234,8 +260,10 @@ option{
 .modal {
   display: flex;
   flex-direction: column;
-  width: 600px;
-  height: 600px;
+  width: 200px;
+  height: 150px;
+  background-color: #000e;
+  border-bottom-right-radius: 40px;
 }
 
 .containerr {
@@ -285,9 +313,31 @@ li{
 }
 /*----------------------*/
 
-
-
 #buscador{
   padding: 10px;
   margin-left: 10px;
+}
+
+/*Scroll animado*/
+
+@keyframes show{
+  from{
+    opacity: 0;
+    scale: 25%;
+  }
+  to{
+    opacity: 1;
+    scale: 100%;
+  }
+}
+
+.filter {
+  view-timeline-name: --image;
+  view-timeline-axis: block;
+
+  animation-timeline: --image;
+  animation-name: show;
+
+  animation-range: entry 25% cover 50% ;
+  animation-fill-mode: both  ;
 }

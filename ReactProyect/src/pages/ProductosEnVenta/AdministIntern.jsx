@@ -13,10 +13,7 @@ function ProductsManejo() {
   return (
     <>
       <Nabvar/>
-      {/* <Elementos hardware={"hardwareInterno"}/> */}
-      {/*<Appp/> */}
-
-        <ElementosIntern />
+      <ElementosIntern />
 
       <NavLink to="/crud">Volver</NavLink>
       <Footer/>

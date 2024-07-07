@@ -11,6 +11,8 @@ export function DataContextProvider({children}) {
     const [ProductsIntern ,setIntern] = useState([]);
     const [ProductsExtern, setExtern] = useState([]);
 
+    const [Mix, setMix] = useState([]);
+
     const [Users, setUsers] = useState([]);
 
     //Contexto del getProductos
@@ -56,10 +58,16 @@ export function DataContextProvider({children}) {
             setUsers(JSONN)
         }
     },[])
+
     
+    useEffect(() => {
+        setMix([...ProductsExtern, ...ProductsIntern])
+    },[ProductsExtern, ProductsIntern])
+
+    console.log(Mix);
 
     return(
-        <DataContext.Provider value={{ProductsIntern, ProductsExtern, Users}}>
+        <DataContext.Provider value={{ProductsIntern, ProductsExtern, Users, Mix}}>
             {children}
         </DataContext.Provider>
     )

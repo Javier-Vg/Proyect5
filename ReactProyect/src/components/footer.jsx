@@ -14,6 +14,11 @@ function Footer() {
   return (
 
     <>
+    <br />
+    <br />
+    <br />
+
+    <br />
     <footer className="divFoter">
         <div className="subDivF1">
             <div className= "divsTextFoter"><h1>JavWare</h1></div>

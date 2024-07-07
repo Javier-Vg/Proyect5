@@ -3,6 +3,7 @@ import getProducts from "../service/CrudProducts/getProducts"
 import Card from 'react-bootstrap/Card';
 import { useTheContext } from "../Context/ContextProducts";
 import ModalExterno from "./ModalExterno";
+import gestionar from "../assets/gestionar.svg";
 
 function ElementosExtern() {
 
@@ -24,8 +25,6 @@ function ElementosExtern() {
         } 
     }
 
-    //console.log(ProductsExtern)
-
     return(
         <>
         <div className="divExternoElementos">
@@ -43,9 +42,8 @@ function ElementosExtern() {
                                 <Card.Text>
                                 Con este componente vas a tener la mejor experiencia de tu vida.
                                 </Card.Text>
-                                <p>{product.id}</p>
                                 <p>{product.date}</p>
-                                <button onClick={toggleModal} className="btn-modal" id={product.id}>Gestionar</button>
+                                <button style={{margin: "center", borderRadius: "20px"}} onClick={toggleModal} className="btn-modal" id={product.id} ><img src={gestionar} alt="gestion" /></button>
                             </Card.Body>
                             </Card> 
                         </div> 
@@ -55,9 +53,7 @@ function ElementosExtern() {
                 })}
         </div> 
         </>
-
     )    
 }
-
 
 export default ElementosExtern

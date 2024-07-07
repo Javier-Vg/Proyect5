@@ -1,8 +1,10 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useTheContext } from '../../Context/ContextProducts';
+import out from "../../assets/out.svg";
 
 function ComplInt() {
+  
     const {ProductsIntern} = useTheContext();
 
     return (
@@ -38,11 +40,21 @@ function ComplInt() {
         })}
 
 
-        {ProductsIntern == "" ? (
-            <h2>No hay productos a la venta</h2>
-        ) : (
-            <p style={{display: "none"}}>A la venta</p>
-        )}
+        <div style={{textAlign: "center"}}>
+          {ProductsIntern == "" ? (
+            (
+              <>
+              <div style={{width:" 500px", marginLeft: "450px"}} >
+                <h2 style={{margin: "auto", fontFamily: "arial"}}>No hay productos a la venta.</h2>
+                <img src={out} alt="out" />
+              </div>
+              </>   
+          )
+          ) : (
+              <p style={{display: "none"}}>A la venta</p>
+          )}
+        </div>
+        
         
       </div>
       

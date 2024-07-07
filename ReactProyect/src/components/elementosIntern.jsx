@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ModalInterno from "./ModalInterno";
 import { useTheContext } from "../Context/ContextProducts";
+import gestionar from "../assets/gestionar.svg";
 
 function ElementosIntern() {
 
@@ -39,7 +40,8 @@ function ElementosIntern() {
                                 Con este componente vas a tener la mejor experiencia de tu vida.
                                 </Card.Text>
                                 <p>{product.date}</p>
-                                <Button onClick={toggleModal} className="btn-modal" id={product.id} variant="primary">Gestionar</Button>
+                                <button style={{margin: "center", borderRadius: "20px"}} onClick={toggleModal} className="btn-modal" id={product.id} ><img src={gestionar} alt="gestion" /></button>
+            
                                 </Card.Body>
                             </Card>
                     </div>

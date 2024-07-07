@@ -10,10 +10,9 @@ function Crud() {
     <>
 
       <Nabvar/>
-      <div>CRUD</div>
+      <br />
       <CrudForm/>
 
-      
       <NavLink to= "/InternStorage">
         <button >Componentes Internos</button>
       </NavLink>

@@ -2,11 +2,13 @@ import Nabvar from "../../components/navbar"
 import ComplExt from "../../components/ShowProductComponent/CompExt"
 import Footer from "../../components/footer"
 import busqueda from "../../assets/busqueda.svg"
-
+import { useEffect, useState } from "react";
 function ShowExtern() {
 
+  let [category, setCategory] = useState()
+
+  //Filtra por busqueda.
   document.addEventListener("keyup", e =>{
-   
     document.querySelectorAll(".filter").forEach(card => {
       card.textContent.toLowerCase().includes(e.target.value.toLowerCase())
       ? card.classList.remove("filtro")
@@ -14,13 +16,16 @@ function ShowExtern() {
     })
   })
 
+  //Filtra por categoria.
+  document.querySelectorAll("#categoria").forEach(card => {
+      card.textContent.toLowerCase().includes(category.toLowerCase())
+      ? card.classList.remove("filtro")
+      : card.classList.add("filtro")
+    })
 
   return (
     <>
-    
-    
     <Nabvar/>
-
     <div className="buscadorDiv">
       <div> 
         <h3 style={{fontFamily: "arial"}}>Encuentra lo que necesites</h3>
@@ -30,17 +35,18 @@ function ShowExtern() {
         
       <div>
         <p>Categorias:</p>
-        <select className="selectExtern">
-          <option className="optionExtern">Seleccionar</option>
-          <option className="optionExtern">Teclado</option>
-          <option className="optionExtern">Raton</option>
-          <option className="optionExtern">Microfono</option>
-          <option className="optionExtern">Camara</option>
-          <option className="optionExtern">Gabinete</option>
-          <option className="optionExtern">Fuentes de alimentacion </option>
-          <option className="optionExtern">Audio</option>
-          <option className="optionExtern">Mandos</option>
-          <option className="optionExtern">Sillas</option>
+          
+        <select onChange={(e) => setCategory(e.target.value)} className="selectExtern">
+          <option value="s">Sin categoria</option>
+          <option value="Teclado">Teclado</option>
+          <option value="Raton">Raton</option>
+          <option value="Microfono">Microfono</option>
+          <option value="Camara">Camara</option>
+          <option value="Gabinete">Gabinete</option>
+          <option value="Fuentes de alimentacion">Fuentes de alimentacion </option>
+          <option value="Audio">Audio</option>
+          <option value="Mandos">Mandos</option>
+          <option value="Sillas">Sillas</option>
         </select>
       </div>
     </div>

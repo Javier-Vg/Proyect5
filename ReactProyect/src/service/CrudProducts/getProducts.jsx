@@ -1,15 +1,14 @@
 
-
-async function getProducts() {
-
-    try {
-        const response = await fetch('http://localhost:3005/products');
+async function getProducts(id, hardware) {
+ 
+        try {
+        const response = await fetch(`http://localhost:3005/${hardware}/${id}`);
         const data = await response.json();
         return data;
             
-    } catch (error) {
-        alert("Error");
-    }
+        } catch (error) {
+            alert("Error");
+        }
 }
 
 export default getProducts

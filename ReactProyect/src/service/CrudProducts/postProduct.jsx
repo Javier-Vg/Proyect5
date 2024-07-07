@@ -1,8 +1,7 @@
+import Swal from "sweetalert2";
 
-function PostProduct( product , hardware) {
-  console.log(hardware);
+async function PostProduct( product , hardware) {
 
-    async function Post( product , hardware) {
         try {
             const response = await fetch(`http://localhost:3005/${hardware}`, {
       
@@ -13,14 +12,14 @@ function PostProduct( product , hardware) {
               body: JSON.stringify((product)
               )
             });
-            
+ 
         }catch(error) {
           console.log(error);
         }
-
-    }
-
-    Post(product, hardware)
+        Swal.fire({
+            icon: "success",
+            title: "Agregado con exito"
+        })
 }
 
 export default PostProduct

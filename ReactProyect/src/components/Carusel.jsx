@@ -1,12 +1,13 @@
 import Carousel from 'react-bootstrap/Carousel';
 
-function Carosel() {
+function Carusel() {
   return (
     <Carousel data-bs-theme="dark">
       <Carousel.Item>
         <img
+        style={{maxWidth: "1000px", height: "500px", margin: "auto"}}
           className="d-block w-100"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTwEIYd1S-fRuSdaJd-MohaUlwLR0TzeEeSQ&s"
+          src="https://img.freepik.com/fotos-premium/tablero-computadora-fotografia-alta-definicion-fondo-pantalla-creativo_993236-9954.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -43,4 +44,4 @@ function Carosel() {
   );
 }
 
-export default Carosel;
+export default Carusel;
