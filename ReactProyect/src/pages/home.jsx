@@ -11,7 +11,8 @@ function Home() {
     <>
         <Nabvar/>
         
-        <h1 className='kkkk' style={{position: "absolute", marginLeft: "600px", zIndex: "1"}}>Componentes </h1>
+        <h1 className='h1Home'>Descubre nuevos productos</h1>
+        <button className='btnHome' >Descubrir</button>
 
         <video className='video' autoPlay loop muted>
           <source src={videohome} type='video/mp4'/>

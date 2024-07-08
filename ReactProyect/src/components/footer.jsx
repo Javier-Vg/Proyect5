@@ -4,6 +4,7 @@ import { NavLink} from "react-router-dom";
 import instagram from "../assets/instagram.svg";
 import facebook from "../assets/facebook.svg";
 import kedin from "../assets/kedin.svg";
+import ratonDragon from "../assets/ratonDragon.jpg";
 
 function Footer() {
 
@@ -19,6 +20,7 @@ function Footer() {
     <br />
 
     <br />
+     <img className='fondoDragon' src={ratonDragon} alt="h" /> 
     <footer className="divFoter">
         <div className="subDivF1">
             <div className= "divsTextFoter"><h1>JavWare</h1></div>

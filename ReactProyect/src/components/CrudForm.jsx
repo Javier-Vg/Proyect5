@@ -3,8 +3,11 @@ import CrudProducts from "../service/CrudProducts";
 import PostProduct from "../service/CrudProducts/postProduct";
 import getProducts from "../service/CrudProducts/getProducts";
 import deleteProductsExtern from "../service/CrudProducts/deleteProductsExtern";
+import {NavLink} from "react-router-dom";
 import uuid from 'react-uuid';
 import Swal from "sweetalert2";
+import cpu from "../assets/cpu.svg";
+import auriculares from "../assets/auriculares.svg";
 
 import { useTheContext } from "../Context/ContextProducts";
 
@@ -69,8 +72,25 @@ function CrudForm() {
   return (
     <>
     <div className="crudForm">
-        <h2>Añade el producto</h2>
-        <form >
+            <div style={{display: "flex", gap: "30px", marginTop: "200px"}}>
+                <div>
+                    <p>Gestionar Interno</p>
+                    <NavLink to= "/InternStorage">
+                    <button className="btnGestion" ><img src={cpu} /></button>
+                    </NavLink>
+                </div>
+
+                <div>
+                    <p>Gestionar Externo</p>
+                    <NavLink to= "/ExternStorage">
+                    <button className="btnGestion" ><img src={auriculares} /></button>
+                    </NavLink>
+                </div>
+                  
+            </div>
+            
+            <form className="formCrud" >
+                <h2>Añade el producto</h2>
                 <label >Nombre del Componente o Periferico</label>
                 <br/>
                 <input type="text" onChange={(e) => setNombre(e.target.value)} required/>
@@ -105,38 +125,39 @@ function CrudForm() {
                 <input type="text" onChange={(e) => setImg(e.target.value)} required/>
                 <br />
         
-            <br />
-            <p>Categoria del Periferico:</p>
-            <select onChange={(e) => setCategoria(e.target.value)} >
-                <option value="s" >Seleccionar</option>
-                <option value="Teclado">Teclado</option>
-                <option value="Raton" >Raton</option>
-                <option value="Microfono" >Microfono</option>
-                <option value="Camara" >Camara</option>
-                <option value="Gabinete">Gabinete</option>
-                <option value="FuentesAlimentacion" >Fuentes de alimentacion </option>
-                <option value="Audio" >Audio</option>
-                <option value="Mandos" >Mandos</option>
-                <option value="Sillas" >Silla</option>
-                <option value="Monitores" >Monitores</option>
+                <br />
+                <p>Categoria del Periferico:</p>
+                <select onChange={(e) => setCategoria(e.target.value)} >
+                    <option value="s" >Seleccionar</option>
+                    <option value="Teclado">Teclado</option>
+                    <option value="Raton" >Raton</option>
+                    <option value="Microfono" >Microfono</option>
+                    <option value="Camara" >Camara</option>
+                    <option value="Gabinete">Gabinete</option>
+                    <option value="FuentesAlimentacion" >Fuentes de alimentacion </option>
+                    <option value="Audio" >Audio</option>
+                    <option value="Mandos" >Mandos</option>
+                    <option value="Sillas" >Silla</option>
+                    <option value="Monitores" >Monitores</option>
 
-            </select>
-            <br />
+                </select>
+                <br />
 
-            <div className="divRadios">
-                <div>
-                    Externo
-                    <input id="radio" className="hardwareExterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option" />
+                <div className="divRadios">
+                    <div>
+                        Externo
+                        <input id="radio" className="hardwareExterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option" />
+                    </div>
+                    <div>
+                        Interno
+                        <input id="radio" className="hardwareInterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
+                    </div>
+                    
                 </div>
-                <div>
-                    Interno
-                    <input id="radio" className="hardwareInterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
-                </div>
-                
-            </div>
-        
-            <button onClick={handleClick}>Registrar Producto</button>
-        </form>
+            
+                <button style={{fontSize:"24px", padding: "10px", borderRadius: "10px", backgroundColor: "#48e", color:"white"}} onClick={handleClick}>Registrar Producto</button>
+            </form>
+
     </div>
            
 

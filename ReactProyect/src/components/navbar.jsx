@@ -134,6 +134,10 @@ import { useTheContext } from "../Context/ContextProducts";
                 <p>{info[0].correo}</p>
                 <strong>Contraseña:</strong>
                 <p>{info[0].contra}</p>
+
+                {adminStatus && (
+                  <p style={{color: "blue"}}>-Administrador Activo-</p>
+                )}
               </div>
             <div className='cajasDivInfo'>
               <p style={{fontSize: "20px"}}>Compras Realizadas:</p>

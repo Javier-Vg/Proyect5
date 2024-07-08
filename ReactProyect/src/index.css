@@ -95,12 +95,21 @@ body{
 }
 
 .crudForm{
+  display: grid;
+  grid-template-columns: repeat(2,350px);
+  justify-content: center;
+  margin-right: 200px;
+
+  
+
+}
+
+.formCrud{
   text-align: center;
   border: 3px solid white;
   border-radius: 15px;
   width: 500px;
   margin: auto;
-  
 }
 
 input[type=radio] {
@@ -266,8 +275,8 @@ input[type=radio] {
   width: 1600px;
   position: relative;
   mask-image: linear-gradient(
-    black 80%,
-    transparent
+    transparent,
+    black 99%
   );
 }
 
@@ -405,3 +414,39 @@ li{
   );
 }
 
+
+.btnGestion{
+  background-color: transparent;
+  border: none;
+  justify-content: center;
+}
+
+.h1Home{
+  position: absolute;
+  margin-left: 550px;
+  margin-top: 100px; 
+  z-index: 1;
+  font-family: "impact";
+}
+
+.btnHome{
+  position: absolute;
+  margin-left: 620px;
+  margin-top: 160px;
+  background-color: #0008;
+  border: 5px solid black;
+  border-radius: 5px;
+  color: white;
+  font-size: 35px;
+  padding: 20px;
+  width: 330px;
+  z-index: 1;
+  font-family: "impact";
+  transition: all 1s ease;
+}
+
+.btnHome:hover{
+  border-color: white;
+  background-color: transparent;
+ 
+}
