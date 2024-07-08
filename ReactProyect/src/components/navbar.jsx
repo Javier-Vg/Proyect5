@@ -10,11 +10,17 @@ import LoginVerificador from '../components/loginVerificador';
 import usuario from "../assets/usuario.svg";
 import ajustes from "../assets/ajustes.svg";
 import Swal from "sweetalert2";
-
+import { useTheContext } from "../Context/ContextProducts";
 
     function Nabvar() {
 
+      let [info, setInfo] = useState([])
+
+      const {Users} = useTheContext();
+      
+
       let [modal, setModal] = useState(false)
+      let [reload, setReload] = useState(1)
 
       let sesion = localStorage.getItem("userValid");
       let adminStatus = localStorage.getItem("Admin");
@@ -23,10 +29,19 @@ import Swal from "sweetalert2";
         localStorage.removeItem("userActive")
         localStorage.removeItem("Admin")
         localStorage.removeItem("userValid")
+        setReload(2)
       }
 
       let InfoPersonal = () =>{
         if (sesion) {
+          //Itera para encontrar el usuario por medio del id
+          for (const i in Users) {
+            if (Users[i].id == sesion) {
+              setInfo([Users[i]])
+            }
+          }
+
+
           setModal(!modal)
         }else{
           Swal.fire({
@@ -34,7 +49,6 @@ import Swal from "sweetalert2";
             text: "Registrese para ver su informacion"
           })
         }
-       
       }
 
       //Actualiza cada que cierre sesion
@@ -44,7 +58,7 @@ import Swal from "sweetalert2";
           <>
           <Navbar expand="lg" className="bg-body-tertiary">
             <Container className='containerNav'>
-              <Navbar.Brand href="#home">JavWare</Navbar.Brand>
+              <Navbar.Brand ><NavLink id='navLinks' to="/home">JavWare</NavLink></Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
@@ -73,6 +87,7 @@ import Swal from "sweetalert2";
                         {sesion && (
                           <NavDropdown.Item href="#action/3.4">
                                 <button className='btnCloseSesion' onClick={handleClick}>Cerrar sesion</button>
+
                           </NavDropdown.Item>
                         )}
 
@@ -81,7 +96,10 @@ import Swal from "sweetalert2";
 
                 <Nav>
                   {/*Muestra el usuario en el nabvar*/}
-                  <p id='pNav'><LoginVerificador/></p>
+                  {sesion && (
+                      <p id='pNav'><LoginVerificador/></p>
+                  )}
+                  
 
                   <div style={{marginTop: "2px", padding: "5px"}}>
                     <button onClick={InfoPersonal} style={{border:"none", backgroundColor:"white"}}><img src={usuario} alt="user" /></button>
@@ -100,12 +118,33 @@ import Swal from "sweetalert2";
           </Navbar>
 
           {modal &&(
-            
             <dialog className='modalInfoP' open>
-              <h1>Informacion Personal</h1>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam cumque libero unde, perferendis nostrum necessitatibus repudiandae eius deleniti beatae enim tempore, sunt sint similique! Fuga itaque perferendis explicabo dolorem ipsa?
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur exercitationem, neque unde explicabo ducimus rem laborum provident ullam nihil reiciendis quis, aut eos a repellendus deleniti. Sapiente adipisci velit inventore.
-
+              
+              <div className='cajasDivInfo'>
+                <h2 style={{fontFamily: "sans-serif"}}>Informacion Personal:</h2>
+                <strong>Nombre:</strong>
+                <p>{info[0].usuario}</p>            
+                <strong>Username:</strong>
+                <p>{info[0].username}</p>
+                <strong>Provincia:</strong>
+                <p>{info[0].provincia}</p>
+                {/* <strong>Nombre de Usuario</strong>
+                <p>{info[0].id}</p> */}
+                <strong>Correo:</strong>
+                <p>{info[0].correo}</p>
+                <strong>Contraseña:</strong>
+                <p>{info[0].contra}</p>
+              </div>
+            <div className='cajasDivInfo'>
+              <p style={{fontSize: "20px"}}>Compras Realizadas:</p>
+                  
+            </div>
+            <div className='cajasDivInfo'>
+              <p style={{fontSize: "20px"}}>Carrito:</p>
+                  
+            </div>
+                
+            
             </dialog>   
           
           )}

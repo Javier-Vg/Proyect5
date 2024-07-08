@@ -63,10 +63,7 @@ function CrudForm() {
         }else{
 
             PostProduct(NewProduct , hardware)
-        }
-
-
-             
+        }     
     }
 
   return (
@@ -120,7 +117,9 @@ function CrudForm() {
                 <option value="FuentesAlimentacion" >Fuentes de alimentacion </option>
                 <option value="Audio" >Audio</option>
                 <option value="Mandos" >Mandos</option>
-                <option value="Silla" >Silla</option>
+                <option value="Sillas" >Silla</option>
+                <option value="Monitores" >Monitores</option>
+
             </select>
             <br />
 

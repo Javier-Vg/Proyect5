@@ -2,8 +2,56 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useTheContext } from '../../Context/ContextProducts';
 import out from "../../assets/out.svg";
+import carrito from "../../assets/carrito.svg";
+import compra from "../../assets/compra.svg";
+import Swal from 'sweetalert2';
 
 function ComplExt() {
+
+  function buy() {
+
+    Swal.fire({
+      text: "¿Cuantas unidades quieres comprar de este producto?",
+      input: "range",
+
+
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Comprado con exito!",
+          text: "Compraste este producto.",
+          icon: "success"
+        });
+      }
+    });
+    
+  }
+
+  function car() {
+
+    Swal.fire({
+      text: "¿Quieres agregar este producto al carrito?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Agregado!",
+          text: "Agregaste este producto al carrito.",
+          icon: "success"
+        });
+      }
+    });
+  }
+  
 
     const {ProductsExtern} = useTheContext();
 
@@ -33,8 +81,8 @@ function ComplExt() {
                   <ListGroup.Item>Descuento: {product.Descuento}%</ListGroup.Item>
               </ListGroup>
               <Card.Body>
-                  <Card.Link href="#">Comprar</Card.Link>
-                  <Card.Link href="#">Añadir al carrito</Card.Link>
+                  <Card.Link  onClick={buy}><img src={compra} /></Card.Link>
+                  <Card.Link onClick={car}><img src={carrito} /></Card.Link>
               </Card.Body>
             </Card>
             </div>

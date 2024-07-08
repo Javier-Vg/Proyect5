@@ -40,8 +40,10 @@ function ShowExtern() {
           <option value="s">Sin categoria</option>
           <option value="Teclado">Teclado</option>
           <option value="Raton">Raton</option>
+          <option value="Monitores">Monitor</option>
           <option value="Microfono">Microfono</option>
           <option value="Camara">Camara</option>
+          <option value="Monitores">Monitores</option>
           <option value="Gabinete">Gabinete</option>
           <option value="Fuentes de alimentacion">Fuentes de alimentacion </option>
           <option value="Audio">Audio</option>

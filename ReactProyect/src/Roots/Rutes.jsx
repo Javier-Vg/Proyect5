@@ -19,6 +19,7 @@ function Rutas() {
         <>
           <Router>
             <Routes>
+              
               <Route path='/home' element = {<Home/>}/>
               <Route path='/contact' element = {<Contact/>}/>
               <Route path='/login' element = {<Login/>}/>
@@ -36,6 +37,7 @@ function Rutas() {
                 <Route path='/InternStorage' element = {<AdministParts/>}/>
                 <Route path='/ExternStorage' element = {<AdministPeriferics/>}/>
               </Route>
+
             </Routes>
           </Router>
         </>
