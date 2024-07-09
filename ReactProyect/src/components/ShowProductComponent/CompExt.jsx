@@ -6,12 +6,14 @@ import carrito from "../../assets/carrito.svg";
 import compra from "../../assets/compra.svg";
 import Swal from 'sweetalert2';
 import { useEffect, useRef, useState } from 'react';
+import putStock from '../../service/CrudProducts/putStock';
 
 function ComplExt() {
 
   const {ProductsExtern} = useTheContext();
 
-  const [ids, setId] = useState("fff");
+  const [unidadesState, setUnidades] = useState()
+  const unidadesRef = useRef([])
 
   let contador = useRef(0);
 
@@ -20,6 +22,11 @@ function ComplExt() {
 
   const [Modal, setModal] = useState(false);
 
+  //Resetea el contador al salir del modal
+  if (Modal == false) {
+    contador.current = 0;
+    unidadesRef.current = 0;
+  }
 
   function buy() {
 
@@ -30,34 +37,59 @@ function ComplExt() {
           jjj.current = btn_actual.id
 
           for (const key in ProductsExtern) {
-            console.log(jjj);
-               if (ProductsExtern[key].id == jjj.current) {
+              if (ProductsExtern[key].id == jjj.current) {
                 
-                 //Descuento calcu
-                 for (let index = 0; index < ProductsExtern[key.Descuento]; index++) {   
-                   if (ProductsExtern[key].Descuento > index) {
-                    contador.current+1
+                 //Descuento calculo
+                 let PorcentajeDescuento = ProductsExtern[key].Descuento
+                 console.log(PorcentajeDescuento);
+
+                 for (let index = 100; index > PorcentajeDescuento; index--) {
+                   if (PorcentajeDescuento < index) {
+                    contador.current = contador.current + 1
                   }
                  }
-                 let decimal = 0+","+contador;
-                 alert(decimal)
+
+                 let DescuentoFinal = ((contador.current / 100) * ProductsExtern[key].price)
                  //let Descuento = porcentajeDescuento * ProductsExtern[key].price;
-                 hhh.current = [ProductsExtern[key].Descuento, ProductsExtern[key].price]
-               }
+                 hhh.current = [
+                  ProductsExtern[key].Descuento, 
+                  ProductsExtern[key].price, 
+                  DescuentoFinal, 
+                  ProductsExtern[key].img, 
+                  ProductsExtern[key].stockTotal,
+                  ProductsExtern[key].id 
+                ];
+              }
           }
-
-
-          setModal(!Modal)
-          
-         
+          setModal(!Modal);
           //setId(btn_actual)
-          
         });
     } 
   }
 
+  const SeteoUnidades = (e) =>{
+    setUnidades(e.target.value);
+    unidadesRef.current = [e.target.value];
+ }
 
+  const compraHecha = async () =>{
 
+    let unidadesSeleccionadas = unidadesRef.current[0];
+    let precioProducto = hhh.current[1];
+
+    let gastoTotal = unidadesSeleccionadas * precioProducto;
+    let ChangeStock = hhh.current[4] - unidadesSeleccionadas
+
+    //alert(ChangeStock);
+    
+    let StockDesaumento = {
+      stockTotal: ChangeStock
+    }
+    
+    putStock(hhh.current[5], StockDesaumento, "hardwareExterno")
+
+    //alert(gastoTotal)
+  }
 
   function car() {
 
@@ -78,7 +110,6 @@ function ComplExt() {
       }
     });
   }
-  
 
     return (
       <>
@@ -125,16 +156,32 @@ function ComplExt() {
         ) : (
             <p style={{display: "none"}}>A la venta</p>
         )}
-      </div>
 
+      </div>
 
       {Modal && (
         
-        <dialog open>
-          <p>Precio Original: ${hhh.current[1]}</p>
-          <p>Descuento: {hhh.current[0]}</p>
-          <p>Precio con descuento Aplicado: {hhh.current[2]}</p>
-          <button>Comprar</button>
+        <dialog style={{borderRadius: "14px"}} open>
+          <div style={{display: 'grid', gridTemplateColumns: "220px 350px", padding: "20px", border: "3px solid black", borderRadius: "10px"}}>
+
+            <div>
+              <img src={hhh.current[3]} style={{width: "200px",  height: "200px", borderColor: "red",border: "5px solid black", borderRadius: "10px"}} />
+            </div>
+
+            <div>
+              <p style= {{fontSize: "20px"}}>Precio Original: ${hhh.current[1]}</p >
+              <p style= {{fontSize: "20px"}}>Descuento: {hhh.current[0]}%</p >
+              <p style= {{fontSize: "20px"}}>Precio Final: <p style={{color: "green"}}>${hhh.current[2]}</p></p>
+            </div>
+          </div>
+
+          <div style={{display: "flex", padding:"10px"}}>
+            <div><label >¿Cuantas unidades desea comprar?</label></div>
+            <div><input onChange={ e => SeteoUnidades(e)}  type="range" max={hhh.current[4]} style={{width: "200px"}} /></div>
+            <div><div>{unidadesState}</div></div>
+          </div>
+
+          <button onClick={compraHecha} style={{backgroundColor: "#48e", color:"white", border: "none", fontSize: "25px", borderRadius: "10px"}}>Comprar</button>
         
         </dialog>
       )}

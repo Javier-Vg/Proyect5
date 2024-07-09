@@ -18,10 +18,10 @@ import nodemailer from 'nodemailer';
     // Definir el contenido del cuerpo para el correo electrónico que deseas enviar
 
     const mailOptions = {
-      from: "javior2000@gmail.com",
-      to: "javior0880@gmail.com",
+      from: "jjaviervgg@gmail.com",
+      to: "jjaviervgg@gmail.com",
       subject: "Prueba de correo electrónico con Node.js",
-      text: "¡Hola manito, ya te funciona el nodemailer, yessirrrrr!",
+      text: "¡Se donde vivis!",
     };
 
     // Envía el correo electrónico utilizando el método sendMail del objeto transporter

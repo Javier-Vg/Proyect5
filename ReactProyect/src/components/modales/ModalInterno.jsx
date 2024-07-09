@@ -5,6 +5,7 @@ import putProducts from "../../service/CrudProducts/putProducts";
 import basura from "../../assets/basura.svg";
 import editar from "../../assets/editar.svg";
 import getProducts  from "../../service/CrudProducts/getProducts";
+import deleteProducts from "../../service/CrudProducts/deleteProducts";
 
 const ModalInterno = ({id, isOpen, closeModal }) => {
     let [datos, setDatos] = useState([])
@@ -57,10 +58,7 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
         });
 
         setReload("recargo")
-        
-        fetch(`http://localhost:3005/hardwareInterno/${id}`, {
-          method: 'DELETE',
-        });
+        deleteProducts(id, "hardwareInterno");
 
       } else if (
         /* Read more about handling dismissals below */

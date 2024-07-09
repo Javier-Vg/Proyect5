@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CrudProducts from "../service/CrudProducts";
 import PostProduct from "../service/CrudProducts/postProduct";
 import getProducts from "../service/CrudProducts/getProducts";
-import deleteProductsExtern from "../service/CrudProducts/deleteProductsExtern";
+import deleteProductsExtern from "../service/CrudProducts/deleteProducts";
 import {NavLink} from "react-router-dom";
 import uuid from 'react-uuid';
 import Swal from "sweetalert2";

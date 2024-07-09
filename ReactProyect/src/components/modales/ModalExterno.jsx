@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Swal from 'sweetalert2'
 import putProducts from "../../service/CrudProducts/putProducts";
 import basura from "../../assets/basura.svg";
 import editar from "../../assets/editar.svg";
 import getProducts from "../../service/CrudProducts/getProducts";
+import deleteProducts from "../../service/CrudProducts/deleteProducts";
 
 const ModalExterno = ({id, isOpen, closeModal }) => {
   
   let [datos, setDatos] = useState([])
 
-    let [stock, setStock] = useState()
-    let [nombre, setNombre] = useState()
-    let [precio, setPrecio] = useState()
-    let [marca, setMarca] = useState()
-    let [imgUrl, setImg] = useState()
+  let [stock, setStock] = useState()
+  let [nombre, setNombre] = useState()
+  let [precio, setPrecio] = useState()
+  let [marca, setMarca] = useState()
+  let [descuento, setDescuento] = useState()
+  let [imgUrl, setImg] = useState()
+
+  const [Reload, setReload] = useState(false)
 
   const [modalExt, setModall] = useState(false);
+
 
   function handleChange(e) {
     setStock(e.target.value);
@@ -34,6 +39,7 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
       },
       buttonsStyling: false
     });
+
     swalWithBootstrapButtons.fire({
       title: "¿Estas seguro de eliminar este producto?",
       icon: "warning",
@@ -43,16 +49,14 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
+         swalWithBootstrapButtons.fire({
+           title: "Tu producto fue eliminado del sistema.",
+           icon: "success"
 
-        swalWithBootstrapButtons.fire({
-          title: "Tu producto fue eliminado del sistema.",
-          icon: "success"
-        });
+         });
+        deleteProducts(id, "hardwareExterno");
+        setReload(!Reload);
         
-        fetch(`http://localhost:3005/hardwareExterno/${id}`, {
-          method: 'DELETE',
-        });
-
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
@@ -65,11 +69,12 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
       }
     });
   }
+
   async function edit() {
     let respuesta = await getProducts(id, "hardwareExterno");
     //Añado la informacion del get en un hook, para luego utilizarla y darle valor a los inputs de edicion del producto
 
-    setDatos([respuesta.CoP,respuesta.price, respuesta.brand, respuesta.stockTotal, respuesta.img])
+    setDatos([respuesta.CoP,respuesta.price, respuesta.brand, respuesta.stockTotal, respuesta.img, respuesta.Descuento])
     setModall(!modalExt)
     //alert(id)
   }
@@ -82,11 +87,13 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
           price: precio,
           stockTotal: stock,
           brand: marca,
+          Descuento: descuento,
           img: imgUrl
       }
 
       //Llama al metodo PUT:
       putProducts(id, ModificProduct, "hardwareExterno")
+
   }
 
   return (
@@ -116,6 +123,11 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
           <input placeholder={datos[3]}  type="range" onChange={handleChange} required/>
           <p>{stock}</p>   
 
+          <label >Descuento del producto:</label>
+          <br/>
+          <input placeholder={datos[5]} type="text" onChange={(e) => setDescuento(e.target.value)} required/>
+          <br />
+
           <br />
           <label >Url del producto:</label>
           <br/>
@@ -125,8 +137,8 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
                       
           <button style={{marginLeft: "50px", borderRadius: "15px"}} onClick={handleClick}>Editar Producto</button>
         </form>
-
       </dialog>
+
     )}
     
     <div className="modal">
@@ -145,7 +157,6 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
     
     </>
 
-    
   );
 };
 
