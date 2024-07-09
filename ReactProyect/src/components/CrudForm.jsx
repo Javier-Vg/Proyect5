@@ -86,7 +86,6 @@ function CrudForm() {
                     <button className="btnGestion" ><img src={auriculares} /></button>
                     </NavLink>
                 </div>
-                  
             </div>
             
             <form className="formCrud" >

@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 
 function ComplInt() {
 
-
   function buy() {
 
     Swal.fire({

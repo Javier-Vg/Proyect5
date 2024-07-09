@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import getProducts from "../service/CrudProducts/getProducts"
 import Card from 'react-bootstrap/Card';
 import { useTheContext } from "../Context/ContextProducts";
-import ModalExterno from "./ModalExterno";
+import ModalExterno from "./modales/ModalExterno";
 import gestionar from "../assets/gestionar.svg";
 
 function ElementosExtern() {
@@ -47,6 +47,7 @@ function ElementosExtern() {
                             </Card.Body>
                             </Card> 
                         </div> 
+                        
                         { <ModalExterno id={id} isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} /> }
                         </>
                     )

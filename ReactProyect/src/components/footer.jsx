@@ -39,9 +39,9 @@ function Footer() {
         <div className="subDivF2">
             <div className="redesDiv">
                 
-                <div className= "divsTextFoter"><img  src={instagram} /></div>
-                <div className= "divsTextFoter"><img  src={facebook} /></div>
-                <div className= "divsTextFoter"><img src={kedin} /></div>
+                <div className= "divsTextFoter"><a href="https://www.instagram.com/" target='blank'> <img  src={instagram} /></a></div>
+                <div className= "divsTextFoter"> <a href="https://www.facebook.com/" target='blank'><img  src={facebook} /> </a></div>
+                <div className= "divsTextFoter"><a href="https://www.linkedin.com/" target='blank'><img src={kedin} /></a></div>
             </div>
             <br />
             <div className= "divsTextFoter">Comunidad</div>

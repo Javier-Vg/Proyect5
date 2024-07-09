@@ -21,7 +21,7 @@ function ShowExtern() {
       card.textContent.toLowerCase().includes(category.toLowerCase())
       ? card.classList.remove("filtro")
       : card.classList.add("filtro")
-    })
+  })
 
   return (
     <>

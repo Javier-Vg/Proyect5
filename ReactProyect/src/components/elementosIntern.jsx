@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import ModalInterno from "./ModalInterno";
+import ModalInterno from "./modales/ModalInterno";
 import { useTheContext } from "../Context/ContextProducts";
 import gestionar from "../assets/gestionar.svg";
 

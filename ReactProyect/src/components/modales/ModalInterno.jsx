@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Swal from 'sweetalert2'
-import putProducts from "../service/CrudProducts/putProducts";
-import basura from "../assets/basura.svg";
-import editar from "../assets/editar.svg";
-import getProducts  from "../service/CrudProducts/getProducts";
+import putProducts from "../../service/CrudProducts/putProducts";
+import basura from "../../assets/basura.svg";
+import editar from "../../assets/editar.svg";
+import getProducts  from "../../service/CrudProducts/getProducts";
 
 const ModalInterno = ({id, isOpen, closeModal }) => {
     let [datos, setDatos] = useState([])
+
+    let [reload, setReload] = useState()
 
     let [stock, setStock] = useState(0)
     let [nombre, setNombre] = useState(0)
     let [precio, setPrecio] = useState(0)
     let [marca, setMarca] = useState(0)
     let [imgUrl, setImg] = useState(0)
-  
+
+    
+    useEffect(() => {
+      console.log("recarga de page");
+    },[reload])
 
     const [modal, setModal] = useState(false);
 
@@ -49,6 +55,8 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
           title: "Tu producto fue eliminado del sistema.",
           icon: "success"
         });
+
+        setReload("recargo")
         
         fetch(`http://localhost:3005/hardwareInterno/${id}`, {
           method: 'DELETE',
@@ -93,7 +101,7 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
   return (
     <>
     { modal && (
-        <dialog className="M-intE" open>
+        <dialog style={{zIndex: "3"}} className="M-int" open>
                 <form>
                     <label >Nombre del Componente o Periferico</label>
                     <br/>

@@ -10,7 +10,6 @@ function Home() {
   return (
     <>
         <Nabvar/>
-        
         <h1 className='h1Home'>Descubre nuevos productos</h1>
         <button className='btnHome' >Descubrir</button>
 
@@ -21,7 +20,7 @@ function Home() {
         {/* <img className='fondoDragon' src={fondoDragon} alt="h" /> */}
         <br />
         <br />
-        <h1 style={{textAlign: "center", fontFamily: "impact"}}>Productos</h1>
+        <h1 style={{textAlign: "center", fontFamily: "arial"}}>Productos Disponibles</h1>
         <CarouselElementos/>
         <Footer/>
     </>
