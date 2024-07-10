@@ -95,15 +95,14 @@ import { useTheContext } from "../Context/ContextProducts";
                 </Nav>
 
                 <Nav>
+
                   {/*Muestra el usuario en el nabvar*/}
                   {sesion && (
                       <p id='pNav'><LoginVerificador/></p>
                   )}
                   
-
                   <div style={{marginTop: "2px", padding: "5px"}}>
                     <button onClick={InfoPersonal} style={{border:"none", backgroundColor:"white"}}><img src={usuario} alt="user" /></button>
-                    
                   </div>
                   
                         
@@ -141,10 +140,12 @@ import { useTheContext } from "../Context/ContextProducts";
               </div>
             <div className='cajasDivInfo'>
               <p style={{fontSize: "20px"}}>Compras Realizadas:</p>
+              <p>Gastos Totales: {info[0].compras}$</p>
                   
             </div>
             <div className='cajasDivInfo'>
               <p style={{fontSize: "20px"}}>Carrito:</p>
+              <p>{info[0].carrito}</p>
                   
             </div>
                 

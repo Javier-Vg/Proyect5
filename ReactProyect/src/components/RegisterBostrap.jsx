@@ -58,7 +58,8 @@ function LoginBostrap() {
         usuario: NombreReal,
         provincia: Provincia,
         username: NameUser,
-        
+        compras: "0",
+        carrito: "0"
       }
 
       let corteDeFlujo = false;

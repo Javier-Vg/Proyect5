@@ -22,7 +22,7 @@ function LoginBostrap() {
           
             if (email.correo == correoLogin && email.contra == correoLoginContra) {
                 alert("Inicio de sesion exitoso")
-                localStorage.setItem("userActive",correoLogin );
+                localStorage.setItem("userActive",email );
                 localStorage.setItem("userValid",email.id );
                 if (correoLogin == "jvargas@fwdcostarica.com"){
                   localStorage.setItem("Admin",true ); 

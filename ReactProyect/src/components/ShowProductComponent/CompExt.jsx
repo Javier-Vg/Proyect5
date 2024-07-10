@@ -6,19 +6,25 @@ import carrito from "../../assets/carrito.svg";
 import compra from "../../assets/compra.svg";
 import Swal from 'sweetalert2';
 import { useEffect, useRef, useState } from 'react';
-import putStock from '../../service/CrudProducts/putStock';
+import putPatch from '../../service/putPatch';
 
 function ComplExt() {
 
-  const {ProductsExtern} = useTheContext();
+  const {ProductsExtern, Users} = useTheContext();
+  let sesion = localStorage.getItem("userValid");
 
   const [unidadesState, setUnidades] = useState()
   const unidadesRef = useRef([])
+
+  //***************** */
+  const recarga = useRef([]);
+  //******************* */
 
   let contador = useRef(0);
 
   const hhh = useRef()
   const jjj = useRef([])
+  const stock = useRef([])
 
   const [Modal, setModal] = useState(false);
 
@@ -27,14 +33,15 @@ function ComplExt() {
     contador.current = 0;
     unidadesRef.current = 0;
   }
-
+  
   function buy() {
 
     const botones = document.getElementsByClassName('card');
     for (let i = 0; i < botones.length; i++) {
         botones[i].addEventListener("click", function() {
           let btn_actual = this;
-          jjj.current = btn_actual.id
+          jjj.current = btn_actual.id;
+          stock.current = btn_actual.stockTotal;
 
           for (const key in ProductsExtern) {
               if (ProductsExtern[key].id == jjj.current) {
@@ -72,7 +79,7 @@ function ComplExt() {
     unidadesRef.current = [e.target.value];
  }
 
-  const compraHecha = async () =>{
+  const compraRealizada = () =>{
 
     let unidadesSeleccionadas = unidadesRef.current[0];
     let precioProducto = hhh.current[1];
@@ -85,11 +92,28 @@ function ComplExt() {
     let StockDesaumento = {
       stockTotal: ChangeStock
     }
+
     
-    putStock(hhh.current[5], StockDesaumento, "hardwareExterno")
+    
+    putPatch(hhh.current[5], StockDesaumento, "hardwareExterno");
+
+    for (const key in Users) {
+     if (Users[key].id == sesion) {
+      console.log(Users[key]);
+
+      let GastoGeneral = {
+        compras: ((gastoTotal)+(Users[key].compras))
+      }
+
+      putPatch(sesion, GastoGeneral, "users")
+     }
+    }
+  
+    setModal(!Modal)
 
     //alert(gastoTotal)
-  }
+  };
+
 
   function car() {
 
@@ -114,31 +138,32 @@ function ComplExt() {
     return (
       <>
       <div className='CompIntDiv'>
-            
         {ProductsExtern.map((product) => {
           return(
+            
             <div id="categoria" className='filter' key={product}>
-            <Card  style={{ width: '15rem' }}>
-              <Card.Img className='imgProducClient' variant="top" src={product.img} />
-              <Card.Body>
-                  <Card.Title>{product.CoP}</Card.Title>
-                  <Card.Text>
-                    <strong>${product.price}</strong>
-                  
-                  </Card.Text>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                  <ListGroup.Item>Marca: {product.Category}</ListGroup.Item>
-                  <ListGroup.Item>Marca: {product.brand}</ListGroup.Item>
-                  <ListGroup.Item>Stock: {product.stockTotal}</ListGroup.Item>
-                  <ListGroup.Item>Fecha de venta: {product.date}</ListGroup.Item>
-                  <ListGroup.Item>Descuento: {product.Descuento}%</ListGroup.Item>
-              </ListGroup>
-              <Card.Body>
-                  <Card.Link  onClick={buy}><img src={compra} id={product.id} className='card'/></Card.Link>
-                  <Card.Link onClick={car}><img src={carrito} id={product.id} className='card'/></Card.Link>
-              </Card.Body>
-            </Card>
+              <Card  style={{ width: '15rem' }}>
+                <Card.Img className='imgProducClient' variant="top" src={product.img} />
+                <Card.Body>
+                    <Card.Title>{product.CoP}</Card.Title>
+                    <Card.Text>
+                      <strong>${product.price}</strong>
+                    
+                    </Card.Text>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroup.Item>Categoria: {product.Category}</ListGroup.Item>
+                    <ListGroup.Item>Marca: {product.brand}</ListGroup.Item>
+                    <ListGroup.Item>Stock: {product.stockTotal}</ListGroup.Item>
+                    <ListGroup.Item>Fecha de venta: {product.date}</ListGroup.Item>
+                    <ListGroup.Item>Descuento: {product.Descuento}%</ListGroup.Item>
+                </ListGroup>
+                <Card.Body>
+                    <Card.Link onClick={buy}><img src={compra} id={product.id} className='card'/></Card.Link>
+                    <Card.Link onClick={car}><img src={carrito} id={product.id} className='card'/></Card.Link>
+                </Card.Body>
+              </Card>
+     
             </div>
           )
         })}
@@ -181,7 +206,7 @@ function ComplExt() {
             <div><div>{unidadesState}</div></div>
           </div>
 
-          <button onClick={compraHecha} style={{backgroundColor: "#48e", color:"white", border: "none", fontSize: "25px", borderRadius: "10px"}}>Comprar</button>
+          <button onClick={compraRealizada} style={{backgroundColor: "#48e", color:"white", border: "none", fontSize: "25px", borderRadius: "10px"}}>Comprar</button>
         
         </dialog>
       )}

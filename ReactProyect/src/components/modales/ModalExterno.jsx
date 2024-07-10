@@ -22,7 +22,6 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
 
   const [modalExt, setModall] = useState(false);
 
-
   function handleChange(e) {
     setStock(e.target.value);
   }
