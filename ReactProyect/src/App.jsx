@@ -1,5 +1,6 @@
 
 7//import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 // import Login from './components/login'
 // import Registros from './components/register'
 // import Page from './pages/start'
@@ -10,7 +11,9 @@ import Rutas from './Roots/Rutes';
 function App() {
 
   return(
+    <>
     <Rutas/>
+    </>
   )
 
 }

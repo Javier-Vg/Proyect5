@@ -22,6 +22,7 @@ function CrudForm() {
     let [hardware, setHardware] = useState()
     let [descuento, setDescuento] = useState()
     let [categoria, setCategoria] = useState()
+    let [Destacado, setDestacado] = useState()
 
     //let [objetoDuplicate, setDuplicate] = useState()
     
@@ -47,6 +48,7 @@ function CrudForm() {
                 shopping: "no tiene compras",
                 Descuento: descuento,
                 Category: categoria,
+                destacado: Destacado,
                 id: uuid()
         }
 
@@ -56,7 +58,6 @@ function CrudForm() {
                 valid = 1;
             }
         }
-
 
         if (valid != 0) {
             Swal.fire({
@@ -72,6 +73,7 @@ function CrudForm() {
   return (
     <>
     <div className="crudForm">
+
             <div style={{display: "flex", gap: "30px", marginTop: "200px"}}>
                 <div>
                     <p>Gestionar Interno</p>
@@ -138,7 +140,6 @@ function CrudForm() {
                     <option value="Mandos" >Mandos</option>
                     <option value="Sillas" >Silla</option>
                     <option value="Monitores" >Monitores</option>
-
                 </select>
                 <br />
 
@@ -151,12 +152,15 @@ function CrudForm() {
                         Interno
                         <input id="radio" className="hardwareInterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
                     </div>
-                    
                 </div>
+                <br />
+                <label >¿Es un producto destacado?:</label>
+                <br/>
+                <input type="checkbox" onChange={(e) => setDestacado(e.target.value)} required/>
+                <br />
             
                 <button style={{fontSize:"24px", padding: "10px", borderRadius: "10px", backgroundColor: "#48e", color:"white"}} onClick={handleClick}>Registrar Producto</button>
             </form>
-
     </div>
            
 

@@ -91,8 +91,7 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
       }
 
       //Llama al metodo PUT:
-      putProducts(id, ModificProduct, "hardwareExterno")
-
+      putProducts(id, ModificProduct, "hardwareExterno");
   }
 
   return (
@@ -137,7 +136,6 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
           <button style={{marginLeft: "50px", borderRadius: "15px"}} onClick={handleClick}>Editar Producto</button>
         </form>
       </dialog>
-
     )}
     
     <div className="modal">

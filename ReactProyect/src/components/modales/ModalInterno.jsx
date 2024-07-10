@@ -17,14 +17,13 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
     let [precio, setPrecio] = useState(0)
     let [marca, setMarca] = useState(0)
     let [imgUrl, setImg] = useState(0)
-
+    let [descuento, setDescuento] = useState(0)
     
     useEffect(() => {
       console.log("recarga de page");
     },[reload])
 
     const [modal, setModal] = useState(false);
-
 
     function handleChange(e) {
         setStock(e.target.value);
@@ -72,17 +71,13 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
       }
     });
   }
-
   async function edit() {
     let respuesta = await getProducts(id, "hardwareInterno");
     //Añado la informacion del get en un hook, para luego utilizarla y darle valor a los inputs de edicion del producto
-    setDatos([respuesta.CoP,respuesta.price, respuesta.brand, respuesta.stockTotal, respuesta.img])
-    
+    setDatos([respuesta.CoP,respuesta.price, respuesta.brand, respuesta.stockTotal, respuesta.img, respuesta.Descuento])
     setModal(!modal)
   }
-
     const handleClick = () => {
-
       //Llamo a put
       //Crea el nuevo objeto con los valores modificados
         let ModificProduct = {
@@ -90,12 +85,13 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
             price: precio,
             stockTotal: stock,
             brand: marca,
-            img: imgUrl
-        }
-        
+            img: imgUrl,
+            Descuento: descuento
+        };
         putProducts(id, ModificProduct, "hardwareInterno")
         //Llama al metodo PUT:
     }
+
   return (
     <>
     { modal && (
@@ -110,7 +106,6 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
                     <br/>
                     <input placeholder={datos[1]} type="text" onChange={(e) => setPrecio(e.target.value)} required/>
                     <br />
-                        
                     <label >Marca del producto</label>
                     <br/>
                     <input placeholder={datos[2]} type="text" onChange={(e) => setMarca(e.target.value)} required/>
@@ -120,20 +115,21 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
                     <br/>
                     <input placeholder={datos[3]}  type="range" onChange={handleChange} required/>
                     <p>{stock}</p>   
-
                     <br />
                     <label >Url del producto:</label>
                     <br/>
                     <input placeholder={datos[4]} type="text" onChange={(e) => setImg(e.target.value)} required/>
                     <br />
                     <br />
-                    
-                    <button style={{marginLeft: "50px", borderRadius: "15px"}} onClick={handleClick}>Editar Producto</button>
+                    <label >Descuento del producto:</label>
+                    <br/>
+                    <input placeholder={datos[5]} type="text" onChange={(e) => setDescuento(e.target.value)} required/>
+                    <br />
+                    <br />
+                    <button style={{margin: "auto", borderRadius: "15px"}} onClick={handleClick}>Editar Producto</button>
                 </form>
-
             </dialog>
     )}
-    
     <div className="modal">
 
       <AiOutlineClose
@@ -147,7 +143,6 @@ const ModalInterno = ({id, isOpen, closeModal }) => {
         <button style={{background: "none", border: "none"}} onClick={edit}><img src={editar} alt="edit" /></button>
       </div>
     </div>
-
     </>
   );
 };

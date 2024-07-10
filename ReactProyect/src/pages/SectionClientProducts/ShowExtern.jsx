@@ -5,7 +5,7 @@ import busqueda from "../../assets/busqueda.svg"
 import { useEffect, useState } from "react";
 function ShowExtern() {
 
-  let [category, setCategory] = useState()
+  let [category, setCategory] = useState();
 
   //Filtra por busqueda.
   document.addEventListener("keyup", e =>{

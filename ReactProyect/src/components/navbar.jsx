@@ -14,10 +14,9 @@ import { useTheContext } from "../Context/ContextProducts";
 
     function Nabvar() {
 
-      let [info, setInfo] = useState([])
+      let [info, setInfo] = useState([]);
 
       const {Users} = useTheContext();
-      
 
       let [modal, setModal] = useState(false)
       let [reload, setReload] = useState(1)
@@ -40,7 +39,6 @@ import { useTheContext } from "../Context/ContextProducts";
               setInfo([Users[i]])
             }
           }
-
 
           setModal(!modal)
         }else{
@@ -93,7 +91,6 @@ import { useTheContext } from "../Context/ContextProducts";
 
                     </NavDropdown>
                 </Nav>
-
                 <Nav>
 
                   {/*Muestra el usuario en el nabvar*/}
@@ -105,7 +102,6 @@ import { useTheContext } from "../Context/ContextProducts";
                     <button onClick={InfoPersonal} style={{border:"none", backgroundColor:"white"}}><img src={usuario} alt="user" /></button>
                   </div>
                   
-                        
                   {/*Muestra el boton de crud*/}
                   {adminStatus &&(
                       <NavLink id='navLinkCrud' to="/crud"><img style={{width: "35px", height: "35px"}} src={ajustes} alt="crud" /></NavLink>
@@ -117,10 +113,11 @@ import { useTheContext } from "../Context/ContextProducts";
           </Navbar>
 
           {modal &&(
+    
             <dialog className='modalInfoP' open>
-              
               <div className='cajasDivInfo'>
-                <h2 style={{fontFamily: "sans-serif"}}>Informacion Personal:</h2>
+                <h3 style={{fontFamily: "cursive", fontSize:"25px"}}>Informacion Personal:</h3>
+                <br />
                 <strong>Nombre:</strong>
                 <p>{info[0].usuario}</p>            
                 <strong>Username:</strong>
@@ -138,24 +135,44 @@ import { useTheContext } from "../Context/ContextProducts";
                   <p style={{color: "blue"}}>-Administrador Activo-</p>
                 )}
               </div>
+
             <div className='cajasDivInfo'>
               <p style={{fontSize: "20px"}}>Compras Realizadas:</p>
-              <p>Gastos Totales: {info[0].compras}$</p>
-                  
+              <p>Total de compras: {info[0].CantidadCompras}</p>
+              <p>Gastos Totales: {info[0].comprasRecuento}$</p>
             </div>
+
             <div className='cajasDivInfo'>
-              <p style={{fontSize: "20px"}}>Carrito:</p>
+              <p style={{fontSize: "20px", fontFamily: "arial"}}>Carrito de Compras:</p>
+              <hr />
+
+              <div className='containerModalInfoP'>
+                <p>Producto</p>
+                <p>Precio</p>
+                <p>Cantidad</p>
+                <p>Borrar</p>  
+              </div>
+              <hr style={{margin: "0"}}/>
+
+              <div>
+                AQUI VA A IR EL CARRUTO
+              </div>
+
+              <hr />
+
+              <div>
+                <button style={{marginLeft: "340px"}}>Encargar</button>
+              </div>
+              
+              
               <p>{info[0].carrito}</p>
-                  
             </div>
-                
             
             </dialog>   
           
           )}
 
           </>
-          
           
         )
       }

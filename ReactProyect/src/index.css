@@ -139,6 +139,7 @@ input[type=radio] {
   font-size: 18px;
   border-radius: 15px;
   position: absolute;
+  
 }
 
 .modalExt{
@@ -168,12 +169,13 @@ input[type=radio] {
 .modalInfoP{
   display: grid;
   position: fixed;
-  grid-template-columns: repeat(2,300px);
-  grid-template-rows: repeat(2,270px);
+  grid-template-columns: 300px 450px;
+  grid-template-rows: 170px 310px;
   justify-content: center;
-  gap: 30px;
-  z-index: 1;
+  gap: 20px;
+  z-index: 5;
   margin: auto;
+  flex-wrap: wrap;
   border-radius: 20px;
   width: 700px;
   height: 600px;
@@ -199,8 +201,11 @@ input[type=radio] {
 }
 
 .cajasDivInfo:nth-child(3){
-  border: 5px solid #48e;
+  border: 6px solid black;
   border-radius: 10px;
+  overflow:auto;
+  overflow-x:hidden;
+
   grid-column-start: 2;
   
 }
@@ -334,7 +339,8 @@ option{
   display: grid;
   grid-template-columns: repeat(5, 250px);
   gap: 15px;
-  justify-content: center
+  justify-content: center;
+  position: relative;
 }
 
 .imgProducClient{
@@ -489,3 +495,24 @@ li{
   }
 }
 
+/*Modal Proceso Compra*/
+.divModalProcesoCompra{
+  width: 500px;
+  height: 520px;
+  background-color: #fff;
+  color: black;
+  font-size: 18px;
+  border-radius: 15px;
+  position: relative;
+  z-index: 5;
+  margin-left: 600px;
+
+}
+
+/*Contenedor modal*/
+.containerModalInfoP{
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4,110px);
+  
+}

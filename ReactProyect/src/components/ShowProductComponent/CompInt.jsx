@@ -75,8 +75,12 @@ function ComplInt() {
                 <ListGroup.Item>Descuento: {product.Descuento}%</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-            <Card.Link  onClick={buy}><img src={compra} /></Card.Link>
-            <Card.Link onClick={car}><img src={carrito} /></Card.Link>
+            <div style={{display: "grid", gridTemplateColumns: "40px 300px", gridTemplateRows: "40px 40px"}}>
+              <div><Card.Link onClick={buy}><img src={compra} id={product.id} className='card'/></Card.Link></div>
+              <div style={{color: "blue"}}>Comprar Producto</div>
+              <div><Card.Link onClick={car}><img src={carrito} id={product.id} className='card'/></Card.Link></div>
+              <div style={{color: "blue"}}>Agregar Carrito</div>
+            </div>
             </Card.Body>
             </Card>
             </div>

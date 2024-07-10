@@ -13,10 +13,16 @@ export function DataContextProvider({children}) {
 
     const [Mix, setMix] = useState([]);
 
+    const [load, setLoad] = useState([]);
+
     const [Users, setUsers] = useState([]);
 
     //Contexto del getProductos
     //Retorna id especifico
+
+    useEffect(()=>{
+        console.log("que?");
+    },[]);
 
     useEffect(() => {
         axios.get('http://localhost:3005/hardwareExterno')
@@ -25,12 +31,10 @@ export function DataContextProvider({children}) {
             CallingExterno(response.data)
         })
         function CallingExterno(JSONN) {
-            console.log(JSONN);
             setExtern(JSONN)
-
         }
-    },[])
-
+        setLoad(2)
+    },[]);
 
     useEffect(() => {
         axios.get('http://localhost:3005/hardwareInterno')
@@ -40,11 +44,10 @@ export function DataContextProvider({children}) {
         })
         function CallingInterno(JSONN) {
 
-            console.log(JSONN);
             setIntern(JSONN)
         }
-    },[])
-
+        setLoad(2)
+    },[]);
 
     useEffect(() => {
         axios.get('http://localhost:3005/users')
@@ -57,14 +60,13 @@ export function DataContextProvider({children}) {
             console.log(JSONN);
             setUsers(JSONN)
         }
-    },[])
+        setLoad(2)
+    },[]);
 
-    
     useEffect(() => {
         setMix([...ProductsExtern, ...ProductsIntern])
-    },[ProductsExtern, ProductsIntern])
+    },[ProductsExtern, ProductsIntern]);
 
-    console.log(Mix);
 
     return(
         <DataContext.Provider value={{ProductsIntern, ProductsExtern, Users, Mix}}>
@@ -72,7 +74,6 @@ export function DataContextProvider({children}) {
         </DataContext.Provider>
     )
 }
-
 
 let useTheContext = () => useContext(DataContext)
 

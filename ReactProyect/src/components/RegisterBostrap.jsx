@@ -58,7 +58,8 @@ function LoginBostrap() {
         usuario: NombreReal,
         provincia: Provincia,
         username: NameUser,
-        compras: "0",
+        comprasRecuento: 0,
+        CantidadCompras: 0,
         carrito: "0"
       }
 
@@ -76,19 +77,23 @@ function LoginBostrap() {
 
           break;
         }
-
         //Regex
         let key = infoP[clave]
-        key = key.replace(/^\s+|\s$/g, "")
+        if (key == 0) {
+          continue;
+        }else{
+          key = key.replace(/^\s+|\s$/g, "");
 
-        if (infoP[clave] == undefined || key == ""){
-
-          Swal.fire({
-            icon: "error",
-            title: "Espacios incompletos"
-          })
-          return (false)
+          if (infoP[clave] == undefined || key == ""){
+  
+            Swal.fire({
+              icon: "error",
+              title: "Espacios incompletos"
+            })
+            return (false)
+          }
         }
+        
       }
 
       if (corteDeFlujo == false) {

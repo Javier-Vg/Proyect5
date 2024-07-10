@@ -5,19 +5,29 @@ import out from "../../assets/out.svg";
 import carrito from "../../assets/carrito.svg";
 import compra from "../../assets/compra.svg";
 import Swal from 'sweetalert2';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import putPatch from '../../service/putPatch';
 
 function ComplExt() {
 
   const {ProductsExtern, Users} = useTheContext();
+
   let sesion = localStorage.getItem("userValid");
+
 
   const [unidadesState, setUnidades] = useState()
   const unidadesRef = useRef([])
 
+  let ProductoEnCarrito = useRef()
+
+
+  // useEffect(()=>{
+  //   setContxt(ProductsExtern);
+  // },[contxt]);
+
   //***************** */
   const recarga = useRef([]);
+  const [reload, setReload] = useState(0);
   //******************* */
 
   let contador = useRef(0);
@@ -28,16 +38,21 @@ function ComplExt() {
 
   const [Modal, setModal] = useState(false);
 
-  //Resetea el contador al salir del modal
+  //Resetea el contador al salir del modal.
   if (Modal == false) {
     contador.current = 0;
     unidadesRef.current = 0;
   }
   
   function buy() {
-
-    const botones = document.getElementsByClassName('card');
-    for (let i = 0; i < botones.length; i++) {
+    if (sesion == undefined) {
+      Swal.fire({
+        icon: "info",
+        text:"Tiene que registrarse para comprar productos."
+      })
+    }else{
+      const botones = document.getElementsByClassName('card');
+      for (let i = 0; i < botones.length; i++) {
         botones[i].addEventListener("click", function() {
           let btn_actual = this;
           jjj.current = btn_actual.id;
@@ -45,18 +60,25 @@ function ComplExt() {
 
           for (const key in ProductsExtern) {
               if (ProductsExtern[key].id == jjj.current) {
-                
-                 //Descuento calculo
+
+                //Si no hay stock, no puede comprar el producto.
+                if (ProductsExtern[key].stockTotal == 0) {
+                  Swal.fire({
+                    icon: "error",
+                    text:"Este producto esta agotado."
+                  })
+                }else{
+                  //Descuento calculo
                  let PorcentajeDescuento = ProductsExtern[key].Descuento
                  console.log(PorcentajeDescuento);
 
                  for (let index = 100; index > PorcentajeDescuento; index--) {
-                   if (PorcentajeDescuento < index) {
-                    contador.current = contador.current + 1
-                  }
+                    if (PorcentajeDescuento < index) {
+                      contador.current = contador.current + 1
+                    }
                  }
 
-                 let DescuentoFinal = ((contador.current / 100) * ProductsExtern[key].price)
+                 let DescuentoFinal = ((contador.current / 100) * ProductsExtern[key].price);
                  //let Descuento = porcentajeDescuento * ProductsExtern[key].price;
                  hhh.current = [
                   ProductsExtern[key].Descuento, 
@@ -65,13 +87,15 @@ function ComplExt() {
                   ProductsExtern[key].img, 
                   ProductsExtern[key].stockTotal,
                   ProductsExtern[key].id 
-                ];
+                 ];
+                 setModal(!Modal);
+                }
               }
           }
-          setModal(!Modal);
           //setId(btn_actual)
         });
-    } 
+      } 
+    }
   }
 
   const SeteoUnidades = (e) =>{
@@ -93,8 +117,6 @@ function ComplExt() {
       stockTotal: ChangeStock
     }
 
-    
-    
     putPatch(hhh.current[5], StockDesaumento, "hardwareExterno");
 
     for (const key in Users) {
@@ -102,38 +124,114 @@ function ComplExt() {
       console.log(Users[key]);
 
       let GastoGeneral = {
-        compras: ((gastoTotal)+(Users[key].compras))
+        comprasRecuento: ((gastoTotal) + parseInt(Users[key].comprasRecuento)),
+        CantidadCompras: (parseInt(unidadesSeleccionadas) + parseInt(Users[key].CantidadCompras))
       }
-
-      putPatch(sesion, GastoGeneral, "users")
+      putPatch(sesion, GastoGeneral, "users");
      }
     }
-  
-    setModal(!Modal)
 
-    //alert(gastoTotal)
-  };
-
-
-  function car() {
+    setReload(load => load + 1);
+    recarga.current = 2;
+    setModal(!Modal);
 
     Swal.fire({
-      text: "¿Quieres agregar este producto al carrito?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Agregado!",
-          text: "Agregaste este producto al carrito.",
-          icon: "success"
-        });
-      }
+      title: "Comprado Exitosamente!",
+      text: "Tu producto llegara a tu casa lo mas antes posible.",
+      icon: "success"
     });
+
+    //alert(gastoTotal)
   }
+
+
+
+
+
+
+
+
+  function car(e) {
+
+   if (sesion == undefined) {
+      Swal.fire({
+        icon: "info",
+        text:"Tiene que registrarse para comprar productos."
+      });
+
+    }else{
+        Swal.fire({
+          text: "¿Quieres agregar este producto al carrito?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si"
+        }).then((result) => {
+          if (result.isConfirmed) {
+
+            for (const j in Users) {
+              if (Users[j].id == sesion) {
+                if (Users[j].carrito != 0) {
+                  let carroPrevio = Users[j].carrito;
+
+                  for (const i in ProductsExtern) {
+                    if (e.target.id == ProductsExtern[i].id) {
+                      let ProductoEnCarrito = ProductsExtern[i];
+                      console.log(carroPrevio);
+                      console.log(ProductoEnCarrito);
+                      let toguether = [...carroPrevio, ...ProductoEnCarrito];
+                      console.log(toguether);
+                      
+                    }
+                  }
+
+                  //putPatch(sesion, "aca pones el objeto ya iterado", "users");
+
+                }else{
+
+                  for (const i in ProductsExtern) {
+                    if (e.target.id == ProductsExtern[i].id) {
+                      ProductoEnCarrito.current = ProductsExtern[i];
+                      
+                    }
+                  }
+
+                  const Prdct = {
+                    carrito: ProductoEnCarrito.current,
+                    array: []
+
+                  };
+                  
+                  
+                  putPatch(sesion, Prdct, "users");
+                }
+              }
+            }
+            
+
+
+
+
+
+            Swal.fire({
+              title: "Agregado!",
+              text: "Agregaste este producto al carrito.",
+              icon: "success"
+            });
+          }
+        });
+    }
+  }
+
+
+
+
+
+
+
+
+
 
     return (
       <>
@@ -159,11 +257,16 @@ function ComplExt() {
                     <ListGroup.Item>Descuento: {product.Descuento}%</ListGroup.Item>
                 </ListGroup>
                 <Card.Body>
-                    <Card.Link onClick={buy}><img src={compra} id={product.id} className='card'/></Card.Link>
-                    <Card.Link onClick={car}><img src={carrito} id={product.id} className='card'/></Card.Link>
+                  <div style={{display: "grid", gridTemplateColumns: "40px 300px", gridTemplateRows: "40px 40px"}}>
+                    <div><Card.Link onClick={buy}><img src={compra} id={product.id} className='card'/></Card.Link></div>
+                    <div style={{color: "blue"}}>Comprar Producto</div>
+                    <div><Card.Link onClick={e => {car(e)}}><img src={carrito} id={product.id} className='card'/></Card.Link></div>
+                    <div style={{color: "blue"}}>Agregar Carrito</div>
+                  </div>
+                    
+          
                 </Card.Body>
               </Card>
-     
             </div>
           )
         })}
@@ -186,7 +289,7 @@ function ComplExt() {
 
       {Modal && (
         
-        <dialog style={{borderRadius: "14px"}} open>
+        <div className='divModalProcesoCompra' style={{borderRadius: "14px"}} open>
           <div style={{display: 'grid', gridTemplateColumns: "220px 350px", padding: "20px", border: "3px solid black", borderRadius: "10px"}}>
 
             <div>
@@ -208,10 +311,9 @@ function ComplExt() {
 
           <button onClick={compraRealizada} style={{backgroundColor: "#48e", color:"white", border: "none", fontSize: "25px", borderRadius: "10px"}}>Comprar</button>
         
-        </dialog>
+        </div>
       )}
       </>  
-
       
   )
 }

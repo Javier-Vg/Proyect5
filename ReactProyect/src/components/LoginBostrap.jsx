@@ -22,13 +22,12 @@ function LoginBostrap() {
           
             if (email.correo == correoLogin && email.contra == correoLoginContra) {
                 alert("Inicio de sesion exitoso")
-                localStorage.setItem("userActive",email );
+                localStorage.setItem("userActive",email.correo );
+                localStorage.setItem("username",email.username );
                 localStorage.setItem("userValid",email.id );
                 if (correoLogin == "jvargas@fwdcostarica.com"){
                   localStorage.setItem("Admin",true ); 
                 }
-                <Navigate to={"/home"} replace />
-                
                 setLog(testeoLogin = 0);
             }
         })
@@ -40,7 +39,6 @@ function LoginBostrap() {
           })
         }
     }
-
 
     const [validated, setValidated] = useState(false)
 

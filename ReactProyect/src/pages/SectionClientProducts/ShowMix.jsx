@@ -15,8 +15,6 @@ function ShowMix() {
     })
   })
 
-
-
   return (
     <>
     <Nabvar/>
