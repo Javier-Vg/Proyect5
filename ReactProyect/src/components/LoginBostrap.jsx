@@ -3,17 +3,61 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../service/getUser'
 import Swal from 'sweetalert2';
 import { Navigate } from 'react-router-dom';
+import PutPatch from '../service/putPatch';
+import { useTheContext } from "../Context/ContextProducts";
 
 function LoginBostrap() {
+  const {Users} = useTheContext();
+
+  const navigate = useNavigate();
+
+  let confirm = useRef(false);
+
+  let [modal, setModal] = useState(false)
+  let [ContraNew, setContraNew] = useState()
+  let [CorrreoOlvido, setCorrreoOlvido] = useState()
  
     let [testeoLogin, setLog] = useState(1)
     let [correoLogin,setCorreoLogin]= useState()
     let [correoLoginContra,setCorreoLoginContra]= useState()
+
+    function Olvido() {
+      setModal(!modal)
+    }
+
+    function change() {
+
+      const NewPassword = {
+        contra: ContraNew
+      }
+
+      for (const key in Users) {
+        if (Users[key].correo == CorrreoOlvido) {
+          confirm.current = true;
+
+          PutPatch(Users[key].id, NewPassword, "users")
+          break;
+        }
+      }
+
+      if (confirm.current == true) {
+        Swal.fire({
+          icon: "success",
+          text: "Se cambio la contraseña correctamente!"
+        })
+      }else{
+        Swal.fire({
+          icon: "error",
+          text: "No se encontro ese correo."
+        })
+      }
+    }
+
 
     async function cargarLogin() {
         let usuarios = await getUser()
@@ -29,15 +73,17 @@ function LoginBostrap() {
                   localStorage.setItem("Admin",true ); 
                 }
                 setLog(testeoLogin = 0);
+                
             }
         })
 
         if (testeoLogin != 0) {
           Swal.fire({
             icon: "error",
-            text: "Correo o contraseña no coinciden"
+            text: "No se encontro ese correo!"
           })
         }
+        navigate("/register")
     }
 
     const [validated, setValidated] = useState(false)
@@ -78,8 +124,21 @@ function LoginBostrap() {
 
           />
         </Form.Group>
-        <a href="#">¿Olvidaste tu contraseña?</a>
-      
+        <a onClick={Olvido}>¿Olvidaste tu contraseña?</a>
+      {modal && (
+        
+        <dialog style={{textAlign: "center", width: "300px", position: "fixed"}} open>
+          <p>Ingrese su correo:</p>
+          <input onChange={e => setCorrreoOlvido(e.target.value)} type="text" />
+          <br />
+          <p>Ingrese su nueva contraseña:</p>
+          <input onChange={e => setContraNew(e.target.value)} type="text" aria-hidden/>
+          <br />
+          <button onClick={change}>Change</button>
+          <button onClick={e => setModal(!modal)}>Close</button>
+        </dialog>
+        
+      )}
 
       </Row>
         <Button onClick={cargarLogin} type="submit">Registrarse</Button>

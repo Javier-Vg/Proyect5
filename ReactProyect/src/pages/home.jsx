@@ -4,14 +4,21 @@ import Footer from '../components/footer'
 import fondoDragon from "../assets/img/fondoDragon.jpg";
 import CarouselElementos from '../components/CarouselElementos';
 import videohome from "../assets/videohome.mp4";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
+  function descubrir() {
+    navigate("/show1")
+  }
 
   return (
+
     <>
         <Nabvar/>
         <h1 className='h1Home'>Descubre nuevos productos</h1>
-        <button className='btnHome' >Descubrir</button>
+        <button onClick={descubrir} className='btnHome' >Descubrir</button>
 
         <video className='video' autoPlay loop muted>
           <source src={videohome} type='video/mp4'/>

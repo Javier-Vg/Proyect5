@@ -5,11 +5,21 @@ import instagram from "../assets/instagram.svg";
 import facebook from "../assets/facebook.svg";
 import kedin from "../assets/kedin.svg";
 import ratonDragon from "../assets/ratonDragon.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+    const navigate = useNavigate();
 
     let fontSize= {
         fontSize: "30px"
+    }
+
+    function about() {
+        navigate("/aboutUs")
+    }
+
+    function contact() {
+        navigate("/contact")
     }
     
   return (
@@ -25,7 +35,8 @@ function Footer() {
         <div className="subDivF1">
             <div className= "divsTextFoter"><h1>JavWare</h1></div>
             <br />
-            <div className= "divsTextFoter">Quienes somos</div>
+            <a onClick={about} ><div className= "divsTextFoter">Quienes somos</div></a>
+            
             <div className= "divsTextFoter">Asesor</div>
         
             <NavDropdown style={fontSize} title="Productos" id="basic-nav-dropdown">
@@ -44,10 +55,11 @@ function Footer() {
                 <div className= "divsTextFoter"><a href="https://www.linkedin.com/" target='blank'><img src={kedin} /></a></div>
             </div>
             <br />
-            <div className= "divsTextFoter">Comunidad</div>
-            <div className= "divsTextFoter">Centro de ayuda</div>
+            <a onClick={contact}><div className= "divsTextFoter">Centro de ayuda</div></a>
+            
             <div className= "divsTextFoter">Puntos de venta</div>
-            <div className= "divsTextFoter">Contacto</div>
+            <div className= "divsTextFoter">Contacto:<br/>Correo: jvargas@fwdcostarica.com.<br/>Numero: +506 8802-3861.</div>
+            
         </div>
         
         <div className="subDiv3">

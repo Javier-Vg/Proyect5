@@ -60,7 +60,7 @@ function LoginBostrap() {
         username: NameUser,
         comprasRecuento: 0,
         CantidadCompras: 0,
-        carrito: "0"
+        carrito: 0
       }
 
       let corteDeFlujo = false;

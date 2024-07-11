@@ -2,11 +2,9 @@ import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
 import Login from '../pages/login'
 import Registros from '../pages/register'
 import ProtectedRoute from '../Rootprotect/protectRoute';
-//import UsuarioActivo from '../pages/sesion';
 import Crud from "../pages/CRUD";
 import Home from "../pages/home";
 import AboutUs from "../pages/AboutUs";
-import Error from "../pages/error";
 import Contact from "../pages/contact";
 import AdministPeriferics from "../pages/ProductosEnVenta/AdministExtern";
 import AdministParts from "../pages/ProductosEnVenta/AdministIntern";
@@ -20,11 +18,12 @@ function Rutas() {
           <Router>
             <Routes>
               {/* <Route path='/' element = {<Home/>}/> */}
+              <Route path='/' element = {<Home/>}/>
               <Route path='/home' element = {<Home/>}/>
               <Route path='/contact' element = {<Contact/>}/>
               <Route path='/login' element = {<Login/>}/>
               <Route path='/aboutUs' element = {<AboutUs/>}/>
-              <Route path='/error' element = {<Error/>}/>
+  
               <Route path="/register" element={<Registros/>}/>
 
               <Route path="/show1" element={<ShowExtern/>}/>

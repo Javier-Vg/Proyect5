@@ -5,24 +5,17 @@ import axios from "axios";
 export const DataContext = createContext();
 
 export function DataContextProvider({children}) {
-    // const contextData = 58;
-    // const valor = contextData
     
     const [ProductsIntern ,setIntern] = useState([]);
     const [ProductsExtern, setExtern] = useState([]);
 
     const [Mix, setMix] = useState([]);
 
-    const [load, setLoad] = useState([]);
-
     const [Users, setUsers] = useState([]);
 
     //Contexto del getProductos
     //Retorna id especifico
 
-    useEffect(()=>{
-        console.log("que?");
-    },[]);
 
     useEffect(() => {
         axios.get('http://localhost:3005/hardwareExterno')
@@ -33,8 +26,7 @@ export function DataContextProvider({children}) {
         function CallingExterno(JSONN) {
             setExtern(JSONN)
         }
-        setLoad(2)
-    },[]);
+    },[ProductsExtern]);
 
     useEffect(() => {
         axios.get('http://localhost:3005/hardwareInterno')
@@ -46,8 +38,7 @@ export function DataContextProvider({children}) {
 
             setIntern(JSONN)
         }
-        setLoad(2)
-    },[]);
+    },[ProductsIntern]);
 
     useEffect(() => {
         axios.get('http://localhost:3005/users')
@@ -60,8 +51,7 @@ export function DataContextProvider({children}) {
             console.log(JSONN);
             setUsers(JSONN)
         }
-        setLoad(2)
-    },[]);
+    },[Users]);
 
     useEffect(() => {
         setMix([...ProductsExtern, ...ProductsIntern])

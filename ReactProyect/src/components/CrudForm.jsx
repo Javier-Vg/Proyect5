@@ -22,7 +22,6 @@ function CrudForm() {
     let [hardware, setHardware] = useState()
     let [descuento, setDescuento] = useState()
     let [categoria, setCategoria] = useState()
-    let [Destacado, setDestacado] = useState()
 
     //let [objetoDuplicate, setDuplicate] = useState()
     
@@ -45,10 +44,8 @@ function CrudForm() {
                 date: fecha,
                 img: imgUrl,
                 hardwareType: hardware,
-                shopping: "no tiene compras",
                 Descuento: descuento,
                 Category: categoria,
-                destacado: Destacado,
                 id: uuid()
         }
 
@@ -135,7 +132,7 @@ function CrudForm() {
                     <option value="Microfono" >Microfono</option>
                     <option value="Camara" >Camara</option>
                     <option value="Gabinete">Gabinete</option>
-                    <option value="FuentesAlimentacion" >Fuentes de alimentacion </option>
+                    <option value="Fuentes de alimentacion" >Fuentes de alimentacion </option>
                     <option value="Audio" >Audio</option>
                     <option value="Mandos" >Mandos</option>
                     <option value="Sillas" >Silla</option>
@@ -153,10 +150,6 @@ function CrudForm() {
                         <input id="radio" className="hardwareInterno" type="radio"  onChange={(e) => setHardware(e.target.className)} name="option"/>
                     </div>
                 </div>
-                <br />
-                <label >¿Es un producto destacado?:</label>
-                <br/>
-                <input type="checkbox" onChange={(e) => setDestacado(e.target.value)} required/>
                 <br />
             
                 <button style={{fontSize:"24px", padding: "10px", borderRadius: "10px", backgroundColor: "#48e", color:"white"}} onClick={handleClick}>Registrar Producto</button>

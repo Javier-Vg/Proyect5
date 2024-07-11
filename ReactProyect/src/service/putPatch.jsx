@@ -1,13 +1,12 @@
 
 
-function PutPatch(id, elemento, hardware) {
+function PutPatch(id, elemento, endPoint) {
   
-    let hard = hardware;
-      async function putModificah(id, product, hard) {
+      async function putModificah(id, product, point) {
         
           //En caso de que el input venga vacio, salta un mensaje alert, si no, hace el cambio basandose en los elementos del array.
           try {
-              const response = await fetch(`http://localhost:3005/${hard}/${id}`, {
+              const response = await fetch(`http://localhost:3005/${point}/${id}`, {
   
                 method: 'PATCH',//Modifica solo un objeto 
                 headers: {
@@ -21,7 +20,7 @@ function PutPatch(id, elemento, hardware) {
           }
         }
   
-      putModificah(id, elemento, hard)
+      putModificah(id, elemento, endPoint)
   
   }
   

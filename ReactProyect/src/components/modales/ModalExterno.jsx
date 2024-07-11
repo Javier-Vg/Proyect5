@@ -6,8 +6,10 @@ import basura from "../../assets/basura.svg";
 import editar from "../../assets/editar.svg";
 import getProducts from "../../service/CrudProducts/getProducts";
 import deleteProducts from "../../service/CrudProducts/deleteProducts";
+import { useNavigate } from "react-router-dom";
 
 const ModalExterno = ({id, isOpen, closeModal }) => {
+  const navigate = useNavigate();
   
   let [datos, setDatos] = useState([])
 
@@ -47,14 +49,20 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
       cancelButtonText: "Cancelar",
       reverseButtons: true
     }).then((result) => {
+      
       if (result.isConfirmed) {
          swalWithBootstrapButtons.fire({
            title: "Tu producto fue eliminado del sistema.",
            icon: "success"
-
          });
+
         deleteProducts(id, "hardwareExterno");
-        setReload(!Reload);
+        //Forma de renderizar la pagina
+        navigate("/home")
+                        
+        setTimeout(()=> {
+          navigate("/ExternStorage")
+        },100)
         
       } else if (
         /* Read more about handling dismissals below */

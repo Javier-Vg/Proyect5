@@ -5,10 +5,8 @@ import busqueda from "../../assets/busqueda.svg"
 
 function ShowIntern() {
 
-  //Filtra por la clase de los elementos
+  //Filtra por medio de las clases, ocultandolas segun sus caracteres.
   document.addEventListener("keyup", e =>{
-    //e.target.matches("#buscador")
-    //console.log(e.target.value); 
     document.querySelectorAll(".filter").forEach(card => {
       card.textContent.toLowerCase().includes(e.target.value.toLowerCase())
       ? card.classList.remove("filtro")
@@ -19,7 +17,7 @@ function ShowIntern() {
   return (
     <>
     <Nabvar/>
-    <h3>Encuentra lo que necesites</h3>
+    <h3 style={{padding:"15px"}}>Encuentra lo que necesites</h3>
     <img src={busqueda} style={{padding: "10px"}} />
     <input id="buscador" type="text" />
     <hr />

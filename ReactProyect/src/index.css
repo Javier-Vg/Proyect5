@@ -186,7 +186,7 @@ input[type=radio] {
 }
 
 .cajasDivInfo:nth-child(1){
-  border: 5px solid #48e;
+  border: 8px solid rgb(52, 73, 104);
   border-radius: 10px;
   grid-row-start: 1;
   grid-row-end: 3;
@@ -195,13 +195,13 @@ input[type=radio] {
 }
 
 .cajasDivInfo:nth-child(2){
-  border: 5px solid #48e;
+  border: 8px solid rgb(52, 73, 104);
   border-radius: 10px;
   
 }
 
 .cajasDivInfo:nth-child(3){
-  border: 6px solid black;
+  border: 8px solid rgb(52, 73, 104);
   border-radius: 10px;
   overflow:auto;
   overflow-x:hidden;
@@ -513,6 +513,21 @@ li{
 .containerModalInfoP{
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(4,110px);
+  grid-template-columns: repeat(3,100px) 20px;
+
   
+}
+
+.divRegistroCarrito{
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3,100px) 20px;
+ 
+}
+
+/*Mapa api*/
+.mapa{
+  height: 400px;
+  width: 600px;
+ 
 }

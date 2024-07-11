@@ -3,6 +3,7 @@ import Nabvar from "../components/navbar"
 import CardsAbout from "../components/CardsAbout"
 import Footer from "../components/footer"
 import Carusel from "../components/Carusel"
+import Mapa from "../components/Mapa"
 
 function AboutUs() {
   return (
@@ -12,6 +13,8 @@ function AboutUs() {
     <div className="aboutDiv">
       <CardsAbout/>
     </div>
+    <br />
+    <Mapa/>
     <Footer/>
     </>
   )
