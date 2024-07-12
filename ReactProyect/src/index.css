@@ -395,6 +395,15 @@ li{
   animation-fill-mode: both  ;
 }
 
+.divInformacionHome{
+  view-timeline-name: --image;
+  view-timeline-axis: block;
+  animation-timeline: --image;
+  animation-name: show;
+  animation-range: entry 25% cover 50% ;
+  animation-fill-mode: both  ;
+}
+
 
 
 /*Carusel Home*/
@@ -525,9 +534,12 @@ li{
  
 }
 
-/*Mapa api*/
-.mapa{
-  height: 400px;
-  width: 600px;
- 
+/*Info home*/
+.divInformacionHome{
+  margin: auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 100px;
+  width: 650px;
+  letter-spacing: 2px;
 }

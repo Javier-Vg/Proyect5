@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -10,13 +10,14 @@ import Swal from 'sweetalert2'
 
 function LoginBostrap() {
 
+  //Estados de los inputs del register.
   let [NameUser,setNameUser]= useState()
   let [NombreReal,setNombreReal]= useState()
   let [correoContraRegister,setCorreoContraRegister]= useState()
   let [correoUsuario,setCorreoUsuario]= useState()
   let [Provincia,setProvincia]= useState()
   
-  async function RecorrerUsuarios() {
+  async function RecorrerUsuarios() { //Funcion que valida si el usuario ya existe o no
     let usuariosTotales = await getUser();
     let verific = 0;
       
@@ -77,9 +78,9 @@ function LoginBostrap() {
 
           break;
         }
-        //Regex
+        //Regex para validar registro
         let key = infoP[clave]
-        if (key == 0) {
+        if (key == 0) { //Evasion de errores al captar valores del api
           continue;
         }else{
           key = key.replace(/^\s+|\s$/g, "");

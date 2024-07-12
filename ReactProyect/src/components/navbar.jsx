@@ -22,6 +22,7 @@ function Nabvar() {
 
   let [reload, setReload] = useState([]);
 
+  //Setea el contenido
   useEffect(() => {
     setReload(reload)
   }, [reload]);
@@ -43,6 +44,7 @@ function Nabvar() {
   let sesion = localStorage.getItem("userValid");
   let adminStatus = localStorage.getItem("Admin");
 
+  //Funcion para cerrar sesion
   let handleClick = () => {
     localStorage.removeItem("userActive");
     localStorage.removeItem("Admin");
@@ -66,7 +68,7 @@ function Nabvar() {
             }
           }
         }
-      } else {
+      } else { //No se duplican o acumulen los datos del carrito.
         console.log("NO");
       }
     } else {
@@ -175,7 +177,7 @@ function Nabvar() {
         </Container>
       </Navbar>
 
-      {modal && (
+      {modal && ( //Modal que muestra la informacion del usuario registrado en la pagina.
         <dialog className="modalInfoP" open>
           <div className="cajasDivInfo">
             <h3 style={{ fontFamily: "cursive", fontSize: "25px" }}>
@@ -188,8 +190,6 @@ function Nabvar() {
             <p>{info[0].username}</p>
             <strong>Provincia:</strong>
             <p>{info[0].provincia}</p>
-            {/* <strong>Nombre de Usuario</strong>
-                <p>{info[0].id}</p> */}
             <strong>Correo:</strong>
             <p>{info[0].correo}</p>
             <strong>Contraseña:</strong>

@@ -6,9 +6,10 @@ function LoginVerificador() {
     
     let usuarioActivo = localStorage.getItem("username");
 
+    //Muestra al usuario en el Nabvar haciendo un par de validaciones.
+    
     useEffect(() => {
         usuarioActivo != undefined ? setUserActive(usuarioActivo) : setUserActive("Sin usuario")
-
     },[userActive]);
 
     return (

@@ -5,28 +5,30 @@ import out from "../../assets/out.svg";
 import carrito from "../../assets/carrito.svg";
 import compra from "../../assets/compra.svg";
 import Swal from "sweetalert2";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import putPatch from "../../service/putPatch";
-
+import { useNavigate } from "react-router-dom";
 
 function ComplExt() {
-  
-  const { ProductsExtern, Users } = useTheContext();
+  const navigate = useNavigate(); //Instancia para navegar entre paginas
 
-  let sesion = localStorage.getItem("userValid");
+  const { ProductsExtern, Users } = useTheContext(); //Uso el contexto de endPoint de los productos y usuarios, llamando al api dentro de los contextos
 
+  let sesion = localStorage.getItem("userValid"); //Usuario actualmente registrado
   const [unidadesState, setUnidades] = useState();
+
+  const [reload, setReload] = useState(0);
   const unidadesRef = useRef([]);
 
   let ProductoEnCarrito = useRef();
 
   let contador = useRef(0);
 
-  const hhh = useRef();
-  const jjj = useRef([]);
-  const stock = useRef([]);
+  const DatosMostrarModal = useRef(); //Almaceno los datos del producto en una referencia para luego mostrarlo.
+  const jjj = useRef([]); //Guardo el id del elemento clickeado en la referencia
+  const stock = useRef([]); //Guardo el stock del producto del elemento clickeado.
 
-  const [Modal, setModal] = useState(false);
+  const [Modal, setModal] = useState(false); //Modal se inicia el false para que no se muestre.
 
   //Resetea el contador al salir del modal.
   if (Modal == false) {
@@ -35,12 +37,14 @@ function ComplExt() {
   }
 
   function buy() {
+    //Funcion donde ocurre la compra del producto
     if (sesion == undefined) {
       Swal.fire({
         icon: "info",
         text: "Tiene que registrarse para comprar productos.",
       });
     } else {
+      //Itero sobre los elementos y capto el id del boton clickeado y seguidamente guardo los valores en una referencia.
       const botones = document.getElementsByClassName("card");
       for (let i = 0; i < botones.length; i++) {
         botones[i].addEventListener("click", function () {
@@ -48,6 +52,7 @@ function ComplExt() {
           jjj.current = btn_actual.id;
           stock.current = btn_actual.stockTotal;
 
+          //Itero sobre el api del producto:
           for (const key in ProductsExtern) {
             if (ProductsExtern[key].id == jjj.current) {
               //Si no hay stock, no puede comprar el producto.
@@ -61,14 +66,17 @@ function ComplExt() {
                 let PorcentajeDescuento = ProductsExtern[key].Descuento;
                 console.log(PorcentajeDescuento);
 
+                //Ciclo donde manejo y calculo el descuento aplicado al producto
                 for (let index = 100; index > PorcentajeDescuento; index--) {
                   if (PorcentajeDescuento < index) {
                     contador.current = contador.current + 1;
                   }
                 }
 
-                let DescuentoFinal = (contador.current / 100) * ProductsExtern[key].price;
-                hhh.current = [
+                //Calculo del precio con el descuento aplicado
+                let DescuentoFinal =
+                  (contador.current / 100) * ProductsExtern[key].price;
+                DatosMostrarModal.current = [
                   ProductsExtern[key].Descuento,
                   ProductsExtern[key].price,
                   DescuentoFinal,
@@ -76,7 +84,8 @@ function ComplExt() {
                   ProductsExtern[key].stockTotal,
                   ProductsExtern[key].id,
                 ];
-                setModal(!Modal);
+
+                setModal(!Modal); //Muestro el modal
               }
             }
           }
@@ -85,40 +94,49 @@ function ComplExt() {
     }
   }
 
+  //Renderizo el input range
   const SeteoUnidades = (e) => {
     setUnidades(e.target.value);
     unidadesRef.current = [e.target.value];
   };
 
+  //Manejo de compra realizada por el usuario:
   const compraRealizada = () => {
     let unidadesSeleccionadas = unidadesRef.current[0];
-    let precioProducto = hhh.current[1];
+    let precioProducto = DatosMostrarModal.current[1];
 
     let gastoTotal = unidadesSeleccionadas * precioProducto;
-    let ChangeStock = hhh.current[4] - unidadesSeleccionadas;
+    let ChangeStock = DatosMostrarModal.current[4] - unidadesSeleccionadas;
 
-    //alert(ChangeStock);
-
+    //Objeto que va a modificar el api del producto, en este caso el stock del producto
     let StockDesaumento = {
       stockTotal: ChangeStock,
     };
 
-    putPatch(hhh.current[5], StockDesaumento, "hardwareExterno");
+    //Mando 3 parametros al put, utilizo put patch para que modifique solo el valor del stock y no afecte a los demas
+    putPatch(DatosMostrarModal.current[5], StockDesaumento, "hardwareExterno");
 
+    //Itero sobre los usuarios, y capto el id para luego modificar un valor de la api, en este caso los gastos de las compras
     for (const key in Users) {
       if (Users[key].id == sesion) {
-        console.log(Users[key]);
-
+        //Objeto que guardara los datos editados.
         let GastoGeneral = {
           comprasRecuento: gastoTotal + parseInt(Users[key].comprasRecuento),
           CantidadCompras:
             parseInt(unidadesSeleccionadas) +
             parseInt(Users[key].CantidadCompras),
         };
+        //Realizo el put al usuario registrado:
         putPatch(sesion, GastoGeneral, "users");
+
+        navigate("/home");
+
+        setTimeout(() => {
+          navigate("/show1");
+        }, "1");
       }
     }
-
+    //Muestro el modal
     setModal(!Modal);
 
     Swal.fire({
@@ -130,6 +148,7 @@ function ComplExt() {
     //alert(gastoTotal)
   };
 
+  //Funcion donde se gestiona el carrito de compras
   function car(e) {
     if (sesion == undefined) {
       Swal.fire({
@@ -147,36 +166,40 @@ function ComplExt() {
       }).then((result) => {
         if (result.isConfirmed) {
           for (const j in Users) {
+            //Itero sobre los usuarios con el fin de extraer el valor del api de registro del carrito
             if (Users[j].id == sesion) {
               if (Users[j].carrito != 0) {
+                // si ya existe un registro en el carrito, hago un metodo push al nuevo producto
                 let carroPrevio = Users[j].carrito;
 
                 for (const i in ProductsExtern) {
+                  //Itero sobre los productos con el fin de extraer el valor del api del producto especifico que clickeo
                   if (e.target.id == ProductsExtern[i].id) {
-  
                     let ProductoEnCarrito = ProductsExtern[i];
 
                     carroPrevio.push(ProductoEnCarrito);
-
 
                     const Prdct = {
                       carrito: carroPrevio,
                     };
 
-                    putPatch(sesion, Prdct, "users"); 
+                    putPatch(sesion, Prdct, "users");
+                    //Forma de renderizar la pagina:
+                    navigate("/");
 
+                    setTimeout(() => {
+                      navigate("/show1");
+                    }, "1");
                   }
                 }
               } else {
+                //Si en el carrito no habia nada en su valor, entonces crea un nuevo array de objetos.
                 for (const i in ProductsExtern) {
                   if (e.target.id == ProductsExtern[i].id) {
                     let Arreglo = [];
                     ProductoEnCarrito.current = ProductsExtern[i];
-                    console.log(ProductoEnCarrito);
 
-                    console.log(ProductoEnCarrito.current);
                     Arreglo.push(ProductoEnCarrito.current);
-                    console.log(Arreglo);
 
                     const Prdct = {
                       carrito: Arreglo,
@@ -184,6 +207,7 @@ function ComplExt() {
 
                     putPatch(sesion, Prdct, "users");
                     //Renderiza el carrito
+                    setReload(2);
                   }
                 }
               }
@@ -204,6 +228,7 @@ function ComplExt() {
     <>
       <div className="CompIntDiv">
         {ProductsExtern.map((product, i) => {
+          //Mapeo los elementos del api con el metodo .map
           return (
             <div id="categoria" className="filter" key={i}>
               <Card style={{ width: "15rem" }}>
@@ -260,7 +285,7 @@ function ComplExt() {
           );
         })}
 
-        {ProductsExtern == "" ? (
+        {ProductsExtern == "" ? ( //Si en el api no hay registro de ningun elemento, muestra un mensaje que no hay productos disponibles.
           <>
             <div style={{ width: " 500px", marginLeft: "450px" }}>
               <h2 style={{ margin: "auto", fontFamily: "arial" }}>
@@ -274,7 +299,7 @@ function ComplExt() {
         )}
       </div>
 
-      {Modal && (
+      {Modal && ( //Muestra el modal donde se realizara el proceso de compra
         <div
           className="divModalProcesoCompra"
           style={{ borderRadius: "14px" }}
@@ -291,7 +316,7 @@ function ComplExt() {
           >
             <div>
               <img
-                src={hhh.current[3]}
+                src={DatosMostrarModal.current[3]}
                 style={{
                   width: "200px",
                   height: "200px",
@@ -304,12 +329,16 @@ function ComplExt() {
 
             <div>
               <p style={{ fontSize: "20px" }}>
-                Precio Original: ${hhh.current[1]}
+                Precio Original: ${DatosMostrarModal.current[1]}
               </p>
-              <p style={{ fontSize: "20px" }}>Descuento: {hhh.current[0]}%</p>
+              <p style={{ fontSize: "20px" }}>
+                Descuento: {DatosMostrarModal.current[0]}%
+              </p>
               <p style={{ fontSize: "20px" }}>
                 Precio Final:{" "}
-                <p style={{ color: "green" }}>${hhh.current[2]}</p>
+                <p style={{ color: "green" }}>
+                  ${DatosMostrarModal.current[2]}
+                </p>
               </p>
             </div>
           </div>
@@ -322,7 +351,7 @@ function ComplExt() {
               <input
                 onChange={(e) => SeteoUnidades(e)}
                 type="range"
-                max={hhh.current[4]}
+                max={DatosMostrarModal.current[4]}
                 style={{ width: "200px" }}
               />
             </div>

@@ -10,11 +10,17 @@ function AboutUs() {
     <>
     <Nabvar/>
     <Carusel/>
+    <br />
+    <br />
     <div className="aboutDiv">
       <CardsAbout/>
     </div>
     <br />
-    <Mapa/>
+    <br />
+    <br />
+    <br />
+    <p style={{textAlign:"center", fontFamily: "sans-serif", fontSize:"20px"}}>¿Donde estamos ubicados?</p>
+     <Mapa/> 
     <Footer/>
     </>
   )

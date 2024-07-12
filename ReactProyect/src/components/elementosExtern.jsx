@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import getProducts from "../service/CrudProducts/getProducts";
+import {  useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useTheContext } from "../Context/ContextProducts";
 import ModalExterno from "./modales/ModalExterno";
@@ -10,9 +9,10 @@ function ElementosExtern() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [id, setId] = useState(5);
 
-  // let [productos, setProductos] = useState();
 
   const toggleModal = () => {
+    //Itera cada elemento y capta el id del elemento clickeado y setea un estado.
+    //Vuelve en true el modal ocasionando que este se muestre en pantalla
     const botones = document.getElementsByClassName("btn-modal");
     for (let i = 0; i < botones.length; i++) {
       botones[i].addEventListener("click", function () {
@@ -26,7 +26,7 @@ function ElementosExtern() {
   return (
     <>
       <div className="divExternoElementos">
-        {ProductsExtern.map((product, i) => {
+        {ProductsExtern.map((product, i) => { //Mapeo de objeto 
           return (
             <>
               <div key={i}>
@@ -46,7 +46,8 @@ function ElementosExtern() {
                       vida.
                     </Card.Text>
                     <p>{product.date}</p>
-                    <button
+                    <button //Capta d
+
                       style={{ margin: "center", borderRadius: "20px" }}
                       onClick={toggleModal}
                       className="btn-modal"
@@ -59,7 +60,7 @@ function ElementosExtern() {
               </div>
 
               {
-                <ModalExterno
+                <ModalExterno //Pasa como props a otro archivo
                   id={id}
                   isOpen={isModalOpen}
                   closeModal={() => setIsModalOpen(false)}

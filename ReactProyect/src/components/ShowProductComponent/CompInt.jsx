@@ -7,12 +7,14 @@ import compra from "../../assets/compra.svg";
 import Swal from 'sweetalert2';
 import { useRef, useState } from 'react';
 import putPatch from '../../service/putPatch';
+import { useNavigate } from 'react-router-dom';
 
 
 function ComplInt() {
+  let navigate = useNavigate()
 
-  const {ProductsIntern, Users} = useTheContext();
-  let sesion = localStorage.getItem("userValid");
+  const {ProductsIntern, Users} = useTheContext(); //Uso el contexto de endPoint de los productos y usuarios, llamando al api dentro de los contextos
+  let sesion = localStorage.getItem("userValid"); //Usuario actualmente registrado
 
   let ProductoEnCarrito = useRef();
 
@@ -29,11 +31,11 @@ function ComplInt() {
     unidadesRef.current = 0;
   }
 
-  const hhh = useRef();
-  const jjj = useRef([]);
+  const DatosMostrarModal = useRef(); //Almaceno los datos del producto en una referencia para luego mostrarlo.
+  const jjj = useRef([]); //Guardo el id del elemento clickeado en la referencia
   const stock = useRef([]);
 
-  function buy() {
+  function buy() { //Funcion donde ocurre la compra del producto
 
     if (sesion == undefined) {
       Swal.fire({
@@ -41,6 +43,8 @@ function ComplInt() {
         text: "Tiene que registrarse para comprar productos.",
       });
     } else {
+
+       //Itero sobre los elementos y capto el id del boton clickeado y seguidamente guardo los valores en una referencia.
       const botones = document.getElementsByClassName("card");
       for (let i = 0; i < botones.length; i++) {
         botones[i].addEventListener("click", function () {
@@ -67,8 +71,9 @@ function ComplInt() {
                   }
                 }
 
+                //calculo del precio con el descuento aplicado
                 let DescuentoFinal = (contador.current / 100) * ProductsIntern[key].price;
-                hhh.current = [
+                DatosMostrarModal.current = [
                   ProductsIntern[key].Descuento,
                   ProductsIntern[key].price,
                   DescuentoFinal,
@@ -92,10 +97,10 @@ function ComplInt() {
 
   const compraRealizada = () => {
     let unidadesSeleccionadas = unidadesRef.current[0];
-    let precioProducto = hhh.current[1];
+    let precioProducto = DatosMostrarModal.current[1];
 
     let gastoTotal = unidadesSeleccionadas * precioProducto;
-    let ChangeStock = hhh.current[4] - unidadesSeleccionadas;
+    let ChangeStock = DatosMostrarModal.current[4] - unidadesSeleccionadas;
 
     //alert(ChangeStock);
 
@@ -103,7 +108,7 @@ function ComplInt() {
       stockTotal: ChangeStock,
     };
 
-    putPatch(hhh.current[5], StockDesaumento, "hardwareExterno");
+    putPatch(DatosMostrarModal.current[5], StockDesaumento, "hardwareExterno");
 
     for (const key in Users) {
       if (Users[key].id == sesion) {
@@ -116,6 +121,12 @@ function ComplInt() {
             parseInt(Users[key].CantidadCompras),
         };
         putPatch(sesion, GastoGeneral, "users");
+        //Forma de renderizar la pagina:
+        navigate("/home");
+
+        setTimeout(() => {
+          navigate("/show1");
+        }, "1");
       }
     }
 
@@ -147,12 +158,12 @@ function ComplInt() {
         confirmButtonText: "Si",
       }).then((result) => {
         if (result.isConfirmed) {
-          for (const j in Users) {
+          for (const j in Users) { //Itero sobre los usuarios con el fin de extraer el valor del api de registro del carrito
             if (Users[j].id == sesion) {
-              if (Users[j].carrito != 0) {
+              if (Users[j].carrito != 0) {  // si ya existe un registro en el carrito, hago un metodo push al nuevo producto
                 let carroPrevio = Users[j].carrito;
 
-                for (const i in ProductsIntern) {
+                for (const i in ProductsIntern) { 
                   if (e.target.id == ProductsIntern[i].id) {
   
                     let ProductoEnCarrito = ProductsIntern[i];
@@ -169,7 +180,7 @@ function ComplInt() {
           
                   }
                 }
-              } else {
+              } else { //Si en el carrito no habia nada en su valor, entonces crea un nuevo array de objetos.
                 for (const i in ProductsIntern) {
                   if (e.target.id == ProductsIntern[i].id) {
                     let Arreglo = [];
@@ -186,6 +197,12 @@ function ComplInt() {
 
                     putPatch(sesion, Prdct, "users");
                     //Renderiza el carrito
+                    //Forma de renderizar la pagina:
+                    navigate("/home");
+
+                    setTimeout(() => {
+                      navigate("/show1");
+                    }, "1");
                   }
                 }
               }
@@ -202,12 +219,11 @@ function ComplInt() {
     }
   }
   
-
     return (
     
       <>
       <div className="CompIntDiv">
-        {ProductsIntern.map((product, i) => {
+        {ProductsIntern.map((product, i) => { //Mapeo los elementos del api con el metodo .map
           return (
             <div id="categoria" className="filter" key={i}>
               <Card style={{ width: "15rem" }}>
@@ -264,7 +280,7 @@ function ComplInt() {
           );
         })}
 
-        {ProductsIntern == "" ? (
+        {ProductsIntern == "" ? ( //Si en el api no hay registro de ningun elemento, muestra un mensaje que no hay productos disponibles.
           <>
             <div style={{ width: " 500px", marginLeft: "450px" }}>
               <h2 style={{ margin: "auto", fontFamily: "arial" }}>
@@ -278,7 +294,7 @@ function ComplInt() {
         )}
       </div>
 
-      {Modal && (
+      {Modal && ( //Muestra el modal donde se realizara el proceso de compra
         <div
           className="divModalProcesoCompra"
           style={{ borderRadius: "14px" }}
@@ -295,7 +311,7 @@ function ComplInt() {
           >
             <div>
               <img
-                src={hhh.current[3]}
+                src={DatosMostrarModal.current[3]}
                 style={{
                   width: "200px",
                   height: "200px",
@@ -308,12 +324,12 @@ function ComplInt() {
 
             <div>
               <p style={{ fontSize: "20px" }}>
-                Precio Original: ${hhh.current[1]}
+                Precio Original: ${DatosMostrarModal.current[1]}
               </p>
-              <p style={{ fontSize: "20px" }}>Descuento: {hhh.current[0]}%</p>
+              <p style={{ fontSize: "20px" }}>Descuento: {DatosMostrarModal.current[0]}%</p>
               <p style={{ fontSize: "20px" }}>
                 Precio Final:{" "}
-                <p style={{ color: "green" }}>${hhh.current[2]}</p>
+                <p style={{ color: "green" }}>${DatosMostrarModal.current[2]}</p>
               </p>
             </div>
           </div>
@@ -326,7 +342,7 @@ function ComplInt() {
               <input
                 onChange={(e) => SeteoUnidades(e)}
                 type="range"
-                max={hhh.current[4]}
+                max={DatosMostrarModal.current[4]}
                 style={{ width: "200px" }}
               />
             </div>

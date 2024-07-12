@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import getProducts from "../service/CrudProducts/getProducts";
 import axios from "axios";
 
+//Exporto de la libreria de react el contexto en donde va a contener mi contexto de variables.
 export const DataContext = createContext();
 
-export function DataContextProvider({children}) {
+export function DataContextProvider({children}) { //La propiedad children se usa para que los archivos pueden heredar el contexto.
     
     const [ProductsIntern ,setIntern] = useState([]);
     const [ProductsExtern, setExtern] = useState([]);
@@ -14,9 +14,6 @@ export function DataContextProvider({children}) {
     const [Users, setUsers] = useState([]);
 
     //Contexto del getProductos
-    //Retorna id especifico
-
-
     useEffect(() => {
         axios.get('http://localhost:3005/hardwareExterno')
         .then(response => {
@@ -48,11 +45,11 @@ export function DataContextProvider({children}) {
         })
         function CallingInterno(JSONN) {
 
-            console.log(JSONN);
             setUsers(JSONN)
         }
     },[Users]);
 
+    //Unifico las respuestas de los 2 endPoints de productos y lo mando a contexto
     useEffect(() => {
         setMix([...ProductsExtern, ...ProductsIntern])
     },[ProductsExtern, ProductsIntern]);
@@ -64,7 +61,7 @@ export function DataContextProvider({children}) {
         </DataContext.Provider>
     )
 }
-
+//Creo una nueva variable donde voy a utizar el provider para que se pueda usar en otros archivos jsx.
 let useTheContext = () => useContext(DataContext)
 
 export {useTheContext}

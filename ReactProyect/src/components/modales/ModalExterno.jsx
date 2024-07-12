@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import {  useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Swal from 'sweetalert2'
 import putProducts from "../../service/CrudProducts/putProducts";
@@ -8,11 +8,12 @@ import getProducts from "../../service/CrudProducts/getProducts";
 import deleteProducts from "../../service/CrudProducts/deleteProducts";
 import { useNavigate } from "react-router-dom";
 
-const ModalExterno = ({id, isOpen, closeModal }) => {
+const ModalExterno = ({id, isOpen, closeModal }) => {//Se pasa como propiedad el id, una confirmacion de que el modal esta activado y otra si esta desactivado
   const navigate = useNavigate();
   
   let [datos, setDatos] = useState([])
 
+  //Estados para los diferentes inputs
   let [stock, setStock] = useState()
   let [nombre, setNombre] = useState()
   let [precio, setPrecio] = useState()
@@ -20,20 +21,19 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
   let [descuento, setDescuento] = useState()
   let [imgUrl, setImg] = useState()
 
-  const [Reload, setReload] = useState(false)
-
   const [modalExt, setModall] = useState(false);
 
+  //Funcion que hace que capte el input tipo "range" y lo renderize en pantalla
   function handleChange(e) {
     setStock(e.target.value);
   }
 
-  if (!isOpen) return null;
+  if (!isOpen) return null;//En caso de que el prop sea false, se vuelve true, retorna null, y corta el flujo de ejecucion del modal.
 
-  async function borrar() {
+  async function borrar() {//Funcion donde elimino el producto
 
     //Borrar product:
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swalWithBootstrapButtons = Swal.mixin({//Alerta de la libreria "Sweat Alert"
       customClass: {
         confirmButton: "btn btn-success",
         cancelButton: "btn btn-danger"
@@ -62,10 +62,9 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
                         
         setTimeout(()=> {
           navigate("/ExternStorage")
-        },100)
+        },10)
         
       } else if (
-        /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
       ) {
         swalWithBootstrapButtons.fire({
@@ -77,16 +76,15 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
     });
   }
 
-  async function edit() {
+  async function edit() { //Funcion que capta los inputs por medio de estado del producto editado
     let respuesta = await getProducts(id, "hardwareExterno");
     //Añado la informacion del get en un hook, para luego utilizarla y darle valor a los inputs de edicion del producto
 
     setDatos([respuesta.CoP,respuesta.price, respuesta.brand, respuesta.stockTotal, respuesta.img, respuesta.Descuento])
-    setModall(!modalExt)
-    //alert(id)
+    setModall(!modalExt)//Esconde o muestra el modal depende del click en editar
   }
 
-  const handleClick = () => {
+  const handleClick = () => { //Edita el producto
     //Llamo a put
     //Crea el nuevo objeto con los valores modificados
       let ModificProduct = {
@@ -105,7 +103,7 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
   return (
 
     <>
-   { modalExt && ( 
+   { modalExt && ( //Muestra el modal si su estado es true
     
       <dialog className="modalExt" open>
         <form>
@@ -148,7 +146,8 @@ const ModalExterno = ({id, isOpen, closeModal }) => {
     
     <div className="modal">
 
-      <AiOutlineClose
+      {/*Libreria que se usa para mostrar un modal */}
+      <AiOutlineClose 
         size={30}
         color="white"
         onClick={closeModal}

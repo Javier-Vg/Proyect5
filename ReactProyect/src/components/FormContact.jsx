@@ -9,6 +9,7 @@ function FormContact() {
   let [correo, setCorreo] = useState()
   let [comentario, setComentario] = useState()
 
+  //Validacion de espacios vacios
   function handleClick() {
     if (correo == "" || comentario == "") {
       alert("Espacios vacios, no puede enviar el comentario")

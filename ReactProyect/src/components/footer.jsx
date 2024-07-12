@@ -14,7 +14,8 @@ function Footer() {
         fontSize: "30px"
     }
 
-    function about() {
+    //Navega por rutas cada que de click al boton.
+    function about() { 
         navigate("/aboutUs")
     }
 
@@ -23,7 +24,6 @@ function Footer() {
     }
     
   return (
-
     <>
     <br />
     <br />
@@ -64,7 +64,7 @@ function Footer() {
         
         <div className="subDiv3">
             <div>JavWare 2024</div>
-            <div><a>Terminos y condiciones</a></div>
+            <div>Derechos Reservados</div>
         </div>
     </footer>
 

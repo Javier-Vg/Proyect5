@@ -1,206 +1,212 @@
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import { useTheContext } from '../../Context/ContextProducts';
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import { useTheContext } from "../../Context/ContextProducts";
 import out from "../../assets/out.svg";
 import carrito from "../../assets/carrito.svg";
 import compra from "../../assets/compra.svg";
-import Swal from 'sweetalert2';
-import { useRef, useState } from 'react';
-import putPatch from '../../service/putPatch';
+import Swal from "sweetalert2";
+import { useRef, useState } from "react";
+import putPatch from "../../service/putPatch";
+import { useNavigate } from "react-router-dom";
 
 function ComplMix() {
-    const {Mix, Users} = useTheContext();
-    const [Modal, setModal] = useState(false);
+  let navigate = useNavigate();
+  
+  const { Mix, Users } = useTheContext();
+  const [Modal, setModal] = useState(false);
 
-    let ProductoEnCarrito = useRef();
-    const [unidadesState, setUnidades] = useState();
-    const unidadesRef = useRef([]);
-    let sesion = localStorage.getItem("userValid");
-    let contador = useRef(0);
+  let ProductoEnCarrito = useRef();
+  const [unidadesState, setUnidades] = useState();
+  const unidadesRef = useRef([]);
+  let sesion = localStorage.getItem("userValid");
+  let contador = useRef(0);
 
-    //Resetea el contador al salir del modal.
-    if (Modal == false) {
-      contador.current = 0;
-      unidadesRef.current = 0;
-    }
+  //Resetea el contador al salir del modal.
+  if (Modal == false) {
+    contador.current = 0;
+    unidadesRef.current = 0;
+  }
   const hhh = useRef();
-    const jjj = useRef([]);
-    const stock = useRef([]);
-    
+  const jjj = useRef([]);
+  const stock = useRef([]);
 
-    
-
-    function buy() {
-
-      if (sesion == undefined) {
-        Swal.fire({
-          icon: "info",
-          text: "Tiene que registrarse para comprar productos.",
-        });
-      } else {
-        const botones = document.getElementsByClassName("card");
-        for (let i = 0; i < botones.length; i++) {
-          botones[i].addEventListener("click", function () {
-            let btn_actual = this;
-            jjj.current = btn_actual.id;
-            stock.current = btn_actual.stockTotal;
-  
-            for (const key in Mix) {
-              if (Mix[key].id == jjj.current) {
-                //Si no hay stock, no puede comprar el producto.
-                if (Mix[key].stockTotal == 0) {
-                  Swal.fire({
-                    icon: "error",
-                    text: "Este producto esta agotado.",
-                  });
-                } else {
-                  //Descuento calculo
-                  let PorcentajeDescuento = Mix[key].Descuento;
-                  console.log(PorcentajeDescuento);
-  
-                  for (let index = 100; index > PorcentajeDescuento; index--) {
-                    if (PorcentajeDescuento < index) {
-                      contador.current = contador.current + 1;
-                    }
-                  }
-  
-                  let DescuentoFinal = (contador.current / 100) * Mix[key].price;
-                  hhh.current = [
-                    Mix[key].Descuento,
-                    Mix[key].price,
-                    DescuentoFinal,
-                    Mix[key].img,
-                    Mix[key].stockTotal,
-                    Mix[key].id,
-                  ];
-                  setModal(!Modal);
-                }
-              }
-            }
-          });
-        }
-      }
-    }
-
-    const SeteoUnidades = (e) => {
-      setUnidades(e.target.value);
-      unidadesRef.current = [e.target.value];
-    };
-
-    const compraRealizada = () => {
-      let unidadesSeleccionadas = unidadesRef.current[0];
-      let precioProducto = hhh.current[1];
-  
-      let gastoTotal = unidadesSeleccionadas * precioProducto;
-      let ChangeStock = hhh.current[4] - unidadesSeleccionadas;
-  
-      //alert(ChangeStock);
-  
-      let StockDesaumento = {
-        stockTotal: ChangeStock,
-      };
-  
-      putPatch(hhh.current[5], StockDesaumento, "hardwareExterno");
-  
-      for (const key in Users) {
-        if (Users[key].id == sesion) {
-          console.log(Users[key]);
-  
-          let GastoGeneral = {
-            comprasRecuento: gastoTotal + parseInt(Users[key].comprasRecuento),
-            CantidadCompras:
-              parseInt(unidadesSeleccionadas) +
-              parseInt(Users[key].CantidadCompras),
-          };
-          putPatch(sesion, GastoGeneral, "users");
-        }
-      }
-  
-      setModal(!Modal);
-  
+  function buy() {
+    if (sesion == undefined) {
       Swal.fire({
-        title: "Comprado Exitosamente!",
-        text: "Tu producto llegara a tu casa lo mas antes posible.",
-        icon: "success",
+        icon: "info",
+        text: "Tiene que registrarse para comprar productos.",
       });
-  
-      //alert(gastoTotal)
-    };
-  
-    function car(e) {
-  
-      if (sesion == undefined) {
-        Swal.fire({
-          icon: "info",
-          text: "Tiene que registrarse para comprar productos.",
-        });
-      } else {
-        Swal.fire({
-          text: "¿Quieres agregar este producto al carrito?",
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Si",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            for (const j in Users) {
-              if (Users[j].id == sesion) {
-                if (Users[j].carrito != 0) {
-                  let carroPrevio = Users[j].carrito;
-  
-                  for (const i in Mix) {
-                    if (e.target.id == Mix[i].id) {
-    
-                      let ProductoEnCarrito = Mix[i];
-  
-                      carroPrevio.push(ProductoEnCarrito);
-  
-  
-                      const Prdct = {
-                        carrito: carroPrevio,
-                      };
-  
-                      putPatch(sesion, Prdct, "users"); 
-  
-            
-                    }
-                  }
-                } else {
-                  for (const i in Mix) {
-                    if (e.target.id == Mix[i].id) {
-                      let Arreglo = [];
-                      ProductoEnCarrito.current = Mix[i];
-                      console.log(ProductoEnCarrito);
-  
-                      console.log(ProductoEnCarrito.current);
-                      Arreglo.push(ProductoEnCarrito.current);
-                      console.log(Arreglo);
-  
-                      const Prdct = {
-                        carrito: Arreglo,
-                      };
-  
-                      putPatch(sesion, Prdct, "users");
-                      //Renderiza el carrito
-                    }
+    } else {
+      const botones = document.getElementsByClassName("card");
+      for (let i = 0; i < botones.length; i++) {
+        botones[i].addEventListener("click", function () {
+          let btn_actual = this;
+          jjj.current = btn_actual.id;
+          stock.current = btn_actual.stockTotal;
+
+          for (const key in Mix) {
+            if (Mix[key].id == jjj.current) {
+              //Si no hay stock, no puede comprar el producto.
+              if (Mix[key].stockTotal == 0) {
+                Swal.fire({
+                  icon: "error",
+                  text: "Este producto esta agotado.",
+                });
+              } else {
+                //Descuento calculo
+                let PorcentajeDescuento = Mix[key].Descuento;
+                console.log(PorcentajeDescuento);
+
+                for (let index = 100; index > PorcentajeDescuento; index--) {
+                  if (PorcentajeDescuento < index) {
+                    contador.current = contador.current + 1;
                   }
                 }
+
+                let DescuentoFinal = (contador.current / 100) * Mix[key].price;
+                hhh.current = [
+                  Mix[key].Descuento,
+                  Mix[key].price,
+                  DescuentoFinal,
+                  Mix[key].img,
+                  Mix[key].stockTotal,
+                  Mix[key].id,
+                ];
+                setModal(!Modal);
               }
             }
-  
-            Swal.fire({
-              title: "Agregado!",
-              text: "Agregaste este producto al carrito.",
-              icon: "success",
-            });
           }
         });
       }
     }
+  }
 
-    return (
-      <>
+  const SeteoUnidades = (e) => {
+    setUnidades(e.target.value);
+    unidadesRef.current = [e.target.value];
+  };
+
+  const compraRealizada = () => {
+    let unidadesSeleccionadas = unidadesRef.current[0];
+    let precioProducto = hhh.current[1];
+
+    let gastoTotal = unidadesSeleccionadas * precioProducto;
+    let ChangeStock = hhh.current[4] - unidadesSeleccionadas;
+
+    //alert(ChangeStock);
+
+    let StockDesaumento = {
+      stockTotal: ChangeStock,
+    };
+
+    putPatch(hhh.current[5], StockDesaumento, "hardwareExterno");
+
+    for (const key in Users) {
+      if (Users[key].id == sesion) {
+        console.log(Users[key]);
+
+        let GastoGeneral = {
+          comprasRecuento: gastoTotal + parseInt(Users[key].comprasRecuento),
+          CantidadCompras:
+            parseInt(unidadesSeleccionadas) +
+            parseInt(Users[key].CantidadCompras),
+        };
+        putPatch(sesion, GastoGeneral, "users");
+        //Forma de renderizar la pagina:
+        navigate("/home");
+
+        setTimeout(() => {
+          navigate("/show1");
+        }, "1");
+      }
+    }
+
+    setModal(!Modal);
+
+    Swal.fire({
+      title: "Comprado Exitosamente!",
+      text: "Tu producto llegara a tu casa lo mas antes posible.",
+      icon: "success",
+    });
+
+    //alert(gastoTotal)
+  };
+
+  function car(e) {
+    if (sesion == undefined) {
+      Swal.fire({
+        icon: "info",
+        text: "Tiene que registrarse para comprar productos.",
+      });
+    } else {
+      Swal.fire({
+        text: "¿Quieres agregar este producto al carrito?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          for (const j in Users) {
+            if (Users[j].id == sesion) {
+              if (Users[j].carrito != 0) {
+                let carroPrevio = Users[j].carrito;
+
+                for (const i in Mix) {
+                  if (e.target.id == Mix[i].id) {
+                    let ProductoEnCarrito = Mix[i];
+
+                    carroPrevio.push(ProductoEnCarrito);
+
+                    const Prdct = {
+                      carrito: carroPrevio,
+                    };
+
+                    putPatch(sesion, Prdct, "users");
+                    //Forma de renderizar la pagina:
+                    navigate("/home");
+
+                    setTimeout(() => {
+                      navigate("/show1");
+                    }, "1");
+                  }
+                }
+              } else {
+                for (const i in Mix) {
+                  if (e.target.id == Mix[i].id) {
+                    let Arreglo = [];
+                    ProductoEnCarrito.current = Mix[i];
+                    console.log(ProductoEnCarrito);
+
+                    console.log(ProductoEnCarrito.current);
+                    Arreglo.push(ProductoEnCarrito.current);
+                    console.log(Arreglo);
+
+                    const Prdct = {
+                      carrito: Arreglo,
+                    };
+
+                    putPatch(sesion, Prdct, "users");
+                    //Renderiza el carrito
+                  }
+                }
+              }
+            }
+          }
+
+          Swal.fire({
+            title: "Agregado!",
+            text: "Agregaste este producto al carrito.",
+            icon: "success",
+          });
+        }
+      });
+    }
+  }
+
+  return (
+    <>
       <div className="CompIntDiv">
         {Mix.map((product, i) => {
           return (
