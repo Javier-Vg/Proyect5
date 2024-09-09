@@ -5,7 +5,7 @@ function putStock(id, elemento, hardware) {
         
           //En caso de que el input venga vacio, salta un mensaje alert, si no, hace el cambio basandose en los elementos del array.
           try {
-              const response = await fetch(`http://localhost:3005/${hard}/${id}`, {
+              const response = await fetch(`http://localhost:3000/${hard}/${id}`, {
   
                 method: 'put',
                 headers: {

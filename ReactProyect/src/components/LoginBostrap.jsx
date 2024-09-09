@@ -4,16 +4,13 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { getUser } from "../service/getUser";
 import Swal from "sweetalert2";
 import PutPatch from "../service/putPatch";
 import { useTheContext } from "../Context/ContextProducts";
-
+    
 function LoginBostrap() {
   const { Users } = useTheContext(); //Uso el contexto del api de los usuarios de mi server
-
-  const navigate = useNavigate(); //Creo una variable que contenga el navigate
 
   let confirm = useRef(false);
 
@@ -62,7 +59,7 @@ function LoginBostrap() {
     usuarios.forEach((email) => {
       //Validaciones del login y ingresa los token al localStorage
       if (email.correo == correoLogin && email.contra == correoLoginContra) {
-        alert("Inicio de sesion exitoso");
+        ///alert("Inicio de sesion exitoso");
         localStorage.setItem("userActive", email.correo);
         localStorage.setItem("username", email.username);
         localStorage.setItem("userValid", email.id);
@@ -70,6 +67,11 @@ function LoginBostrap() {
           localStorage.setItem("Admin", true);
         }
         setLog((testeoLogin = 0));
+      } else{
+        Swal.fire({
+          icon: "error",
+          text: "No se encontro ese correo!",
+        });
       }
     });
 
@@ -79,7 +81,7 @@ function LoginBostrap() {
         text: "No se encontro ese correo!",
       });
     }
-    navigate("/home");
+    //navigate("/home");
   }
 
   const [validated, setValidated] = useState(false);
@@ -90,7 +92,6 @@ function LoginBostrap() {
       event.preventDefault();
       event.stopPropagation();
     }
-
     setValidated(true);
   };
 
@@ -125,6 +126,7 @@ function LoginBostrap() {
             }}
           />
         </Form.Group>
+
         <a onClick={Olvido}>¿Olvidaste tu contraseña?</a>
         {modal && (
           <dialog

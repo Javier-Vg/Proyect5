@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 async function PostProduct( product , hardware) {
 
         try {
-            const response = await fetch(`http://localhost:3005/${hardware}`, {
+            const response = await fetch(`http://localhost:3000/${hardware}`, {
       
               method: 'POST',
               headers: {

@@ -3,25 +3,24 @@ import ComplExt from "../../components/ShowProductComponent/CompExt"
 import Footer from "../../components/footer"
 import busqueda from "../../assets/busqueda.svg"
 import { useState } from "react";
+
 function ShowExtern() {
-
   let [category, setCategory] = useState("s");
+  let [estadoBusqueda, setEstadoBusqueda] = useState("");
 
-  //Filtra por medio de las clases, ocultandolas segun sus caracteres o mostrandolas.
-  document.addEventListener("keyup", e =>{
+   //Filtra por medio de las clases, ocultandolas segun sus caracteres o mostrandolas.
     document.querySelectorAll(".filter").forEach(card => {
-      card.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+      card.textContent.toLowerCase().includes(estadoBusqueda.toLowerCase())
       ? card.classList.remove("filtro")
       : card.classList.add("filtro")
-    })
-  })
+    });
 
   //Filtra por categoria.
   document.querySelectorAll("#categoria").forEach(card => {
-      card.textContent.toLowerCase().includes(category.toLowerCase())
-      ? card.classList.remove("filtro")
-      : card.classList.add("filtro")
-  })
+    card.textContent.toLowerCase().includes(category.toLowerCase())
+    ? card.classList.remove("filtro")
+    : card.classList.add("filtro")
+  });
 
   return (
     <>
@@ -30,12 +29,11 @@ function ShowExtern() {
       <div> 
         <h3 style={{fontFamily: "arial" }}>Encuentra lo que necesites</h3>
         <img src={busqueda} />
-        <input id="buscador" type="text" />
+        <input onChange={(e) => setEstadoBusqueda(e.target.value)} id="buscador" type="text" />
       </div>
         
       <div>
         <p>Categorias:</p>
-          
         <select onChange={(e) => setCategory(e.target.value)} className="selectExtern">
           <option value="s">Sin categoria</option>
           <option value="Teclado">Teclado</option>

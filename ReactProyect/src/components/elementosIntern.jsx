@@ -11,16 +11,10 @@ function ElementosIntern() {
 
   // let [productos, setProductos] = useState();
 
-  const toggleModal = () => {
-    const botones = document.getElementsByClassName("btn-modal");
-    for (let i = 0; i < botones.length; i++) {
-      botones[i].addEventListener("click", function () {
-        let btn_actual = this;
-        setId(btn_actual.id);
-        setIsModalOpen(true);
-      });
-    }
-  };
+  const toggleModal = ((id) => {
+    setId(id)
+    setIsModalOpen(true);
+  })
 
   return (
     <>
@@ -46,7 +40,7 @@ function ElementosIntern() {
                   <p>{product.date}</p>
                   <button //Llama a la funcion y toma como valor el id de la card.
                     style={{ margin: "center", borderRadius: "20px" }}
-                    onClick={toggleModal}
+                    onClick={() => toggleModal(product.id)}
                     className="btn-modal"
                     id={product.id}
                   >

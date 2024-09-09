@@ -6,7 +6,7 @@ function PutPatch(id, elemento, endPoint) {
         
           //En caso de que el input venga vacio, salta un mensaje alert, si no, hace el cambio basandose en los elementos del array.
           try {
-              const response = await fetch(`http://localhost:3005/${point}/${id}`, {
+              const response = await fetch(`http://localhost:3000/${point}/${id}`, {
   
                 method: 'PATCH',//Modifica solo un objeto 
                 headers: {

@@ -5,13 +5,13 @@ import busqueda from "../../assets/busqueda.svg"
 
 function ShowMix() {
   //Filtra por medio de las clases, ocultandolas segun sus caracteres.
-  document.addEventListener("keyup", e =>{
+  const handle = (e) => {
     document.querySelectorAll(".filter").forEach(card => {
-      card.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+      card.textContent.toLowerCase().includes(e.toLowerCase())
       ? card.classList.remove("filtro")
       : card.classList.add("filtro")
     })
-  })
+  }
 
   return (
     <>

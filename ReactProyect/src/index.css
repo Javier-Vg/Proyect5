@@ -1,7 +1,7 @@
 body{
   background-color: #000e;
   color: white;
-  /* overflow-x: hidden; */
+  overflow-x: hidden; 
   margin: 0;
   position: relative;
   min-height: 100vh;
@@ -504,19 +504,6 @@ li{
   }
 }
 
-/*Modal Proceso Compra*/
-.divModalProcesoCompra{
-  width: 500px;
-  height: 520px;
-  background-color: #fff;
-  color: black;
-  font-size: 18px;
-  border-radius: 15px;
-  position: relative;
-  z-index: 5;
-  margin-left: 600px;
-
-}
 
 /*Contenedor modal*/
 .containerModalInfoP{

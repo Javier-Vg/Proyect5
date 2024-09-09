@@ -138,7 +138,8 @@ function CrudForm() {
             required
           />
           <br />
-
+          <p>Vista previa:</p>
+          <img src={imgUrl} alt="vista_previa" style={{ width: "200px", height: "200px", borderRadius: "15px"}}/>
           <br />
           <p>Categoria del Periferico:</p>
           <select onChange={(e) => setCategoria(e.target.value)}>

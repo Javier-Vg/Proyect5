@@ -10,7 +10,7 @@ import putPatch from "../../service/putPatch";
 import { useNavigate } from "react-router-dom";
 
 function ComplMix() {
-  let navigate = useNavigate();
+  //let navigate = useNavigate();
   
   const { Mix, Users } = useTheContext();
   const [Modal, setModal] = useState(false);
@@ -27,25 +27,17 @@ function ComplMix() {
     unidadesRef.current = 0;
   }
   const hhh = useRef();
-  const jjj = useRef([]);
-  const stock = useRef([]);
 
-  function buy() {
+  function buy(id) {
     if (sesion == undefined) {
       Swal.fire({
         icon: "info",
         text: "Tiene que registrarse para comprar productos.",
       });
     } else {
-      const botones = document.getElementsByClassName("card");
-      for (let i = 0; i < botones.length; i++) {
-        botones[i].addEventListener("click", function () {
-          let btn_actual = this;
-          jjj.current = btn_actual.id;
-          stock.current = btn_actual.stockTotal;
-
+     
           for (const key in Mix) {
-            if (Mix[key].id == jjj.current) {
+            if (Mix[key].id == id) {
               //Si no hay stock, no puede comprar el producto.
               if (Mix[key].stockTotal == 0) {
                 Swal.fire({
@@ -55,7 +47,6 @@ function ComplMix() {
               } else {
                 //Descuento calculo
                 let PorcentajeDescuento = Mix[key].Descuento;
-                console.log(PorcentajeDescuento);
 
                 for (let index = 100; index > PorcentajeDescuento; index--) {
                   if (PorcentajeDescuento < index) {
@@ -71,39 +62,37 @@ function ComplMix() {
                   Mix[key].img,
                   Mix[key].stockTotal,
                   Mix[key].id,
+                  Mix[key].hardwareType
                 ];
                 setModal(!Modal);
               }
             }
           }
-        });
-      }
     }
   }
-
+  
   const SeteoUnidades = (e) => {
     setUnidades(e.target.value);
     unidadesRef.current = [e.target.value];
   };
 
   const compraRealizada = () => {
+
     let unidadesSeleccionadas = unidadesRef.current[0];
     let precioProducto = hhh.current[1];
 
     let gastoTotal = unidadesSeleccionadas * precioProducto;
     let ChangeStock = hhh.current[4] - unidadesSeleccionadas;
-
-    //alert(ChangeStock);
+    let TipoHardware = hhh.current[6]
 
     let StockDesaumento = {
       stockTotal: ChangeStock,
     };
 
-    putPatch(hhh.current[5], StockDesaumento, "hardwareExterno");
+    putPatch(hhh.current[5], StockDesaumento, TipoHardware);
 
     for (const key in Users) {
       if (Users[key].id == sesion) {
-        console.log(Users[key]);
 
         let GastoGeneral = {
           comprasRecuento: gastoTotal + parseInt(Users[key].comprasRecuento),
@@ -113,11 +102,11 @@ function ComplMix() {
         };
         putPatch(sesion, GastoGeneral, "users");
         //Forma de renderizar la pagina:
-        navigate("/home");
+        // navigate("/home");
 
-        setTimeout(() => {
-          navigate("/show1");
-        }, "1");
+        // setTimeout(() => {
+        //   navigate("/show1");
+        // }, "1");
       }
     }
 
@@ -131,6 +120,7 @@ function ComplMix() {
 
     //alert(gastoTotal)
   };
+
 
   function car(e) {
     if (sesion == undefined) {
@@ -164,12 +154,12 @@ function ComplMix() {
                     };
 
                     putPatch(sesion, Prdct, "users");
-                    //Forma de renderizar la pagina:
-                    navigate("/home");
+                    // //Forma de renderizar la pagina:
+                    // navigate("/home");
 
-                    setTimeout(() => {
-                      navigate("/show1");
-                    }, "1");
+                    // setTimeout(() => {
+                    //   navigate("/show1");
+                    // }, "1");
                   }
                 }
               } else {
@@ -177,11 +167,8 @@ function ComplMix() {
                   if (e.target.id == Mix[i].id) {
                     let Arreglo = [];
                     ProductoEnCarrito.current = Mix[i];
-                    console.log(ProductoEnCarrito);
-
-                    console.log(ProductoEnCarrito.current);
+                    
                     Arreglo.push(ProductoEnCarrito.current);
-                    console.log(Arreglo);
 
                     const Prdct = {
                       carrito: Arreglo,
@@ -243,7 +230,7 @@ function ComplMix() {
                     }}
                   >
                     <div>
-                      <Card.Link onClick={buy}>
+                      <Card.Link onClick={() => buy(product.id, product.hardwareType)}>
                         <img src={compra} id={product.id} className="card" />
                       </Card.Link>
                     </div>
@@ -337,7 +324,7 @@ function ComplMix() {
           </div>
 
           <button
-            onClick={compraRealizada}
+             onClick={(compraRealizada)} //Aca solo se agarra el target del boton
             style={{
               backgroundColor: "#48e",
               color: "white",
@@ -346,6 +333,7 @@ function ComplMix() {
               borderRadius: "10px",
             }}
           >
+
             Comprar
           </button>
         </div>

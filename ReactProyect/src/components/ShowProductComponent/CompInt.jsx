@@ -1,19 +1,18 @@
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import { useTheContext } from '../../Context/ContextProducts';
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import { useTheContext } from "../../Context/ContextProducts";
 import out from "../../assets/out.svg";
 import carrito from "../../assets/carrito.svg";
 import compra from "../../assets/compra.svg";
-import Swal from 'sweetalert2';
-import { useRef, useState } from 'react';
-import putPatch from '../../service/putPatch';
-import { useNavigate } from 'react-router-dom';
-
+import Swal from "sweetalert2";
+import { useRef, useState } from "react";
+import putPatch from "../../service/putPatch";
+import { useNavigate } from "react-router-dom";
 
 function ComplInt() {
-  let navigate = useNavigate()
+  //let navigate = useNavigate();
 
-  const {ProductsIntern, Users} = useTheContext(); //Uso el contexto de endPoint de los productos y usuarios, llamando al api dentro de los contextos
+  const { ProductsIntern, Users } = useTheContext(); //Uso el contexto de endPoint de los productos y usuarios, llamando al api dentro de los contextos
   let sesion = localStorage.getItem("userValid"); //Usuario actualmente registrado
 
   let ProductoEnCarrito = useRef();
@@ -24,7 +23,6 @@ function ComplInt() {
 
   const [Modal, setModal] = useState(false);
 
-
   //Resetea el contador al salir del modal.
   if (Modal == false) {
     contador.current = 0;
@@ -32,10 +30,9 @@ function ComplInt() {
   }
 
   const DatosMostrarModal = useRef(); //Almaceno los datos del producto en una referencia para luego mostrarlo.
-  const jjj = useRef([]); //Guardo el id del elemento clickeado en la referencia
-  const stock = useRef([]);
 
-  function buy() { //Funcion donde ocurre la compra del producto
+  function buy(id) {
+    //Funcion donde ocurre la compra del producto
 
     if (sesion == undefined) {
       Swal.fire({
@@ -43,49 +40,38 @@ function ComplInt() {
         text: "Tiene que registrarse para comprar productos.",
       });
     } else {
+      for (const key in ProductsIntern) {
+        if (ProductsIntern[key].id == id) {
+          //Si no hay stock, no puede comprar el producto.
+          if (ProductsIntern[key].stockTotal == 0) {
+            Swal.fire({
+              icon: "error",
+              text: "Este producto esta agotado.",
+            });
+          } else {
+            //Descuento calculo
+            let PorcentajeDescuento = ProductsIntern[key].Descuento;
 
-       //Itero sobre los elementos y capto el id del boton clickeado y seguidamente guardo los valores en una referencia.
-      const botones = document.getElementsByClassName("card");
-      for (let i = 0; i < botones.length; i++) {
-        botones[i].addEventListener("click", function () {
-          let btn_actual = this;
-          jjj.current = btn_actual.id;
-          stock.current = btn_actual.stockTotal;
-
-          for (const key in ProductsIntern) {
-            if (ProductsIntern[key].id == jjj.current) {
-              //Si no hay stock, no puede comprar el producto.
-              if (ProductsIntern[key].stockTotal == 0) {
-                Swal.fire({
-                  icon: "error",
-                  text: "Este producto esta agotado.",
-                });
-              } else {
-                //Descuento calculo
-                let PorcentajeDescuento = ProductsIntern[key].Descuento;
-                console.log(PorcentajeDescuento);
-
-                for (let index = 100; index > PorcentajeDescuento; index--) {
-                  if (PorcentajeDescuento < index) {
-                    contador.current = contador.current + 1;
-                  }
-                }
-
-                //calculo del precio con el descuento aplicado
-                let DescuentoFinal = (contador.current / 100) * ProductsIntern[key].price;
-                DatosMostrarModal.current = [
-                  ProductsIntern[key].Descuento,
-                  ProductsIntern[key].price,
-                  DescuentoFinal,
-                  ProductsIntern[key].img,
-                  ProductsIntern[key].stockTotal,
-                  ProductsIntern[key].id,
-                ];
-                setModal(!Modal);
+            for (let index = 100; index > PorcentajeDescuento; index--) {
+              if (PorcentajeDescuento < index) {
+                contador.current = contador.current + 1;
               }
             }
+
+            //calculo del precio con el descuento aplicado
+            let DescuentoFinal =
+              (contador.current / 100) * ProductsIntern[key].price;
+            DatosMostrarModal.current = [
+              ProductsIntern[key].Descuento,
+              ProductsIntern[key].price,
+              DescuentoFinal,
+              ProductsIntern[key].img,
+              ProductsIntern[key].stockTotal,
+              ProductsIntern[key].id,
+            ];
+            setModal(!Modal);
           }
-        });
+        }
       }
     }
   }
@@ -108,7 +94,7 @@ function ComplInt() {
       stockTotal: ChangeStock,
     };
 
-    putPatch(DatosMostrarModal.current[5], StockDesaumento, "hardwareExterno");
+    putPatch(DatosMostrarModal.current[5], StockDesaumento, "hardwareInterno");
 
     for (const key in Users) {
       if (Users[key].id == sesion) {
@@ -121,12 +107,12 @@ function ComplInt() {
             parseInt(Users[key].CantidadCompras),
         };
         putPatch(sesion, GastoGeneral, "users");
-        //Forma de renderizar la pagina:
-        navigate("/home");
+        // //Forma de renderizar la pagina:
+        // navigate("/home");
 
-        setTimeout(() => {
-          navigate("/show1");
-        }, "1");
+        // setTimeout(() => {
+        //   navigate("/show1");
+        // }, "1");
       }
     }
 
@@ -142,7 +128,6 @@ function ComplInt() {
   };
 
   function car(e) {
-
     if (sesion == undefined) {
       Swal.fire({
         icon: "info",
@@ -158,29 +143,28 @@ function ComplInt() {
         confirmButtonText: "Si",
       }).then((result) => {
         if (result.isConfirmed) {
-          for (const j in Users) { //Itero sobre los usuarios con el fin de extraer el valor del api de registro del carrito
+          for (const j in Users) {
+            //Itero sobre los usuarios con el fin de extraer el valor del api de registro del carrito
             if (Users[j].id == sesion) {
-              if (Users[j].carrito != 0) {  // si ya existe un registro en el carrito, hago un metodo push al nuevo producto
+              if (Users[j].carrito != 0) {
+                // si ya existe un registro en el carrito, hago un metodo push al nuevo producto
                 let carroPrevio = Users[j].carrito;
 
-                for (const i in ProductsIntern) { 
+                for (const i in ProductsIntern) {
                   if (e.target.id == ProductsIntern[i].id) {
-  
                     let ProductoEnCarrito = ProductsIntern[i];
 
                     carroPrevio.push(ProductoEnCarrito);
-
 
                     const Prdct = {
                       carrito: carroPrevio,
                     };
 
-                    putPatch(sesion, Prdct, "users"); 
-
-          
+                    putPatch(sesion, Prdct, "users");
                   }
                 }
-              } else { //Si en el carrito no habia nada en su valor, entonces crea un nuevo array de objetos.
+              } else {
+                //Si en el carrito no habia nada en su valor, entonces crea un nuevo array de objetos.
                 for (const i in ProductsIntern) {
                   if (e.target.id == ProductsIntern[i].id) {
                     let Arreglo = [];
@@ -198,11 +182,11 @@ function ComplInt() {
                     putPatch(sesion, Prdct, "users");
                     //Renderiza el carrito
                     //Forma de renderizar la pagina:
-                    navigate("/home");
+                    // navigate("/home");
 
-                    setTimeout(() => {
-                      navigate("/show1");
-                    }, "1");
+                    // setTimeout(() => {
+                    //   navigate("/show1");
+                    // }, "1");
                   }
                 }
               }
@@ -218,12 +202,12 @@ function ComplInt() {
       });
     }
   }
-  
-    return (
-    
-      <>
+
+  return (
+    <>
       <div className="CompIntDiv">
-        {ProductsIntern.map((product, i) => { //Mapeo los elementos del api con el metodo .map
+        {ProductsIntern.map((product, i) => {
+          //Mapeo los elementos del api con el metodo .map
           return (
             <div id="categoria" className="filter" key={i}>
               <Card style={{ width: "15rem" }}>
@@ -239,7 +223,6 @@ function ComplInt() {
                   </Card.Text>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                  <ListGroup.Item>Categoria: {product.Category}</ListGroup.Item>
                   <ListGroup.Item>Marca: {product.brand}</ListGroup.Item>
                   <ListGroup.Item>Stock: {product.stockTotal}</ListGroup.Item>
                   <ListGroup.Item>
@@ -258,7 +241,7 @@ function ComplInt() {
                     }}
                   >
                     <div>
-                      <Card.Link onClick={buy}>
+                    <Card.Link onClick={() => buy(product.id)}>
                         <img src={compra} id={product.id} className="card" />
                       </Card.Link>
                     </div>
@@ -326,10 +309,14 @@ function ComplInt() {
               <p style={{ fontSize: "20px" }}>
                 Precio Original: ${DatosMostrarModal.current[1]}
               </p>
-              <p style={{ fontSize: "20px" }}>Descuento: {DatosMostrarModal.current[0]}%</p>
+              <p style={{ fontSize: "20px" }}>
+                Descuento: {DatosMostrarModal.current[0]}%
+              </p>
               <p style={{ fontSize: "20px" }}>
                 Precio Final:{" "}
-                <p style={{ color: "green" }}>${DatosMostrarModal.current[2]}</p>
+                <p style={{ color: "green" }}>
+                  ${DatosMostrarModal.current[2]}
+                </p>
               </p>
             </div>
           </div>

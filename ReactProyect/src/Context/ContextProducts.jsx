@@ -15,7 +15,7 @@ export function DataContextProvider({children}) { //La propiedad children se usa
 
     //Contexto del getProductos
     useEffect(() => {
-        axios.get('http://localhost:3005/hardwareExterno')
+        axios.get('http://localhost:3000/hardwareExterno')
         .then(response => {
             //Llamo a la funcion, le paso la respuesta del axios
             CallingExterno(response.data)
@@ -26,7 +26,7 @@ export function DataContextProvider({children}) { //La propiedad children se usa
     },[ProductsExtern]);
 
     useEffect(() => {
-        axios.get('http://localhost:3005/hardwareInterno')
+        axios.get('http://localhost:3000/hardwareInterno')
         .then(response => {
             //Llamo a la funcion, le paso la respuesta del axios
             CallingInterno(response.data)
@@ -38,7 +38,7 @@ export function DataContextProvider({children}) { //La propiedad children se usa
     },[ProductsIntern]);
 
     useEffect(() => {
-        axios.get('http://localhost:3005/users')
+        axios.get('http://localhost:3000/users')
         .then(response => {
             //Llamo a la funcion, le paso la respuesta del axios
             CallingInterno(response.data)
@@ -63,5 +63,4 @@ export function DataContextProvider({children}) { //La propiedad children se usa
 }
 //Creo una nueva variable donde voy a utizar el provider para que se pueda usar en otros archivos jsx.
 let useTheContext = () => useContext(DataContext)
-
 export {useTheContext}

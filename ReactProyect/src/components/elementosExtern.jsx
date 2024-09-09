@@ -10,18 +10,10 @@ function ElementosExtern() {
   const [id, setId] = useState(5);
 
 
-  const toggleModal = () => {
-    //Itera cada elemento y capta el id del elemento clickeado y setea un estado.
-    //Vuelve en true el modal ocasionando que este se muestre en pantalla
-    const botones = document.getElementsByClassName("btn-modal");
-    for (let i = 0; i < botones.length; i++) {
-      botones[i].addEventListener("click", function () {
-        let btn_actual = this;
-        setId(btn_actual.id);
-        setIsModalOpen(true);
-      });
-    }
-  };
+  const toggleModal = ((id) => {
+    setId(id)
+    setIsModalOpen(true);
+  })
 
   return (
     <>
@@ -46,10 +38,10 @@ function ElementosExtern() {
                       vida.
                     </Card.Text>
                     <p>{product.date}</p>
-                    <button //Capta d
-
+                    
+                    <button 
                       style={{ margin: "center", borderRadius: "20px" }}
-                      onClick={toggleModal}
+                      onClick={() => toggleModal(product.id)}
                       className="btn-modal"
                       id={product.id}
                     >

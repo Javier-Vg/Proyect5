@@ -9,7 +9,7 @@ import deleteProducts from "../../service/CrudProducts/deleteProducts";
 import { useNavigate } from "react-router-dom";
 
 const ModalExterno = ({id, isOpen, closeModal }) => {//Se pasa como propiedad el id, una confirmacion de que el modal esta activado y otra si esta desactivado
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   
   let [datos, setDatos] = useState([])
 
@@ -58,11 +58,11 @@ const ModalExterno = ({id, isOpen, closeModal }) => {//Se pasa como propiedad el
 
         deleteProducts(id, "hardwareExterno");
         //Forma de renderizar la pagina
-        navigate("/home")
+        // navigate("/home")
                         
-        setTimeout(()=> {
-          navigate("/ExternStorage")
-        },10)
+        // setTimeout(()=> {
+        //   navigate("/ExternStorage")
+        // },10)
         
       } else if (
         result.dismiss === Swal.DismissReason.cancel
@@ -158,7 +158,6 @@ const ModalExterno = ({id, isOpen, closeModal }) => {//Se pasa como propiedad el
         <button style={{background: "none", border: "none"}} onClick={edit}><img src={editar} alt="edit" /></button>
       </div>
     </div>
-    
     </>
 
   );

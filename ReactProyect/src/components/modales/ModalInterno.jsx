@@ -73,6 +73,7 @@ const ModalInterno = ({ id, isOpen, closeModal }) => {//Se pasa como propiedad e
         }
       });
   }
+
   async function edit() { //Capta los estados y cambios de los inputs donde se va a editar el producto.
     let respuesta = await getProducts(id, "hardwareInterno");
     //Añado la informacion del get en un hook, para luego utilizarla y darle valor a los inputs de edicion del producto
@@ -86,6 +87,7 @@ const ModalInterno = ({ id, isOpen, closeModal }) => {//Se pasa como propiedad e
     ]);
     setModal(!modal);
   }
+  
   const handleClick = () => {
     //Llamo a put
     //Crea el nuevo objeto con los valores modificados
@@ -127,6 +129,7 @@ const ModalInterno = ({ id, isOpen, closeModal }) => {//Se pasa como propiedad e
             <br />
             <label>Marca del producto</label>
             <br />
+            
             <input
               placeholder={datos[2]}
               type="text"

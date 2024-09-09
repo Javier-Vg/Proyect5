@@ -1,5 +1,4 @@
 import Nabvar from '../components/navbar'
-//import { Carousel } from 'bootstrap'
 import Footer from '../components/footer'
 import CarouselElementos from '../components/CarouselElementos';
 import videohome from "../assets/videohome.mp4";

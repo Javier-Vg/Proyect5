@@ -8,7 +8,7 @@ function deleteProducts(id, hardware) {
 
         try {
             console.log("try");
-            const response = await fetch(`http://localhost:3005/${hardware}/${id}`, {
+            const response = await fetch(`http://localhost:3000/${hardware}/${id}`, {
             method: 'DELETE',
         });
         

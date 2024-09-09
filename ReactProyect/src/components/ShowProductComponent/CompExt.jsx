@@ -5,12 +5,12 @@ import out from "../../assets/out.svg";
 import carrito from "../../assets/carrito.svg";
 import compra from "../../assets/compra.svg";
 import Swal from "sweetalert2";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import putPatch from "../../service/putPatch";
-import { useNavigate } from "react-router-dom";
 
 function ComplExt() {
-  const navigate = useNavigate(); //Instancia para navegar entre paginas
+  
+  //const navigate = useNavigate(); //Instancia para navegar entre paginas
 
   const { ProductsExtern, Users } = useTheContext(); //Uso el contexto de endPoint de los productos y usuarios, llamando al api dentro de los contextos
 
@@ -25,8 +25,6 @@ function ComplExt() {
   let contador = useRef(0);
 
   const DatosMostrarModal = useRef(); //Almaceno los datos del producto en una referencia para luego mostrarlo.
-  const jjj = useRef([]); //Guardo el id del elemento clickeado en la referencia
-  const stock = useRef([]); //Guardo el stock del producto del elemento clickeado.
 
   const [Modal, setModal] = useState(false); //Modal se inicia el false para que no se muestre.
 
@@ -36,7 +34,7 @@ function ComplExt() {
     unidadesRef.current = 0;
   }
 
-  function buy() {
+  function buy(id) {
     //Funcion donde ocurre la compra del producto
     if (sesion == undefined) {
       Swal.fire({
@@ -44,52 +42,42 @@ function ComplExt() {
         text: "Tiene que registrarse para comprar productos.",
       });
     } else {
-      //Itero sobre los elementos y capto el id del boton clickeado y seguidamente guardo los valores en una referencia.
-      const botones = document.getElementsByClassName("card");
-      for (let i = 0; i < botones.length; i++) {
-        botones[i].addEventListener("click", function () {
-          let btn_actual = this;
-          jjj.current = btn_actual.id;
-          stock.current = btn_actual.stockTotal;
+      //Itero sobre el api del producto:
+      for (const key in ProductsExtern) {
+        if (ProductsExtern[key].id == id) {
+          //Si no hay stock, no puede comprar el producto.
+          if (ProductsExtern[key].stockTotal == 0) {
+            Swal.fire({
+              icon: "error",
+              text: "Este producto esta agotado.",
+            });
+          } else {
+            //Descuento calculo
+            let PorcentajeDescuento = ProductsExtern[key].Descuento;
 
-          //Itero sobre el api del producto:
-          for (const key in ProductsExtern) {
-            if (ProductsExtern[key].id == jjj.current) {
-              //Si no hay stock, no puede comprar el producto.
-              if (ProductsExtern[key].stockTotal == 0) {
-                Swal.fire({
-                  icon: "error",
-                  text: "Este producto esta agotado.",
-                });
-              } else {
-                //Descuento calculo
-                let PorcentajeDescuento = ProductsExtern[key].Descuento;
-                console.log(PorcentajeDescuento);
-
-                //Ciclo donde manejo y calculo el descuento aplicado al producto
-                for (let index = 100; index > PorcentajeDescuento; index--) {
-                  if (PorcentajeDescuento < index) {
-                    contador.current = contador.current + 1;
-                  }
-                }
-
-                //Calculo del precio con el descuento aplicado
-                let DescuentoFinal =
-                  (contador.current / 100) * ProductsExtern[key].price;
-                DatosMostrarModal.current = [
-                  ProductsExtern[key].Descuento,
-                  ProductsExtern[key].price,
-                  DescuentoFinal,
-                  ProductsExtern[key].img,
-                  ProductsExtern[key].stockTotal,
-                  ProductsExtern[key].id,
-                ];
-
-                setModal(!Modal); //Muestro el modal
+            //Ciclo donde manejo y calculo el descuento aplicado al producto
+            for (let index = 100; index > PorcentajeDescuento; index--) {
+              if (PorcentajeDescuento < index) {
+                contador.current = contador.current + 1;
               }
             }
+
+            //Calculo del precio con el descuento aplicado
+            let DescuentoFinal =
+              (contador.current / 100) * ProductsExtern[key].price;
+
+            DatosMostrarModal.current = [
+              ProductsExtern[key].Descuento,
+              ProductsExtern[key].price,
+              DescuentoFinal,
+              ProductsExtern[key].img,
+              ProductsExtern[key].stockTotal,
+              ProductsExtern[key].id,
+            ];
+
+            setModal(!Modal); //Muestro el modal
           }
-        });
+        }
       }
     }
   }
@@ -120,6 +108,7 @@ function ComplExt() {
     for (const key in Users) {
       if (Users[key].id == sesion) {
         //Objeto que guardara los datos editados.
+
         let GastoGeneral = {
           comprasRecuento: gastoTotal + parseInt(Users[key].comprasRecuento),
           CantidadCompras:
@@ -129,11 +118,6 @@ function ComplExt() {
         //Realizo el put al usuario registrado:
         putPatch(sesion, GastoGeneral, "users");
 
-        navigate("/home");
-
-        setTimeout(() => {
-          navigate("/show1");
-        }, "1");
       }
     }
     //Muestro el modal
@@ -150,6 +134,7 @@ function ComplExt() {
 
   //Funcion donde se gestiona el carrito de compras
   function car(e) {
+
     if (sesion == undefined) {
       Swal.fire({
         icon: "info",
@@ -185,11 +170,11 @@ function ComplExt() {
 
                     putPatch(sesion, Prdct, "users");
                     //Forma de renderizar la pagina:
-                    navigate("/");
+                    // navigate("/");
 
-                    setTimeout(() => {
-                      navigate("/show1");
-                    }, "1");
+                    // setTimeout(() => {
+                    //   navigate("/show1");
+                    // }, "1");
                   }
                 }
               } else {
@@ -224,13 +209,18 @@ function ComplExt() {
     }
   }
 
+  const elementsRef = useRef([]);//Referencia para captar las clases
   return (
     <>
       <div className="CompIntDiv">
         {ProductsExtern.map((product, i) => {
           //Mapeo los elementos del api con el metodo .map
           return (
-            <div id="categoria" className="filter" key={i}>
+            <div
+            ref={el => elementsRef.current[i] = el} //Capta las clases
+
+            id="categoria" className="filter" key={i}>
+              
               <Card style={{ width: "15rem" }}>
                 <Card.Img
                   className="imgProducClient"
@@ -263,7 +253,7 @@ function ComplExt() {
                     }}
                   >
                     <div>
-                      <Card.Link onClick={buy}>
+                      <Card.Link onClick={() => buy(product.id)}>
                         <img src={compra} id={product.id} className="card" />
                       </Card.Link>
                     </div>
@@ -300,11 +290,7 @@ function ComplExt() {
       </div>
 
       {Modal && ( //Muestra el modal donde se realizara el proceso de compra
-        <div
-          className="divModalProcesoCompra"
-          style={{ borderRadius: "14px" }}
-          open
-        >
+        <dialog style={{ borderRadius: "14px" }} open>
           <div
             style={{
               display: "grid",
@@ -372,10 +358,10 @@ function ComplExt() {
           >
             Comprar
           </button>
-        </div>
+        </dialog>
       )}
     </>
   );
 }
 
-export default ComplExt;
+export default ComplExt
