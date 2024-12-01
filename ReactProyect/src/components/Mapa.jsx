@@ -28,7 +28,7 @@ const mapOptions = {
 class MapsContainer extends React.Component {
   render() {
     return (
-      <LoadScript googleMapsApiKey="AIzaSyDk_Qf_VXu0ty0fT2HHYz1dFM3AOByBsGk"> {/*Clave de API de Google Maps que uso para obtener permisos para usar el api*/}
+      <LoadScript googleMapsApiKey="AQUI-SE-INGRESA-LA-CLAVE"> {/*Clave de API de Google Maps que uso para obtener permisos para usar el api*/}
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
